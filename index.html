@@ -271,7 +271,23 @@
                     </div>
                 </div>
 
-                <!-- Controle de Contorno (Novo) -->
+                <!-- Controle de Posição (NOVO) -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">Posição do Conteúdo</label>
+                    <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
+                        <button onclick="setTextPosition('top')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosTop" title="Superior">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <button onclick="setTextPosition('center')" class="flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnPosCenter" title="Centralizar">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </button>
+                        <button onclick="setTextPosition('bottom')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosBottom" title="Inferior">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Controle de Contorno -->
                 <div>
                     <label class="block text-sm font-medium mb-2">Estilo do Contorno</label>
                     <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
@@ -317,7 +333,8 @@
             </div>
 
             <!-- Conteúdo Centralizado -->
-            <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10">
+            <!-- Adicionado ID contentWrapper para manipulação de posição -->
+            <div id="contentWrapper" class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10 transition-all duration-300">
                 
                 <!-- Logo -->
                 <div class="mb-8 transform hover:scale-105 transition-transform duration-300">
@@ -380,6 +397,11 @@
         const fontSizeDisplay = document.getElementById('fontSizeDisplay');
         const btnToggleText = document.getElementById('btnToggleText'); // Referência ao novo botão
 
+        // Position Buttons
+        const btnPosTop = document.getElementById('btnPosTop');
+        const btnPosCenter = document.getElementById('btnPosCenter');
+        const btnPosBottom = document.getElementById('btnPosBottom');
+
         // Stroke Buttons
         const btnStrokeMixed = document.getElementById('btnStrokeMixed');
         const btnStrokeBlue = document.getElementById('btnStrokeBlue');
@@ -388,6 +410,7 @@
         // State para cores das palavras (array de booleanos: true=blue, false=yellow)
         let wordColorsState = [true, false, true]; 
         let currentStrokeMode = 'mixed'; // mixed, blue, yellow
+        let currentTextPosition = 'center'; // center, top, bottom
         
         // --- SISTEMA DE MULTI-PÁGINAS (NOVO) ---
         
@@ -407,99 +430,11 @@
                 logoVisible: true,
                 textValue: "TEMA\nDA LIVE",
                 textSize: 72,
-                textVisible: true, // Novo estado
+                textVisible: true, 
+                textPosition: 'center', // Novo estado padrão
                 wordColors: [true, false, true],
                 strokeMode: 'mixed'
             };
-        }
-
-        // 1. Inicialização
-        function initPages() {
-            // Cria a primeira página com o estado inicial
-            const initialPage = {
-                id: 1,
-                name: "Tema Principal",
-                state: getDefaultState()
-            };
-            pages.push(initialPage);
-            currentPageId = 1;
-            renderPageNavigation();
-            
-            // Renderiza o estado inicial
-            loadStateToDOM(initialPage.state);
-        }
-
-        // 2. Capturar Estado Atual do DOM
-        function captureCurrentState() {
-            return {
-                bgImage: previewBg.style.backgroundImage,
-                bgName: bgFileName.textContent,
-                logoSrc: previewLogo.src,
-                logoName: logoFileName.textContent,
-                logoSize: logoSizeInput.value,
-                logoVisible: previewLogo.style.display !== 'none',
-                textValue: themeTextInput.value,
-                textSize: fontSizeInput.value,
-                textVisible: neonTextContainer.style.display !== 'none', // Captura estado
-                wordColors: [...wordColorsState], 
-                strokeMode: currentStrokeMode
-            };
-        }
-
-        // 3. Carregar Estado no DOM
-        function loadStateToDOM(state) {
-            // Background
-            previewBg.style.backgroundImage = state.bgImage;
-            bgFileName.textContent = state.bgName;
-            
-            // Logo
-            previewLogo.src = state.logoSrc;
-            logoFileName.textContent = state.logoName;
-            
-            // Logo Size
-            logoSizeInput.value = state.logoSize;
-            previewLogo.style.height = `${state.logoSize}px`;
-            logoSizeDisplay.textContent = `${state.logoSize}px`;
-            
-            // Logo Visibility
-            previewLogo.style.display = state.logoVisible ? 'block' : 'none';
-            const iconLogo = btnToggleLogo.querySelector('i');
-            if (state.logoVisible) {
-                iconLogo.className = 'fas fa-eye';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                iconLogo.className = 'fas fa-eye-slash';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-
-            // Text
-            themeTextInput.value = state.textValue;
-            
-            // Font Size
-            fontSizeInput.value = state.textSize;
-            neonTextContainer.style.fontSize = `${state.textSize}px`;
-            fontSizeDisplay.textContent = `${state.textSize}px`;
-
-            // Text Visibility (NOVO LOGIC)
-            // Se textVisible não existir (estados antigos), assume true
-            const isTextVisible = state.textVisible !== undefined ? state.textVisible : true;
-            neonTextContainer.style.display = isTextVisible ? 'block' : 'none';
-            
-            const iconText = btnToggleText.querySelector('i');
-            if (isTextVisible) {
-                iconText.className = 'fas fa-eye';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                iconText.className = 'fas fa-eye-slash';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-            
-            // Colors State & Stroke
-            wordColorsState = [...state.wordColors];
-            setStrokeMode(state.strokeMode);
-            
-            // Render Text Final
-            renderText();
         }
 
         // 4. Adicionar Nova Página (Função do Botão)
@@ -594,9 +529,244 @@
                 container.appendChild(btn);
             });
         }
-        
-        // --- FIM SISTEMA MULTI-PÁGINAS ---
 
+        // 1. Inicialização
+        function initPages() {
+            // Cria a primeira página com o estado inicial
+            const initialPage = {
+                id: 1,
+                name: "Tema Principal",
+                state: getDefaultState()
+            };
+            pages.push(initialPage);
+            currentPageId = 1;
+            renderPageNavigation();
+            
+            // Renderiza o estado inicial
+            loadStateToDOM(initialPage.state);
+        }
+
+        // 2. Capturar Estado Atual do DOM
+        function captureCurrentState() {
+            return {
+                bgImage: previewBg.style.backgroundImage,
+                bgName: bgFileName.textContent,
+                logoSrc: previewLogo.src,
+                logoName: logoFileName.textContent,
+                logoSize: logoSizeInput.value,
+                logoVisible: previewLogo.style.display !== 'none',
+                textValue: themeTextInput.value,
+                textSize: fontSizeInput.value,
+                textVisible: neonTextContainer.style.display !== 'none', 
+                textPosition: currentTextPosition, // Captura posição
+                wordColors: [...wordColorsState], 
+                strokeMode: currentStrokeMode
+            };
+        }
+
+        // 3. Carregar Estado no DOM
+        function loadStateToDOM(state) {
+            // Background
+            previewBg.style.backgroundImage = state.bgImage;
+            bgFileName.textContent = state.bgName;
+            
+            // Logo
+            previewLogo.src = state.logoSrc;
+            logoFileName.textContent = state.logoName;
+            
+            // Logo Size
+            logoSizeInput.value = state.logoSize;
+            previewLogo.style.height = `${state.logoSize}px`;
+            logoSizeDisplay.textContent = `${state.logoSize}px`;
+            
+            // Logo Visibility
+            previewLogo.style.display = state.logoVisible ? 'block' : 'none';
+            const iconLogo = btnToggleLogo.querySelector('i');
+            if (state.logoVisible) {
+                iconLogo.className = 'fas fa-eye';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                iconLogo.className = 'fas fa-eye-slash';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+
+            // Text
+            themeTextInput.value = state.textValue;
+            
+            // Font Size
+            fontSizeInput.value = state.textSize;
+            neonTextContainer.style.fontSize = `${state.textSize}px`;
+            fontSizeDisplay.textContent = `${state.textSize}px`;
+
+            // Text Visibility
+            const isTextVisible = state.textVisible !== undefined ? state.textVisible : true;
+            neonTextContainer.style.display = isTextVisible ? 'block' : 'none';
+            
+            const iconText = btnToggleText.querySelector('i');
+            if (isTextVisible) {
+                iconText.className = 'fas fa-eye';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                iconText.className = 'fas fa-eye-slash';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+            
+            // Colors State & Stroke
+            wordColorsState = [...state.wordColors];
+            setStrokeMode(state.strokeMode);
+            
+            // Text Position (NOVO)
+            setTextPosition(state.textPosition || 'center'); // Fallback para center
+            
+            // Render Text Final
+            renderText();
+        }
+
+        // 7. Text Position Logic (NOVO)
+        function setTextPosition(pos) {
+            currentTextPosition = pos;
+            const wrapper = document.getElementById('contentWrapper');
+            
+            // Resetar classes de posição
+            wrapper.classList.remove('justify-center', 'justify-start', 'justify-end', 'pt-24', 'pb-24');
+            
+            if (pos === 'center') {
+                wrapper.classList.add('justify-center');
+            } else if (pos === 'top') {
+                wrapper.classList.add('justify-start', 'pt-24'); // Padding para não colar no topo
+            } else if (pos === 'bottom') {
+                wrapper.classList.add('justify-end', 'pb-24'); // Padding para não colar no fundo
+            }
+            
+            updatePositionButtonsUI();
+            savePage(currentPageId);
+        }
+
+        function updatePositionButtonsUI() {
+            // Reset styles
+            [btnPosTop, btnPosCenter, btnPosBottom].forEach(btn => {
+                btn.className = 'flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
+            });
+
+            // Active Style
+            const activeClass = 'flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 text-blue-500 font-bold';
+            
+            if (currentTextPosition === 'top') {
+                btnPosTop.className = activeClass;
+            } else if (currentTextPosition === 'center') {
+                btnPosCenter.className = activeClass;
+            } else if (currentTextPosition === 'bottom') {
+                btnPosBottom.className = activeClass;
+            }
+        }
+
+        // 6. Stroke Control Logic
+        function setStrokeMode(mode) {
+            currentStrokeMode = mode;
+            
+            // Limpar classes de override de forma segura
+            neonTextContainer.classList.remove('force-stroke-blue');
+            neonTextContainer.classList.remove('force-stroke-yellow');
+            
+            // Adicionar classe nova se necessário
+            if (mode === 'blue') {
+                neonTextContainer.classList.add('force-stroke-blue');
+            } else if (mode === 'yellow') {
+                neonTextContainer.classList.add('force-stroke-yellow');
+            }
+            
+            updateStrokeButtonsUI();
+            savePage(currentPageId);
+        }
+
+        function updateStrokeButtonsUI() {
+            // Reset styles
+            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => {
+                btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
+            });
+
+            // Active Style
+            const activeClass = 'flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500';
+            
+            if (currentStrokeMode === 'mixed') {
+                btnStrokeMixed.className = activeClass;
+            } else if (currentStrokeMode === 'blue') {
+                btnStrokeBlue.className = activeClass + ' text-cyan-500';
+            } else if (currentStrokeMode === 'yellow') {
+                btnStrokeYellow.className = activeClass + ' text-yellow-500';
+            }
+        }
+
+        // 4. Text Rendering & Color Toggle Logic
+        function renderText() {
+            // Valor padrão se vazio
+            if (!themeTextInput.value && document.activeElement !== themeTextInput) {
+                 themeTextInput.value = "TEMA\nDA LIVE";
+            }
+            
+            const rawText = themeTextInput.value;
+            const allWords = rawText.replace(/\n/g, ' ').split(' ').filter(w => w.length > 0);
+            
+            if (allWords.length !== wordColorsState.length) {
+                const newState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
+                wordColorsState = newState;
+            }
+
+            neonTextContainer.innerHTML = ''; // Limpar container
+            let globalWordIndex = 0;
+
+            const lines = rawText.split('\n');
+
+            lines.forEach((line, lineIndex) => {
+                const wordsInLine = line.split(' ').filter(w => w.length > 0);
+                
+                if (wordsInLine.length > 0) {
+                    wordsInLine.forEach((word) => {
+                        const currentIndex = globalWordIndex;
+                        const span = document.createElement('span');
+                        span.textContent = word + ' '; 
+                        span.classList.add('interactive-word');
+                        
+                        if (wordColorsState[currentIndex]) {
+                            span.classList.add('text-neon-blue');
+                        } else {
+                            span.classList.add('text-neon-yellow');
+                        }
+
+                        span.addEventListener('click', () => {
+                            wordColorsState[currentIndex] = !wordColorsState[currentIndex];
+                            // Re-aplicar a classe correta
+                            if (wordColorsState[currentIndex]) {
+                                span.classList.remove('text-neon-yellow');
+                                span.classList.add('text-neon-blue');
+                            } else {
+                                span.classList.remove('text-neon-blue');
+                                span.classList.add('text-neon-yellow');
+                            }
+                            savePage(currentPageId); // Salva ao mudar cor
+                        });
+
+                        neonTextContainer.appendChild(span);
+                        globalWordIndex++;
+                    });
+                } 
+
+                if (lineIndex < lines.length - 1) {
+                    neonTextContainer.appendChild(document.createElement('br'));
+                }
+            });
+        }
+
+        // Removido resetModel antigo, pois agora usamos o addNewPage
+        // Mantemos a funcionalidade inicial
+        
+        themeTextInput.addEventListener('input', renderText);
+        themeTextInput.addEventListener('change', () => savePage(currentPageId)); // Save on text blur
+
+        // Inicializar Sistema de Páginas
+        initPages();
+        updateStrokeButtonsUI(); 
+        
         // Inicializar botões corretos com base no tamanho da tela
         function updateButtonVisibility() {
             const isMobile = window.innerWidth < 768;
@@ -749,113 +919,6 @@
             }
             savePage(currentPageId);
         }
-
-        // 6. Stroke Control Logic
-        function setStrokeMode(mode) {
-            currentStrokeMode = mode;
-            
-            // Limpar classes de override de forma segura
-            neonTextContainer.classList.remove('force-stroke-blue');
-            neonTextContainer.classList.remove('force-stroke-yellow');
-            
-            // Adicionar classe nova se necessário
-            if (mode === 'blue') {
-                neonTextContainer.classList.add('force-stroke-blue');
-            } else if (mode === 'yellow') {
-                neonTextContainer.classList.add('force-stroke-yellow');
-            }
-            
-            updateStrokeButtonsUI();
-            savePage(currentPageId);
-        }
-
-        function updateStrokeButtonsUI() {
-            // Reset styles
-            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => {
-                btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
-            });
-
-            // Active Style
-            const activeClass = 'flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500';
-            
-            if (currentStrokeMode === 'mixed') {
-                btnStrokeMixed.className = activeClass;
-            } else if (currentStrokeMode === 'blue') {
-                btnStrokeBlue.className = activeClass + ' text-cyan-500';
-            } else if (currentStrokeMode === 'yellow') {
-                btnStrokeYellow.className = activeClass + ' text-yellow-500';
-            }
-        }
-
-        // 4. Text Rendering & Color Toggle Logic
-        function renderText() {
-            // Valor padrão se vazio
-            if (!themeTextInput.value && document.activeElement !== themeTextInput) {
-                 themeTextInput.value = "TEMA\nDA LIVE";
-            }
-            
-            const rawText = themeTextInput.value;
-            const allWords = rawText.replace(/\n/g, ' ').split(' ').filter(w => w.length > 0);
-            
-            if (allWords.length !== wordColorsState.length) {
-                const newState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
-                wordColorsState = newState;
-            }
-
-            neonTextContainer.innerHTML = ''; // Limpar container
-            let globalWordIndex = 0;
-
-            const lines = rawText.split('\n');
-
-            lines.forEach((line, lineIndex) => {
-                const wordsInLine = line.split(' ').filter(w => w.length > 0);
-                
-                if (wordsInLine.length > 0) {
-                    wordsInLine.forEach((word) => {
-                        const currentIndex = globalWordIndex;
-                        const span = document.createElement('span');
-                        span.textContent = word + ' '; 
-                        span.classList.add('interactive-word');
-                        
-                        if (wordColorsState[currentIndex]) {
-                            span.classList.add('text-neon-blue');
-                        } else {
-                            span.classList.add('text-neon-yellow');
-                        }
-
-                        span.addEventListener('click', () => {
-                            wordColorsState[currentIndex] = !wordColorsState[currentIndex];
-                            // Re-aplicar a classe correta
-                            if (wordColorsState[currentIndex]) {
-                                span.classList.remove('text-neon-yellow');
-                                span.classList.add('text-neon-blue');
-                            } else {
-                                span.classList.remove('text-neon-blue');
-                                span.classList.add('text-neon-yellow');
-                            }
-                            savePage(currentPageId); // Salva ao mudar cor
-                        });
-
-                        neonTextContainer.appendChild(span);
-                        globalWordIndex++;
-                    });
-                } 
-
-                if (lineIndex < lines.length - 1) {
-                    neonTextContainer.appendChild(document.createElement('br'));
-                }
-            });
-        }
-
-        // Removido resetModel antigo, pois agora usamos o addNewPage
-        // Mantemos a funcionalidade inicial
-        
-        themeTextInput.addEventListener('input', renderText);
-        themeTextInput.addEventListener('change', () => savePage(currentPageId)); // Save on text blur
-
-        // Inicializar Sistema de Páginas
-        initPages();
-        updateStrokeButtonsUI(); 
 
     </script>
 </body>

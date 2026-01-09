@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Temas para Lives</title>
+    
+    <!-- Google Fonts: Outfit (Moderna e Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuração Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        neonBlue: '#06b6d4', // Cyan-500 base
+                        neonYellow: '#fbbf24', // Amber-400 base (Mais vibrante)
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 5px #06b6d4, 0 0 20px #06b6d4, 0 0 40px #06b6d4',
+                        'neon-yellow': '0 0 5px #fbbf24, 0 0 20px #fbbf24, 0 0 40px #fbbf24',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Customizados para Neon Text */
+        .text-neon-blue {
+            color: #fff;
+            /* Contorno mais grosso e definido */
+            -webkit-text-stroke: 3px #06b6d4;
+            paint-order: stroke fill;
+            /* Sombra ajustada para reforçar a cor */
+            text-shadow: 
+                0 0 15px rgba(6, 182, 212, 0.8),
+                0 0 30px rgba(6, 182, 212, 0.5);
+        }
+
+        .text-neon-yellow {
+            color: #fff;
+            /* COR AJUSTADA: Amarelo mais dourado/âmbar para contraste real */
+            -webkit-text-stroke: 3px #fbbf24;
+            paint-order: stroke fill;
+            /* Sombra ajustada para expandir a percepção do amarelo */
+            text-shadow: 
+                0 0 15px rgba(251, 191, 36, 0.9),
+                0 0 35px rgba(251, 191, 36, 0.6);
+        }
+
+        /* OVERRIDES: Classes para forçar cores de contorno */
+        
+        /* Forçar Contorno Azul */
+        .force-stroke-blue .text-neon-blue,
+        .force-stroke-blue .text-neon-yellow {
+            -webkit-text-stroke: 3px #06b6d4 !important;
+            text-shadow: 
+                0 0 15px rgba(6, 182, 212, 0.8),
+                0 0 30px rgba(6, 182, 212, 0.5) !important;
+        }
+
+        /* Forçar Contorno Amarelo */
+        .force-stroke-yellow .text-neon-blue,
+        .force-stroke-yellow .text-neon-yellow {
+            -webkit-text-stroke: 3px #fbbf24 !important;
+            text-shadow: 
+                0 0 15px rgba(251, 191, 36, 0.9),
+                0 0 35px rgba(251, 191, 36, 0.6) !important;
+        }
+
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        /* Animação suave para o botão flutuante */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Interactive Word Hover */
+        .interactive-word {
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .interactive-word:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+        }
+        
+        /* Area de upload */
+        .upload-area {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%2394A3B8FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+        .dark .upload-area {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23475569FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 h-screen font-sans overflow-hidden flex relative">
+
+    <!-- BACKDROP MOBILE -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-black/50 z-30 hidden transition-opacity duration-300 backdrop-blur-sm md:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- BOTÃO FLUTUANTE DE ABRIR MENU (Mestre) -->
+    <!-- Fica visível apenas quando o menu está fechado -->
+    <button id="openSidebarBtn" onclick="toggleSidebar()" class="fixed top-4 left-4 z-50 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg border border-gray-200 dark:border-slate-700 text-slate-600 dark:text-slate-200 hover:text-blue-500 transition-all duration-300 transform scale-0 opacity-0 md:scale-0 md:opacity-0 group">
+        <i class="fas fa-sliders-h text-lg group-hover:rotate-90 transition-transform duration-300"></i>
+        <span class="sr-only">Editar Tema</span>
+    </button>
+
+    <!-- SIDEBAR (Controles Retráteis) -->
+    <!-- Adicionado overflow-hidden para garantir que o conteúdo suma totalmente ao retrair -->
+    <aside id="sidebarPanel" class="fixed md:relative inset-y-0 left-0 z-40 w-80 md:w-96 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 h-full flex flex-col shadow-2xl transition-all duration-300 ease-in-out transform -translate-x-full md:translate-x-0 overflow-hidden">
+        
+        <!-- Header Sidebar -->
+        <div class="p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center sticky top-0 bg-white dark:bg-slate-800 z-10 shrink-0">
+            <h2 class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+                <i class="fas fa-sliders-h text-sm"></i> Configurações
+            </h2>
+            <div class="flex gap-2">
+                 <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Alternar Tema">
+                    <i class="fas fa-moon text-slate-600 dark:text-yellow-300 text-lg"></i>
+                </button>
+                <!-- Botão Fechar Mobile -->
+                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none md:hidden" title="Fechar Menu">
+                    <i class="fas fa-times text-slate-500 text-lg"></i>
+                </button>
+                 <!-- Botão Recolher Desktop -->
+                <button onclick="toggleSidebar()" class="hidden md:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Recolher Painel">
+                    <i class="fas fa-chevron-left text-slate-500 text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo Sidebar (Scrollable) -->
+        <div class="p-6 space-y-8 flex-1 overflow-y-auto">
+
+            <!-- Botão Outro Tema (Agora age como Nova Página) -->
+            <div class="mb-2">
+                 <!-- Alterado função onclick para addNewPage() -->
+                 <button onclick="addNewPage()" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg hover:shadow-indigo-500/30">
+                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <i class="fas fa-plus group-hover:text-indigo-200"></i>
+                    </span>
+                    Carregar Outro Modelo
+                </button>
+            </div>
+
+            <!-- Lista de Navegação entre Páginas (NOVO) -->
+            <div id="pageNavigation" class="space-y-2 mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
+                <!-- Botões das páginas serão injetados aqui via JS -->
+            </div>
+
+            <!-- Uploads -->
+            <div class="space-y-4">
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Ativos Visuais</h3>
+                
+                <!-- Background Upload -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">Imagem de Fundo (16:9)</label>
+                    <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
+                        <input type="file" id="bgInput" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <div class="flex flex-col items-center justify-center py-2">
+                            <i class="fas fa-image text-3xl mb-2 text-slate-400"></i>
+                            <span class="text-xs text-slate-500" id="bgFileName">Clique ou arraste a imagem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logo Upload -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">Logo (PNG)</label>
+                    <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
+                        <input type="file" id="logoInput" accept="image/png, image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <div class="flex flex-col items-center justify-center py-2">
+                            <i class="fas fa-cube text-3xl mb-2 text-slate-400"></i>
+                            <span class="text-xs text-slate-500" id="logoFileName">Upload Logo (Transparente)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Controle de Tamanho e Visibilidade do Logo -->
+                    <div class="mt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-sm font-medium">Tamanho do Logo</label>
+                            <div class="flex gap-2 items-center">
+                                <span id="logoSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">128px</span>
+                                <!-- Botão Toggle Visibilidade -->
+                                <button onclick="toggleLogo()" id="btnToggleLogo" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Logo">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-image text-xs text-slate-400"></i>
+                            <input type="range" id="logoSizeInput" min="40" max="400" value="128" step="4" 
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-blue-500">
+                            <i class="fas fa-image text-lg text-slate-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor de Texto -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tipografia Neon</h3>
+                    <div class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded">
+                        Interativo
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Título do Tema</label>
+                    <textarea id="themeTextInput" rows="3" placeholder="DIGITE SEU TEMA AQUI&#10;(Pressione Enter para pular linha)" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm resize-y"></textarea>
+                    <p class="text-xs text-slate-500 mt-2">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Dica: Use <b>Enter</b> para quebrar linhas. Clique nas palavras na pré-visualização para mudar as cores.
+                    </p>
+                </div>
+
+                <!-- Controle de Tamanho da Fonte -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-medium">Tamanho do Texto</label>
+                        <div class="flex gap-2 items-center">
+                            <span id="fontSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">72px</span>
+                            <!-- Botão Toggle Visibilidade Texto (NOVO) -->
+                            <button onclick="toggleText()" id="btnToggleText" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Texto">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-font text-xs text-slate-400"></i>
+                        <input type="range" id="fontSizeInput" min="20" max="200" value="72" step="2" 
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-blue-500">
+                        <i class="fas fa-font text-lg text-slate-400"></i>
+                    </div>
+                </div>
+
+                <!-- Controle de Contorno (Novo) -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">Estilo do Contorno</label>
+                    <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
+                        <button onclick="setStrokeMode('mixed')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnStrokeMixed">
+                            Misto
+                        </button>
+                        <button onclick="setStrokeMode('blue')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-cyan-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeBlue">
+                            Azul
+                        </button>
+                        <button onclick="setStrokeMode('yellow')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-yellow-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeYellow">
+                            Amarelo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Sidebar -->
+        <div class="p-6 border-t border-gray-200 dark:border-slate-700 text-center text-xs text-slate-400 shrink-0">
+            &copy; 2026 Live Studio Themes
+        </div>
+    </aside>
+
+    <!-- MAIN AREA (Preview) -->
+    <main class="flex-1 bg-gray-200 dark:bg-slate-950 flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden h-full w-full">
+        
+        <!-- Título Centralizado -->
+        <h2 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-lg font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase pointer-events-none md:block hidden">
+            Live Studio
+        </h2>
+
+        <!-- Background Pattern (Decoration) -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <!-- O CONTAINER 16:9 -->
+        <div class="relative w-full max-w-5xl shadow-2xl rounded-xl overflow-hidden bg-black aspect-video border-4 border-white dark:border-slate-800 transition-all duration-300 group" id="captureArea">
+            
+            <!-- Imagem de Fundo -->
+            <div id="previewBg" class="absolute inset-0 bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');">
+                <!-- Overlay Escura para contraste -->
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-500"></div>
+            </div>
+
+            <!-- Conteúdo Centralizado -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10">
+                
+                <!-- Logo -->
+                <div class="mb-8 transform hover:scale-105 transition-transform duration-300">
+                    <img id="previewLogo" src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="Logo" class="object-contain drop-shadow-2xl" style="height: 128px;">
+                </div>
+
+                <!-- Texto Neon Interativo -->
+                <div id="neonTextContainer" class="font-black uppercase tracking-tighter leading-tight select-none" style="font-size: 72px;">
+                    <!-- Palavras serão injetadas aqui via JS -->
+                    <span class="interactive-word text-neon-blue">TEMA</span>
+                    <span class="interactive-word text-neon-yellow">DA</span>
+                    <span class="interactive-word text-neon-blue">LIVE</span>
+                </div>
+
+                <!-- Subtítulo decorativo REMOVIDO -->
+            </div>
+
+            <!-- Elementos UI da Live -->
+            <div class="absolute top-6 left-6 flex gap-2">
+                <div class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded uppercase flex items-center gap-1 shadow-lg">
+                    <!-- Adicionado animate-pulse aqui para fazer a bolinha piscar -->
+                    <i class="fas fa-circle text-[8px] animate-pulse"></i> Ao Vivo
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Botão Flutuante (Fale Conosco) -->
+    <a href="https://wa.me/message/63U2QAPO2AH7P1" target="_blank" class="fixed bottom-8 right-8 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:shadow-green-500/50 transition-all transform hover:-translate-y-1 z-50 animate-float flex items-center gap-3">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="hidden md:inline">Fale Conosco</span>
+    </a>
+
+    <!-- Javascript Logic -->
+    <script>
+        // DOM Elements
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+        
+        const sidebarPanel = document.getElementById('sidebarPanel');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+        const openSidebarBtn = document.getElementById('openSidebarBtn');
+
+        const bgInput = document.getElementById('bgInput');
+        const bgFileName = document.getElementById('bgFileName');
+        const previewBg = document.getElementById('previewBg');
+        
+        const logoInput = document.getElementById('logoInput');
+        const logoFileName = document.getElementById('logoFileName');
+        const previewLogo = document.getElementById('previewLogo');
+        const logoSizeInput = document.getElementById('logoSizeInput');
+        const logoSizeDisplay = document.getElementById('logoSizeDisplay');
+        const btnToggleLogo = document.getElementById('btnToggleLogo'); 
+        
+        const themeTextInput = document.getElementById('themeTextInput');
+        const neonTextContainer = document.getElementById('neonTextContainer');
+        const fontSizeInput = document.getElementById('fontSizeInput');
+        const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+        const btnToggleText = document.getElementById('btnToggleText'); // Referência ao novo botão
+
+        // Stroke Buttons
+        const btnStrokeMixed = document.getElementById('btnStrokeMixed');
+        const btnStrokeBlue = document.getElementById('btnStrokeBlue');
+        const btnStrokeYellow = document.getElementById('btnStrokeYellow');
+
+        // State para cores das palavras (array de booleanos: true=blue, false=yellow)
+        let wordColorsState = [true, false, true]; 
+        let currentStrokeMode = 'mixed'; // mixed, blue, yellow
+        
+        // --- SISTEMA DE MULTI-PÁGINAS (NOVO) ---
+        
+        // Estrutura para armazenar as páginas
+        let pages = [];
+        let currentPageId = 0;
+        let pageCounter = 1;
+
+        // Estado Padrão (Factory)
+        function getDefaultState() {
+            return {
+                bgImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')",
+                bgName: 'Clique ou arraste a imagem',
+                logoSrc: "https://cdn-icons-png.flaticon.com/512/3670/3670151.png",
+                logoName: 'Upload Logo (Transparente)',
+                logoSize: 128,
+                logoVisible: true,
+                textValue: "TEMA\nDA LIVE",
+                textSize: 72,
+                textVisible: true, // Novo estado
+                wordColors: [true, false, true],
+                strokeMode: 'mixed'
+            };
+        }
+
+        // 1. Inicialização
+        function initPages() {
+            // Cria a primeira página com o estado inicial
+            const initialPage = {
+                id: 1,
+                name: "Tema Principal",
+                state: getDefaultState()
+            };
+            pages.push(initialPage);
+            currentPageId = 1;
+            renderPageNavigation();
+            
+            // Renderiza o estado inicial
+            loadStateToDOM(initialPage.state);
+        }
+
+        // 2. Capturar Estado Atual do DOM
+        function captureCurrentState() {
+            return {
+                bgImage: previewBg.style.backgroundImage,
+                bgName: bgFileName.textContent,
+                logoSrc: previewLogo.src,
+                logoName: logoFileName.textContent,
+                logoSize: logoSizeInput.value,
+                logoVisible: previewLogo.style.display !== 'none',
+                textValue: themeTextInput.value,
+                textSize: fontSizeInput.value,
+                textVisible: neonTextContainer.style.display !== 'none', // Captura estado
+                wordColors: [...wordColorsState], 
+                strokeMode: currentStrokeMode
+            };
+        }
+
+        // 3. Carregar Estado no DOM
+        function loadStateToDOM(state) {
+            // Background
+            previewBg.style.backgroundImage = state.bgImage;
+            bgFileName.textContent = state.bgName;
+            
+            // Logo
+            previewLogo.src = state.logoSrc;
+            logoFileName.textContent = state.logoName;
+            
+            // Logo Size
+            logoSizeInput.value = state.logoSize;
+            previewLogo.style.height = `${state.logoSize}px`;
+            logoSizeDisplay.textContent = `${state.logoSize}px`;
+            
+            // Logo Visibility
+            previewLogo.style.display = state.logoVisible ? 'block' : 'none';
+            const iconLogo = btnToggleLogo.querySelector('i');
+            if (state.logoVisible) {
+                iconLogo.className = 'fas fa-eye';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                iconLogo.className = 'fas fa-eye-slash';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+
+            // Text
+            themeTextInput.value = state.textValue;
+            
+            // Font Size
+            fontSizeInput.value = state.textSize;
+            neonTextContainer.style.fontSize = `${state.textSize}px`;
+            fontSizeDisplay.textContent = `${state.textSize}px`;
+
+            // Text Visibility (NOVO LOGIC)
+            // Se textVisible não existir (estados antigos), assume true
+            const isTextVisible = state.textVisible !== undefined ? state.textVisible : true;
+            neonTextContainer.style.display = isTextVisible ? 'block' : 'none';
+            
+            const iconText = btnToggleText.querySelector('i');
+            if (isTextVisible) {
+                iconText.className = 'fas fa-eye';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                iconText.className = 'fas fa-eye-slash';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+            
+            // Colors State & Stroke
+            wordColorsState = [...state.wordColors];
+            setStrokeMode(state.strokeMode);
+            
+            // Render Text Final
+            renderText();
+        }
+
+        // 4. Adicionar Nova Página (Função do Botão)
+        function addNewPage() {
+            // Salva o estado da página atual antes de mudar
+            savePage(currentPageId);
+
+            pageCounter++;
+            const newPage = {
+                id: pageCounter,
+                name: `Novo Tema ${pageCounter}`,
+                state: getDefaultState()
+            };
+            
+            pages.push(newPage);
+            currentPageId = newPage.id;
+            
+            // Carrega a nova página (limpa)
+            loadStateToDOM(newPage.state);
+            renderPageNavigation();
+            
+            // Reset inputs de arquivo (visual apenas, pois o FileList é readonly)
+            bgInput.value = '';
+            logoInput.value = '';
+        }
+
+        // 5. Salvar Página Específica
+        function savePage(id) {
+            const pageIndex = pages.findIndex(p => p.id === id);
+            if (pageIndex !== -1) {
+                pages[pageIndex].state = captureCurrentState();
+            }
+        }
+
+        // 6. Trocar de Página
+        function switchPage(id) {
+            if (id === currentPageId) return;
+
+            // Salva a atual
+            savePage(currentPageId);
+            
+            // Encontra e carrega a nova
+            const page = pages.find(p => p.id === id);
+            if (page) {
+                currentPageId = id;
+                loadStateToDOM(page.state);
+                renderPageNavigation();
+            }
+        }
+
+        // 7. Renderizar Lista na Sidebar
+        function renderPageNavigation() {
+            const container = document.getElementById('pageNavigation');
+            container.innerHTML = ''; // Limpa lista
+
+            if (pages.length <= 1) {
+                container.style.display = 'none'; // Esconde se só tem 1 página
+                return;
+            } else {
+                container.style.display = 'block';
+            }
+            
+            const label = document.createElement('div');
+            label.className = "text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1";
+            label.textContent = "Navegar entre Temas";
+            container.appendChild(label);
+
+            pages.forEach(page => {
+                const isActive = page.id === currentPageId;
+                
+                const btn = document.createElement('button');
+                btn.onclick = () => switchPage(page.id);
+                
+                // Estilo Dinâmico (Ativo vs Inativo)
+                const baseClass = "w-full text-left px-3 py-2 rounded-md text-xs font-medium transition-all flex justify-between items-center group ";
+                const activeClass = "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-sm";
+                const inactiveClass = "text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/50 border border-transparent";
+                
+                btn.className = baseClass + (isActive ? activeClass : inactiveClass);
+                
+                // Conteúdo do Botão
+                const spanName = document.createElement('span');
+                spanName.textContent = page.name;
+                
+                // Indicador visual
+                const indicator = document.createElement('i');
+                indicator.className = isActive ? "fas fa-circle text-[6px] text-blue-500 animate-pulse" : "fas fa-chevron-right text-[8px] opacity-0 group-hover:opacity-100 transition-opacity";
+
+                btn.appendChild(spanName);
+                btn.appendChild(indicator);
+                
+                container.appendChild(btn);
+            });
+        }
+        
+        // --- FIM SISTEMA MULTI-PÁGINAS ---
+
+        // Inicializar botões corretos com base no tamanho da tela
+        function updateButtonVisibility() {
+            const isMobile = window.innerWidth < 768;
+            const isDesktopClosed = sidebarPanel.classList.contains('md:w-0');
+            const isMobileClosed = sidebarPanel.classList.contains('-translate-x-full');
+
+            if (isMobile) {
+                // Mobile: Se fechado (-translate-x-full), mostra botão. Se aberto, esconde.
+                if (isMobileClosed) {
+                    openSidebarBtn.classList.remove('scale-0', 'opacity-0');
+                    openSidebarBtn.classList.add('scale-100', 'opacity-100');
+                } else {
+                    openSidebarBtn.classList.remove('scale-100', 'opacity-100');
+                    openSidebarBtn.classList.add('scale-0', 'opacity-0');
+                }
+            } else {
+                // Desktop: Se fechado (md:w-0), mostra botão. Se aberto (w-96), esconde.
+                if (isDesktopClosed) {
+                    openSidebarBtn.classList.remove('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0');
+                    openSidebarBtn.classList.add('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100');
+                } else {
+                    openSidebarBtn.classList.remove('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100');
+                    openSidebarBtn.classList.add('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0');
+                }
+            }
+        }
+
+        // Sidebar Toggle Logic
+        function toggleSidebar() {
+            const isMobile = window.innerWidth < 768;
+
+            if (isMobile) {
+                // Mobile Logic
+                if (sidebarPanel.classList.contains('-translate-x-full')) {
+                    sidebarPanel.classList.remove('-translate-x-full');
+                    sidebarBackdrop.classList.remove('hidden');
+                } else {
+                    sidebarPanel.classList.add('-translate-x-full');
+                    sidebarBackdrop.classList.add('hidden');
+                }
+            } else {
+                // Desktop Logic
+                if (sidebarPanel.classList.contains('md:w-0')) {
+                    // ABRIR
+                    sidebarPanel.classList.remove('md:w-0');
+                    sidebarPanel.classList.add('md:w-96');
+                } else {
+                    // FECHAR
+                    sidebarPanel.classList.remove('md:w-96');
+                    sidebarPanel.classList.add('md:w-0');
+                }
+            }
+            
+            setTimeout(updateButtonVisibility, 50);
+        }
+
+        updateButtonVisibility();
+        window.addEventListener('resize', updateButtonVisibility);
+
+        // Theme Toggle
+        themeToggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if(html.classList.contains('dark')){
+                icon.classList.remove('fa-sun', 'text-orange-400');
+                icon.classList.add('fa-moon', 'text-yellow-300');
+            } else {
+                icon.classList.remove('fa-moon', 'text-yellow-300');
+                icon.classList.add('fa-sun', 'text-orange-400');
+            }
+        });
+
+        // 2. Image Upload Logic (Background)
+        bgInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                bgFileName.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewBg.style.backgroundImage = `url('${event.target.result}')`;
+                    // Auto-save state change
+                    savePage(currentPageId);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 3. Logo Upload Logic
+        logoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                logoFileName.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewLogo.src = event.target.result;
+                    savePage(currentPageId);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 3.1 Logo Size Logic
+        logoSizeInput.addEventListener('input', (e) => {
+            const size = e.target.value;
+            previewLogo.style.height = `${size}px`;
+            logoSizeDisplay.textContent = `${size}px`;
+        });
+        // Save on change (mouseup) para não salvar a cada pixel do slider
+        logoSizeInput.addEventListener('change', () => savePage(currentPageId));
+
+        // 3.2 Logo Visibility Logic
+        function toggleLogo() {
+            const icon = btnToggleLogo.querySelector('i');
+            
+            if (previewLogo.style.display === 'none') {
+                // Mostrar
+                previewLogo.style.display = 'block';
+                icon.className = 'fas fa-eye';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                // Ocultar
+                previewLogo.style.display = 'none';
+                icon.className = 'fas fa-eye-slash';
+                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+            savePage(currentPageId);
+        }
+
+        // 5. Font Size Logic
+        fontSizeInput.addEventListener('input', (e) => {
+            const size = e.target.value;
+            neonTextContainer.style.fontSize = `${size}px`;
+            fontSizeDisplay.textContent = `${size}px`;
+        });
+        fontSizeInput.addEventListener('change', () => savePage(currentPageId));
+
+        // 5.1 Text Visibility Logic (NOVO)
+        function toggleText() {
+            const icon = btnToggleText.querySelector('i');
+            
+            if (neonTextContainer.style.display === 'none') {
+                // Mostrar
+                neonTextContainer.style.display = 'block';
+                icon.className = 'fas fa-eye';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
+            } else {
+                // Ocultar
+                neonTextContainer.style.display = 'none';
+                icon.className = 'fas fa-eye-slash';
+                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
+            }
+            savePage(currentPageId);
+        }
+
+        // 6. Stroke Control Logic
+        function setStrokeMode(mode) {
+            currentStrokeMode = mode;
+            
+            // Limpar classes de override de forma segura
+            neonTextContainer.classList.remove('force-stroke-blue');
+            neonTextContainer.classList.remove('force-stroke-yellow');
+            
+            // Adicionar classe nova se necessário
+            if (mode === 'blue') {
+                neonTextContainer.classList.add('force-stroke-blue');
+            } else if (mode === 'yellow') {
+                neonTextContainer.classList.add('force-stroke-yellow');
+            }
+            
+            updateStrokeButtonsUI();
+            savePage(currentPageId);
+        }
+
+        function updateStrokeButtonsUI() {
+            // Reset styles
+            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => {
+                btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
+            });
+
+            // Active Style
+            const activeClass = 'flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500';
+            
+            if (currentStrokeMode === 'mixed') {
+                btnStrokeMixed.className = activeClass;
+            } else if (currentStrokeMode === 'blue') {
+                btnStrokeBlue.className = activeClass + ' text-cyan-500';
+            } else if (currentStrokeMode === 'yellow') {
+                btnStrokeYellow.className = activeClass + ' text-yellow-500';
+            }
+        }
+
+        // 4. Text Rendering & Color Toggle Logic
+        function renderText() {
+            // Valor padrão se vazio
+            if (!themeTextInput.value && document.activeElement !== themeTextInput) {
+                 themeTextInput.value = "TEMA\nDA LIVE";
+            }
+            
+            const rawText = themeTextInput.value;
+            const allWords = rawText.replace(/\n/g, ' ').split(' ').filter(w => w.length > 0);
+            
+            if (allWords.length !== wordColorsState.length) {
+                const newState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
+                wordColorsState = newState;
+            }
+
+            neonTextContainer.innerHTML = ''; // Limpar container
+            let globalWordIndex = 0;
+
+            const lines = rawText.split('\n');
+
+            lines.forEach((line, lineIndex) => {
+                const wordsInLine = line.split(' ').filter(w => w.length > 0);
+                
+                if (wordsInLine.length > 0) {
+                    wordsInLine.forEach((word) => {
+                        const currentIndex = globalWordIndex;
+                        const span = document.createElement('span');
+                        span.textContent = word + ' '; 
+                        span.classList.add('interactive-word');
+                        
+                        if (wordColorsState[currentIndex]) {
+                            span.classList.add('text-neon-blue');
+                        } else {
+                            span.classList.add('text-neon-yellow');
+                        }
+
+                        span.addEventListener('click', () => {
+                            wordColorsState[currentIndex] = !wordColorsState[currentIndex];
+                            // Re-aplicar a classe correta
+                            if (wordColorsState[currentIndex]) {
+                                span.classList.remove('text-neon-yellow');
+                                span.classList.add('text-neon-blue');
+                            } else {
+                                span.classList.remove('text-neon-blue');
+                                span.classList.add('text-neon-yellow');
+                            }
+                            savePage(currentPageId); // Salva ao mudar cor
+                        });
+
+                        neonTextContainer.appendChild(span);
+                        globalWordIndex++;
+                    });
+                } 
+
+                if (lineIndex < lines.length - 1) {
+                    neonTextContainer.appendChild(document.createElement('br'));
+                }
+            });
+        }
+
+        // Removido resetModel antigo, pois agora usamos o addNewPage
+        // Mantemos a funcionalidade inicial
+        
+        themeTextInput.addEventListener('input', renderText);
+        themeTextInput.addEventListener('change', () => savePage(currentPageId)); // Save on text blur
+
+        // Inicializar Sistema de Páginas
+        initPages();
+        updateStrokeButtonsUI(); 
+
+    </script>
+</body>
+</html>

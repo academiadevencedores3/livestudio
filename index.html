@@ -642,7 +642,8 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <!-- STANDARD INPUTS (Simple/Compound) -->
+                            <div id="standardInputs" class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Taxa de Juros (%)</label>
                                     <div class="relative">
@@ -659,16 +660,31 @@
                                 </div>
                             </div>
 
+                            <!-- BITRADEX INPUTS (Hidden by default) -->
+                            <div id="bitradexInputs" class="hidden">
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Plano BitradeX</label>
+                                <select id="bitradexPlan" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 outline-none text-sm font-medium">
+                                    <option value="30">30 Dias (0.3% a.d.)</option>
+                                    <option value="90">90 Dias (0.35% a.d.)</option>
+                                    <option value="180">180 Dias (0.4% a.d.)</option>
+                                    <option value="360">360 Dias (0.5% a.d.)</option>
+                                </select>
+                                <p class="text-[10px] text-slate-500 mt-1 italic">+ 0.2% a.d. composto sobre lucros (Pool)</p>
+                            </div>
+
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tempo (Dias)</label>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tempo de Simulação (Dias)</label>
                                 <input type="number" id="calcDays" placeholder="Ex: 30" class="calc-input w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Tipo de Juros</label>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Tipo de Cálculo</label>
                                 <div class="flex bg-gray-100 dark:bg-slate-700 p-1 rounded-xl">
-                                    <button onclick="setCalcType('compound')" id="btnCompound" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white">Composto</button>
-                                    <button onclick="setCalcType('simple')" id="btnSimple" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700">Simples</button>
+                                    <button onclick="setCalcType('compound')" id="btnCompound" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white">Composto</button>
+                                    <button onclick="setCalcType('simple')" id="btnSimple" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700">Simples</button>
+                                    <button onclick="setCalcType('bitradex')" id="btnBitradex" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 flex items-center justify-center gap-1">
+                                        <i class="fas fa-gem text-[10px]"></i> BitradeX
+                                    </button>
                                 </div>
                             </div>
 
@@ -810,14 +826,35 @@
             calcType = type;
             const btnCompound = document.getElementById('btnCompound');
             const btnSimple = document.getElementById('btnSimple');
+            const btnBitradex = document.getElementById('btnBitradex');
+            
+            const standardInputs = document.getElementById('standardInputs');
+            const bitradexInputs = document.getElementById('bitradexInputs');
+
+            // Reset Styles
+            [btnCompound, btnSimple, btnBitradex].forEach(btn => {
+                btn.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 flex items-center justify-center gap-1";
+            });
+
+            // Activate Selected
+            const activeClass = "flex-1 py-2 rounded-lg text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white flex items-center justify-center gap-1";
             
             if(type === 'compound') {
-                btnCompound.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white";
-                btnSimple.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700";
-            } else {
-                btnSimple.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white";
-                btnCompound.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700";
+                btnCompound.className = activeClass;
+                standardInputs.classList.remove('hidden');
+                bitradexInputs.classList.add('hidden');
+            } else if (type === 'simple') {
+                btnSimple.className = activeClass;
+                standardInputs.classList.remove('hidden');
+                bitradexInputs.classList.add('hidden');
+            } else if (type === 'bitradex') {
+                btnBitradex.className = activeClass;
+                standardInputs.classList.add('hidden');
+                bitradexInputs.classList.remove('hidden');
             }
+            
+            // REMOVIDO: Cálculo automático ao trocar abas. Agora aguarda o clique no botão.
+            // calculateInterest();
         }
 
         function setCalcView(view) {
@@ -836,46 +873,89 @@
 
         function calculateInterest() {
             const principal = parseFloat(document.getElementById('calcPrincipal').value) || 0;
-            const rateInput = parseFloat(document.getElementById('calcRate').value) || 0;
             const days = parseInt(document.getElementById('calcDays').value) || 0;
-            const rateType = document.getElementById('calcRateType').value;
-
+            
             if (principal <= 0 || days <= 0) return;
-
-            // Normalize Rate to Daily
-            let dailyRate = 0;
-            if (rateType === 'monthly') {
-                if (calcType === 'simple') {
-                    dailyRate = (rateInput / 100) / 30;
-                } else {
-                    dailyRate = Math.pow(1 + (rateInput / 100), 1/30) - 1;
-                }
-            } else {
-                dailyRate = rateInput / 100;
-            }
 
             calcResults = [];
             let currentBalance = principal;
             let totalInterest = 0;
+            let poolBalance = 0; // Para BitradeX
 
-            for (let i = 1; i <= days; i++) {
-                let interestToday = 0;
+            // Lógica Específica
+            if (calcType === 'bitradex') {
+                const planDays = parseInt(document.getElementById('bitradexPlan').value);
+                let dailyBaseRate = 0;
                 
-                if (calcType === 'simple') {
-                    interestToday = principal * dailyRate;
+                // Taxas base BitradeX
+                if(planDays === 30) dailyBaseRate = 0.003;      // 0.3%
+                else if(planDays === 90) dailyBaseRate = 0.0035; // 0.35%
+                else if(planDays === 180) dailyBaseRate = 0.004; // 0.4%
+                else if(planDays === 360) dailyBaseRate = 0.005; // 0.5%
+
+                const poolRate = 0.002; // 0.2% ao dia sobre o pool
+
+                for (let i = 1; i <= days; i++) {
+                    // 1. Rendimento do Pool (Juros Compostos sobre o Pool)
+                    const poolGrowth = poolBalance * poolRate;
+                    
+                    // 2. Novo Juro gerado pelo Capital (Juros Simples sobre Capital)
+                    const capitalYield = principal * dailyBaseRate;
+
+                    // 3. Atualiza Pool
+                    const totalDailyGain = poolGrowth + capitalYield;
+                    poolBalance += totalDailyGain;
+                    
+                    // Montante Total = Capital Original + Pool Acumulado
+                    currentBalance = principal + poolBalance;
+                    
+                    calcResults.push({
+                        day: i,
+                        interest: totalDailyGain,
+                        balance: currentBalance,
+                        totalInterest: poolBalance
+                    });
+                }
+                totalInterest = poolBalance;
+
+            } else {
+                // Lógica Padrão (Simples / Composto)
+                const rateInput = parseFloat(document.getElementById('calcRate').value) || 0;
+                const rateType = document.getElementById('calcRateType').value;
+                
+                // Normalize Rate to Daily
+                let dailyRate = 0;
+                if (rateType === 'monthly') {
+                    if (calcType === 'simple') {
+                        dailyRate = (rateInput / 100) / 30;
+                    } else {
+                        dailyRate = Math.pow(1 + (rateInput / 100), 1/30) - 1;
+                    }
                 } else {
-                    interestToday = currentBalance * dailyRate;
+                    dailyRate = rateInput / 100;
                 }
 
-                currentBalance += interestToday;
-                totalInterest += interestToday;
+                for (let i = 1; i <= days; i++) {
+                    let interestToday = 0;
+                    
+                    if (calcType === 'simple') {
+                        // Simples: O juro é sempre calculado sobre o PRINCIPAL INICIAL
+                        interestToday = principal * dailyRate;
+                    } else {
+                        // Composto: O juro é calculado sobre o SALDO ACUMULADO (Juros sobre Juros)
+                        interestToday = currentBalance * dailyRate;
+                    }
 
-                calcResults.push({
-                    day: i,
-                    interest: interestToday,
-                    balance: currentBalance,
-                    totalInterest: totalInterest
-                });
+                    currentBalance += interestToday;
+                    totalInterest += interestToday;
+
+                    calcResults.push({
+                        day: i,
+                        interest: interestToday,
+                        balance: currentBalance,
+                        totalInterest: totalInterest
+                    });
+                }
             }
 
             // Update Summary
@@ -1653,6 +1733,17 @@
 
         themeTextInput.addEventListener('input', renderText);
         themeTextInput.addEventListener('change', () => savePage(currentPageId));
+
+        // REMOVIDO: Eventos de Auto-Cálculo para permitir controle manual pelo botão
+        /*
+        ['calcPrincipal', 'calcRate', 'calcDays', 'calcRateType', 'bitradexPlan'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) {
+                el.addEventListener('input', calculateInterest);
+                el.addEventListener('change', calculateInterest);
+            }
+        });
+        */
 
         initPages();
         updateStrokeButtonsUI();

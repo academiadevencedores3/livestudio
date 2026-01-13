@@ -2,8 +2,8 @@
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Temas para Lives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Live Studio Pro - Suite Completa</title>
     
     <!-- Google Fonts: Outfit (Moderna e Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,12 +26,16 @@
                         sans: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        neonBlue: '#06b6d4', // Cyan-500 base
-                        neonYellow: '#fbbf24', // Amber-400 base (Mais vibrante)
+                        neonBlue: '#06b6d4',
+                        neonYellow: '#fbbf24',
                     },
                     boxShadow: {
                         'neon-blue': '0 0 5px #06b6d4, 0 0 20px #06b6d4, 0 0 40px #06b6d4',
                         'neon-yellow': '0 0 5px #fbbf24, 0 0 20px #fbbf24, 0 0 40px #fbbf24',
+                    },
+                    cursor: {
+                        'pencil': 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+) 0 24, auto',
+                        'pencil-dark': 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+) 0 24, auto',
                     }
                 }
             }
@@ -42,72 +46,46 @@
         /* Estilos Customizados para Neon Text */
         .text-neon-blue {
             color: #fff;
-            /* Contorno mais grosso e definido */
             -webkit-text-stroke: 3px #06b6d4;
             paint-order: stroke fill;
-            /* Sombra ajustada para reforçar a cor */
-            text-shadow: 
-                0 0 15px rgba(6, 182, 212, 0.8),
-                0 0 30px rgba(6, 182, 212, 0.5);
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(6, 182, 212, 0.5);
         }
 
         .text-neon-yellow {
             color: #fff;
-            /* COR AJUSTADA: Amarelo mais dourado/âmbar para contraste real */
             -webkit-text-stroke: 3px #fbbf24;
             paint-order: stroke fill;
-            /* Sombra ajustada para expandir a percepção do amarelo */
-            text-shadow: 
-                0 0 15px rgba(251, 191, 36, 0.9),
-                0 0 35px rgba(251, 191, 36, 0.6);
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.9), 0 0 35px rgba(251, 191, 36, 0.6);
         }
 
-        /* OVERRIDES: Classes para forçar cores de contorno */
-        
-        /* Forçar Contorno Azul */
-        .force-stroke-blue .text-neon-blue,
-        .force-stroke-blue .text-neon-yellow {
+        /* OVERRIDES */
+        .force-stroke-blue .text-neon-blue, .force-stroke-blue .text-neon-yellow {
             -webkit-text-stroke: 3px #06b6d4 !important;
-            text-shadow: 
-                0 0 15px rgba(6, 182, 212, 0.8),
-                0 0 30px rgba(6, 182, 212, 0.5) !important;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(6, 182, 212, 0.5) !important;
         }
 
-        /* Forçar Contorno Amarelo */
-        .force-stroke-yellow .text-neon-blue,
-        .force-stroke-yellow .text-neon-yellow {
+        .force-stroke-yellow .text-neon-blue, .force-stroke-yellow .text-neon-yellow {
             -webkit-text-stroke: 3px #fbbf24 !important;
-            text-shadow: 
-                0 0 15px rgba(251, 191, 36, 0.9),
-                0 0 35px rgba(251, 191, 36, 0.6) !important;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.9), 0 0 35px rgba(251, 191, 36, 0.6) !important;
         }
 
-        /* Scrollbar customizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
 
-        /* Animação suave para o botão flutuante */
+        /* Hide scrollbar for Horizontal Toolbar on Mobile */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
         
-        /* Interactive Word Hover */
         .interactive-word {
             cursor: pointer;
             transition: all 0.2s;
@@ -120,306 +98,447 @@
             transform: scale(1.05);
         }
         
-        /* Area de upload */
         .upload-area {
             background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%2394A3B8FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
         }
         .dark .upload-area {
             background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23475569FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
         }
+
+        /* Presentation Mode Styles (Fixed for Compatibility) */
+        .tool-btn {
+            border-radius: 9999px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .tool-btn.active {
+            border-color: #3b82f6; 
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-btn {
+            border-radius: 9999px;
+            border: 2px solid #d1d5db;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .dark .color-btn {
+            border-color: #4b5563; 
+        }
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+        .color-btn.active {
+            border-color: #3b82f6 !important;
+            transform: scale(1.25);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 h-screen font-sans overflow-hidden flex relative">
+<body class="bg-gray-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 h-screen font-sans overflow-hidden relative">
 
     <!-- BACKDROP MOBILE -->
     <div id="sidebarBackdrop" class="fixed inset-0 bg-black/50 z-30 hidden transition-opacity duration-300 backdrop-blur-sm md:hidden" onclick="toggleSidebar()"></div>
 
-    <!-- BOTÃO FLUTUANTE DE ABRIR MENU (Mestre) -->
-    <!-- Fica visível apenas quando o menu está fechado -->
-    <button id="openSidebarBtn" onclick="toggleSidebar()" class="fixed top-4 left-4 z-50 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg border border-gray-200 dark:border-slate-700 text-slate-600 dark:text-slate-200 hover:text-blue-500 transition-all duration-300 transform scale-0 opacity-0 md:scale-0 md:opacity-0 group">
-        <i class="fas fa-sliders-h text-lg group-hover:rotate-90 transition-transform duration-300"></i>
-        <span class="sr-only">Editar Tema</span>
-    </button>
-
-    <!-- SIDEBAR (Controles Retráteis) -->
-    <!-- Adicionado overflow-hidden para garantir que o conteúdo suma totalmente ao retrair -->
-    <aside id="sidebarPanel" class="fixed md:relative inset-y-0 left-0 z-40 w-80 md:w-96 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 h-full flex flex-col shadow-2xl transition-all duration-300 ease-in-out transform -translate-x-full md:translate-x-0 overflow-hidden">
-        
-        <!-- Header Sidebar -->
-        <div class="p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center sticky top-0 bg-white dark:bg-slate-800 z-10 shrink-0">
-            <h2 class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
-                <i class="fas fa-sliders-h text-sm"></i> Configurações
-            </h2>
-            <div class="flex gap-2">
-                 <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Alternar Tema">
-                    <i class="fas fa-moon text-slate-600 dark:text-yellow-300 text-lg"></i>
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden backdrop-blur-sm transition-all duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-2xl max-w-sm w-full mx-4 border border-gray-200 dark:border-slate-700 transform transition-all scale-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+                    <i class="fas fa-eraser text-lg"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Limpar Slide?</h3>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                Isso apagará <strong>todas as anotações</strong> deste slide. Esta ação não pode ser desfeita automaticamente (use o desfazer se necessário).
+            </p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeConfirmModal()" class="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 font-medium text-sm transition-colors">
+                    Cancelar
                 </button>
-                <!-- Botão Fechar Mobile -->
-                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none md:hidden" title="Fechar Menu">
-                    <i class="fas fa-times text-slate-500 text-lg"></i>
-                </button>
-                 <!-- Botão Recolher Desktop -->
-                <button onclick="toggleSidebar()" class="hidden md:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Recolher Painel">
-                    <i class="fas fa-chevron-left text-slate-500 text-lg"></i>
+                <button onclick="executeClearCanvas()" class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold text-sm shadow-md transition-colors flex items-center gap-2">
+                    <i class="fas fa-trash-alt"></i> Limpar Tudo
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- Conteúdo Sidebar (Scrollable) -->
-        <div class="p-6 space-y-8 flex-1 overflow-y-auto">
+    <!-- WRAPPER GLOBAL -->
+    
+    <!-- MODO 1: THEME BUILDER -->
+    <div id="appBuilder" class="flex h-full w-full relative transition-opacity duration-300">
 
-            <!-- Botão Outro Tema (Agora age como Nova Página) -->
-            <div class="mb-2">
-                 <!-- Alterado função onclick para addNewPage() -->
-                 <button onclick="addNewPage()" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg hover:shadow-indigo-500/30">
-                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                        <i class="fas fa-plus group-hover:text-indigo-200"></i>
-                    </span>
-                    Carregar Outro Modelo
+        <!-- BOTÃO FLUTUANTE DE ABRIR MENU (Mestre) -->
+        <button id="openSidebarBtn" onclick="toggleSidebar()" class="fixed top-4 left-4 z-50 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg border border-gray-200 dark:border-slate-700 text-slate-600 dark:text-slate-200 hover:text-blue-500 transition-all duration-300 transform scale-0 opacity-0 md:scale-0 md:opacity-0 group">
+            <i class="fas fa-sliders-h text-lg group-hover:rotate-90 transition-transform duration-300"></i>
+            <span class="sr-only">Editar Tema</span>
+        </button>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebarPanel" class="fixed md:relative inset-y-0 left-0 z-40 w-80 md:w-96 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 h-full flex flex-col shadow-2xl transition-all duration-300 ease-in-out transform -translate-x-full md:translate-x-0 overflow-hidden">
+            
+            <!-- App Switcher -->
+            <div class="p-4 bg-slate-100 dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 flex gap-2">
+                <button class="flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default">
+                    <i class="fas fa-palette mr-1"></i> Editor
+                </button>
+                <button onclick="switchAppMode('presentation')" class="flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i> Apresentação
                 </button>
             </div>
 
-            <!-- Lista de Navegação entre Páginas (NOVO) -->
-            <div id="pageNavigation" class="space-y-2 mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
-                <!-- Botões das páginas serão injetados aqui via JS -->
+            <!-- Header Sidebar -->
+            <div class="p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center sticky top-0 bg-white dark:bg-slate-800 z-10 shrink-0">
+                <h2 class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+                    <i class="fas fa-sliders-h text-sm"></i> Configurações
+                </h2>
+                <div class="flex gap-2">
+                     <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Alternar Tema">
+                        <i class="fas fa-moon text-slate-600 dark:text-yellow-300 text-lg"></i>
+                    </button>
+                    <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none md:hidden" title="Fechar Menu">
+                        <i class="fas fa-times text-slate-500 text-lg"></i>
+                    </button>
+                    <button onclick="toggleSidebar()" class="hidden md:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors focus:outline-none" title="Recolher Painel">
+                        <i class="fas fa-chevron-left text-slate-500 text-lg"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Uploads -->
-            <div class="space-y-4">
-                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Ativos Visuais</h3>
-                
-                <!-- Background Upload -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Imagem de Fundo (16:9)</label>
-                    <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
-                        <input type="file" id="bgInput" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        <div class="flex flex-col items-center justify-center py-2">
-                            <i class="fas fa-image text-3xl mb-2 text-slate-400"></i>
-                            <span class="text-xs text-slate-500" id="bgFileName">Clique ou arraste a imagem</span>
+            <!-- Conteúdo Sidebar -->
+            <div class="p-6 space-y-8 flex-1 overflow-y-auto">
+                <div class="mb-2">
+                     <button onclick="addNewPage()" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg hover:shadow-indigo-500/30">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i class="fas fa-plus group-hover:text-indigo-200"></i>
+                        </span>
+                        Carregar Outro Modelo
+                    </button>
+                </div>
+
+                <div id="pageNavigation" class="space-y-2 mb-6 border-b border-gray-200 dark:border-slate-700 pb-4"></div>
+
+                <!-- Uploads -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Ativos Visuais</h3>
+                    
+                    <!-- Formato e Imagem de Fundo -->
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="block text-sm font-medium">Imagem de Fundo</label>
+                            
+                            <!-- SELETOR DE FORMATO (NOVO) -->
+                            <div class="flex bg-gray-200 dark:bg-slate-700 rounded-lg p-0.5">
+                                <button onclick="setAspectRatio('16:9')" id="btnRatio169" class="px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all">
+                                    16:9
+                                </button>
+                                <button onclick="setAspectRatio('9:16')" id="btnRatio916" class="px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all">
+                                    9:16
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
+                            <input type="file" id="bgInput" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            <div class="flex flex-col items-center justify-center py-2">
+                                <i class="fas fa-image text-3xl mb-2 text-slate-400"></i>
+                                <span class="text-xs text-slate-500" id="bgFileName">Clique ou arraste a imagem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Logo (PNG)</label>
+                        <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
+                            <input type="file" id="logoInput" accept="image/png, image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            <div class="flex flex-col items-center justify-center py-2">
+                                <i class="fas fa-cube text-3xl mb-2 text-slate-400"></i>
+                                <span class="text-xs text-slate-500" id="logoFileName">Upload Logo (Transparente)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-medium">Tamanho do Logo</label>
+                                <div class="flex gap-2 items-center">
+                                    <span id="logoSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">128px</span>
+                                    <button onclick="toggleLogo()" id="btnToggleLogo" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Logo">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-image text-xs text-slate-400"></i>
+                                <input type="range" id="logoSizeInput" min="40" max="400" value="128" step="4" 
+                                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-blue-500">
+                                <i class="fas fa-image text-lg text-slate-400"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Logo Upload -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Logo (PNG)</label>
-                    <div class="upload-area p-4 rounded-lg text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors relative">
-                        <input type="file" id="logoInput" accept="image/png, image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        <div class="flex flex-col items-center justify-center py-2">
-                            <i class="fas fa-cube text-3xl mb-2 text-slate-400"></i>
-                            <span class="text-xs text-slate-500" id="logoFileName">Upload Logo (Transparente)</span>
+                <!-- Editor de Texto -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tipografia Neon</h3>
+                        <div class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded">
+                            Interativo
                         </div>
                     </div>
                     
-                    <!-- Controle de Tamanho e Visibilidade do Logo -->
-                    <div class="mt-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Título do Tema</label>
+                        <textarea id="themeTextInput" rows="3" placeholder="DIGITE SEU TEMA AQUI&#10;(Pressione Enter para pular linha)" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm resize-y"></textarea>
+                        <p class="text-xs text-slate-500 mt-2">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Dica: Use <b>Enter</b> para quebrar linhas. Clique nas palavras na pré-visualização para mudar as cores.
+                        </p>
+                    </div>
+
+                    <div>
                         <div class="flex justify-between items-center mb-2">
-                            <label class="block text-sm font-medium">Tamanho do Logo</label>
+                            <label class="block text-sm font-medium">Tamanho do Texto</label>
                             <div class="flex gap-2 items-center">
-                                <span id="logoSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">128px</span>
-                                <!-- Botão Toggle Visibilidade -->
-                                <button onclick="toggleLogo()" id="btnToggleLogo" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Logo">
+                                <span id="fontSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">72px</span>
+                                <button onclick="toggleText()" id="btnToggleText" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Texto">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i class="fas fa-image text-xs text-slate-400"></i>
-                            <input type="range" id="logoSizeInput" min="40" max="400" value="128" step="4" 
+                            <i class="fas fa-font text-xs text-slate-400"></i>
+                            <input type="range" id="fontSizeInput" min="20" max="200" value="72" step="2" 
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-blue-500">
-                            <i class="fas fa-image text-lg text-slate-400"></i>
+                            <i class="fas fa-font text-lg text-slate-400"></i>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Editor de Texto -->
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tipografia Neon</h3>
-                    <div class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded">
-                        Interativo
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium mb-2">Título do Tema</label>
-                    <textarea id="themeTextInput" rows="3" placeholder="DIGITE SEU TEMA AQUI&#10;(Pressione Enter para pular linha)" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm resize-y"></textarea>
-                    <p class="text-xs text-slate-500 mt-2">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        Dica: Use <b>Enter</b> para quebrar linhas. Clique nas palavras na pré-visualização para mudar as cores.
-                    </p>
-                </div>
-
-                <!-- Controle de Tamanho da Fonte -->
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-sm font-medium">Tamanho do Texto</label>
-                        <div class="flex gap-2 items-center">
-                            <span id="fontSizeDisplay" class="text-xs text-slate-500 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">72px</span>
-                            <!-- Botão Toggle Visibilidade Texto (NOVO) -->
-                            <button onclick="toggleText()" id="btnToggleText" class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1" title="Mostrar/Ocultar Texto">
-                                <i class="fas fa-eye"></i>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Posição do Conteúdo</label>
+                        <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
+                            <button onclick="setTextPosition('top')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosTop" title="Superior">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                            <button onclick="setTextPosition('center')" class="flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnPosCenter" title="Centralizar">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </button>
+                            <button onclick="setTextPosition('bottom')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosBottom" title="Inferior">
+                                <i class="fas fa-arrow-down"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-font text-xs text-slate-400"></i>
-                        <input type="range" id="fontSizeInput" min="20" max="200" value="72" step="2" 
-                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-blue-500">
-                        <i class="fas fa-font text-lg text-slate-400"></i>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Estilo do Contorno</label>
+                        <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
+                            <button onclick="setStrokeMode('mixed')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnStrokeMixed">
+                                Misto
+                            </button>
+                            <button onclick="setStrokeMode('blue')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-cyan-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeBlue">
+                                Azul
+                            </button>
+                            <button onclick="setStrokeMode('yellow')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-yellow-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeYellow">
+                                Amarelo
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Controle de Posição (NOVO) -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Posição do Conteúdo</label>
-                    <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
-                        <button onclick="setTextPosition('top')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosTop" title="Superior">
-                            <i class="fas fa-arrow-up"></i>
-                        </button>
-                        <button onclick="setTextPosition('center')" class="flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnPosCenter" title="Centralizar">
-                            <i class="fas fa-compress-arrows-alt"></i>
-                        </button>
-                        <button onclick="setTextPosition('bottom')" class="flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnPosBottom" title="Inferior">
-                            <i class="fas fa-arrow-down"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Controle de Contorno -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Estilo do Contorno</label>
-                    <div class="flex gap-2 p-1 bg-gray-100 dark:bg-slate-700/50 rounded-lg">
-                        <button onclick="setStrokeMode('mixed')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500" id="btnStrokeMixed">
-                            Misto
-                        </button>
-                        <button onclick="setStrokeMode('blue')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-cyan-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeBlue">
-                            Azul
-                        </button>
-                        <button onclick="setStrokeMode('yellow')" class="flex-1 py-2 rounded-md text-xs font-bold transition-all text-yellow-500 hover:bg-white/50 dark:hover:bg-slate-600/50" id="btnStrokeYellow">
-                            Amarelo
-                        </button>
-                    </div>
+                <div class="p-6 border-t border-gray-200 dark:border-slate-700 text-center text-xs text-slate-400 shrink-0">
+                    &copy; 2026 Live Studio Themes
                 </div>
             </div>
+        </aside>
 
-        </div>
-
-        <!-- Footer Sidebar -->
-        <div class="p-6 border-t border-gray-200 dark:border-slate-700 text-center text-xs text-slate-400 shrink-0">
-            &copy; 2026 Live Studio Themes
-        </div>
-    </aside>
-
-    <!-- MAIN AREA (Preview) -->
-    <main class="flex-1 bg-gray-200 dark:bg-slate-950 flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden h-full w-full">
-        
-        <!-- Título Centralizado -->
-        <h2 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-lg font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase pointer-events-none md:block hidden">
-            Live Studio
-        </h2>
-
-        <!-- Background Pattern (Decoration) -->
-        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px;"></div>
-
-        <!-- O CONTAINER 16:9 -->
-        <div class="relative w-full max-w-5xl shadow-2xl rounded-xl overflow-hidden bg-black aspect-video border-4 border-white dark:border-slate-800 transition-all duration-300 group" id="captureArea">
+        <!-- MAIN AREA -->
+        <main class="flex-1 bg-gray-200 dark:bg-slate-950 flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden h-full w-full">
+            <h2 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-lg font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase pointer-events-none md:block hidden">
+                Live Studio
+            </h2>
+            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px;"></div>
             
-            <!-- Imagem de Fundo -->
-            <div id="previewBg" class="absolute inset-0 bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');">
-                <!-- Overlay Escura para contraste -->
-                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-500"></div>
+            <!-- CONTAINER DE PREVIEW (ADAPTÁVEL 16:9 / 9:16) -->
+            <div class="relative shadow-2xl rounded-xl overflow-hidden bg-black border-4 border-white dark:border-slate-800 transition-all duration-300 group aspect-video w-full max-w-5xl" id="captureArea">
+                <div id="previewBg" class="absolute inset-0 bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');">
+                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-500"></div>
+                </div>
+                <div id="contentWrapper" class="absolute inset-0 flex flex-col items-center justify-center p-8 md:p-12 text-center z-10 transition-all duration-300">
+                    <div class="mb-8 transform hover:scale-105 transition-transform duration-300">
+                        <img id="previewLogo" src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="Logo" class="object-contain drop-shadow-2xl" style="height: 128px;">
+                    </div>
+                    <div id="neonTextContainer" class="font-black uppercase tracking-tighter leading-tight select-none" style="font-size: 72px;">
+                        <span class="interactive-word text-neon-blue">TEMA</span>
+                        <span class="interactive-word text-neon-yellow">DA</span>
+                        <span class="interactive-word text-neon-blue">LIVE</span>
+                    </div>
+                </div>
+                <div class="absolute top-6 left-6 flex gap-2">
+                    <div class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded uppercase flex items-center gap-1 shadow-lg">
+                        <i class="fas fa-circle text-[8px] animate-pulse"></i> Ao Vivo
+                    </div>
+                </div>
             </div>
+        </main>
 
-            <!-- Conteúdo Centralizado -->
-            <!-- Adicionado ID contentWrapper para manipulação de posição -->
-            <div id="contentWrapper" class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10 transition-all duration-300">
-                
-                <!-- Logo -->
-                <div class="mb-8 transform hover:scale-105 transition-transform duration-300">
-                    <img id="previewLogo" src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="Logo" class="object-contain drop-shadow-2xl" style="height: 128px;">
-                </div>
+        <a href="https://wa.me/message/63U2QAPO2AH7P1" target="_blank" class="fixed bottom-8 right-8 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:shadow-green-500/50 transition-all transform hover:-translate-y-1 z-50 animate-float flex items-center gap-3">
+            <i class="fab fa-whatsapp text-2xl"></i>
+            <span class="hidden md:inline">Fale Conosco</span>
+        </a>
+    </div>
 
-                <!-- Texto Neon Interativo -->
-                <div id="neonTextContainer" class="font-black uppercase tracking-tighter leading-tight select-none" style="font-size: 72px;">
-                    <!-- Palavras serão injetadas aqui via JS -->
-                    <span class="interactive-word text-neon-blue">TEMA</span>
-                    <span class="interactive-word text-neon-yellow">DA</span>
-                    <span class="interactive-word text-neon-blue">LIVE</span>
-                </div>
-
-                <!-- Subtítulo decorativo REMOVIDO -->
+    <!-- MODO 2: PRESENTATION MODE (SALA DE AULA) -->
+    <div id="appPresentation" class="hidden h-full w-full bg-gray-100 dark:bg-slate-900 flex-col relative transition-colors duration-300">
+        
+        <!-- Top Toolbar -->
+        <div class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-4 z-20">
+            <div class="flex items-center gap-4">
+                <button onclick="switchAppMode('builder')" class="bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 px-3 py-1.5 rounded text-sm font-medium border border-gray-300 dark:border-slate-600 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> <span class="hidden md:inline">Voltar ao Editor</span><span class="md:hidden">Editor</span>
+                </button>
+                <div class="h-6 w-px bg-gray-300 dark:bg-slate-600 mx-2"></div>
+                <label class="bg-blue-600 hover:bg-blue-500 text-white px-3 md:px-4 py-1.5 rounded text-sm font-bold cursor-pointer transition-colors flex items-center gap-2 shadow-lg">
+                    <i class="fas fa-folder-open"></i> <span class="hidden md:inline">Carregar Slides</span><span class="md:hidden">Slides</span>
+                    <input type="file" id="presentationUpload" accept="image/*" multiple class="hidden">
+                </label>
+                <span id="slideCounter" class="text-slate-500 dark:text-slate-400 text-sm font-mono hidden">Slide 1 / 1</span>
             </div>
-
-            <!-- Elementos UI da Live -->
-            <div class="absolute top-6 left-6 flex gap-2">
-                <div class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded uppercase flex items-center gap-1 shadow-lg">
-                    <!-- Adicionado animate-pulse aqui para fazer a bolinha piscar -->
-                    <i class="fas fa-circle text-[8px] animate-pulse"></i> Ao Vivo
-                </div>
+            <div class="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest font-bold hidden md:block">
+                Sala de Aula Interativa
             </div>
         </div>
 
-    </main>
+        <!-- Main Presentation Area -->
+        <div class="flex-1 relative flex items-center justify-center bg-gray-200 dark:bg-black overflow-hidden" id="presentationContainer">
+            <div id="emptyStatePres" class="text-center p-8">
+                <i class="fas fa-images text-6xl text-slate-400 dark:text-slate-700 mb-4 block"></i>
+                <h3 class="text-xl text-slate-600 dark:text-slate-400 font-medium">Nenhum slide carregado</h3>
+                <p class="text-slate-500 text-sm mt-2">Carregue imagens 16:9 ou 9:16 para começar a aula.</p>
+            </div>
+            <div id="slideWrapper" class="relative hidden shadow-2xl" style="max-height: 90vh; max-width: 95vw;">
+                <img id="currentSlideImg" class="block w-full h-full object-contain pointer-events-none select-none" alt="Slide">
+                <canvas id="drawingCanvas" class="absolute inset-0 cursor-pencil dark:cursor-pencil-dark touch-none"></canvas>
+            </div>
+            <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-10 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnPrevSlide">
+                <i class="fas fa-chevron-left text-2xl"></i>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-10 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnNextSlide">
+                <i class="fas fa-chevron-right text-2xl"></i>
+            </button>
+        </div>
 
-    <!-- Botão Flutuante (Fale Conosco) -->
-    <a href="https://wa.me/message/63U2QAPO2AH7P1" target="_blank" class="fixed bottom-8 right-8 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:shadow-green-500/50 transition-all transform hover:-translate-y-1 z-50 animate-float flex items-center gap-3">
-        <i class="fab fa-whatsapp text-2xl"></i>
-        <span class="hidden md:inline">Fale Conosco</span>
-    </a>
+        <!-- Floating Toolbar (Tools) - MOBILE ADAPTED SINGLE LINE -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-2 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 flex flex-nowrap justify-between md:justify-center items-center gap-1 md:gap-4 z-30 transition-transform duration-300 w-[95vw] md:w-auto max-w-3xl overflow-x-auto no-scrollbar" id="drawingToolbar" style="bottom: max(1.5rem, env(safe-area-inset-bottom));">
+            
+            <!-- Tools (Pinceis) -->
+            <div class="flex gap-1 md:gap-2 md:border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-4 items-center">
+                <button onclick="setTool('pencil')" class="tool-btn bg-blue-600 text-white active p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolPencil" title="Lápis">
+                    <i class="fas fa-pencil-alt text-sm md:text-base"></i>
+                </button>
+                <button onclick="setTool('highlighter')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolHighlighter" title="Marca Texto">
+                    <i class="fas fa-highlighter text-sm md:text-base"></i>
+                </button>
+            </div>
+
+            <!-- Colors (6 Cores) -->
+            <div class="flex gap-1 md:gap-2 md:border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-4 items-center">
+                <button onclick="setColor('#000000')" class="color-btn bg-black w-6 h-6 md:w-8 md:h-8" title="Preto"></button>
+                <button onclick="setColor('#ffffff')" class="color-btn bg-white active w-6 h-6 md:w-8 md:h-8" title="Branco"></button>
+                <button onclick="setColor('#3b82f6')" class="color-btn bg-blue-500 w-6 h-6 md:w-8 md:h-8" title="Azul"></button>
+                <button onclick="setColor('#ef4444')" class="color-btn bg-red-500 w-6 h-6 md:w-8 md:h-8" title="Vermelho"></button>
+                <button onclick="setColor('#22c55e')" class="color-btn bg-green-500 w-6 h-6 md:w-8 md:h-8" title="Verde"></button>
+                <button onclick="setColor('#facc15')" class="color-btn bg-yellow-400 w-6 h-6 md:w-8 md:h-8" title="Amarelo"></button>
+            </div>
+
+            <!-- Borracha e Ações -->
+            <div class="flex gap-1 md:gap-2 md:border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-4 items-center">
+                <button onclick="setTool('eraser')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolEraser" title="Borracha">
+                    <i class="fas fa-eraser text-sm md:text-base"></i>
+                </button>
+                
+                <div class="hidden md:block w-px bg-gray-300 dark:bg-slate-600 mx-1 h-6"></div>
+                
+                <button onclick="undoDraw()" class="p-2 md:p-3 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors" title="Desfazer">
+                    <i class="fas fa-undo text-sm md:text-base"></i>
+                </button>
+                <button onclick="clearCanvas()" class="p-2 md:p-3 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors" title="Limpar Slide">
+                    <i class="fas fa-trash-alt text-sm md:text-base"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Javascript Logic -->
     <script>
-        // DOM Elements
+        // Shared Elements
+        const appBuilder = document.getElementById('appBuilder');
+        const appPresentation = document.getElementById('appPresentation');
+        const confirmModal = document.getElementById('confirmModal');
+
+        function switchAppMode(mode) {
+            if (mode === 'presentation') {
+                appBuilder.classList.add('hidden');
+                appPresentation.classList.remove('hidden');
+                setTimeout(resizeCanvasToImage, 100);
+            } else {
+                appPresentation.classList.add('hidden');
+                appBuilder.classList.remove('hidden');
+            }
+        }
+
+        // Modal Logic
+        function clearCanvas() { confirmModal.classList.remove('hidden'); }
+        function closeConfirmModal() { confirmModal.classList.add('hidden'); }
+        function executeClearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); saveUndoStep(); closeConfirmModal(); }
+
+        // Theme Builder Elements
         const themeToggleBtn = document.getElementById('themeToggle');
         const html = document.documentElement;
         const icon = themeToggleBtn.querySelector('i');
-        
         const sidebarPanel = document.getElementById('sidebarPanel');
         const sidebarBackdrop = document.getElementById('sidebarBackdrop');
         const openSidebarBtn = document.getElementById('openSidebarBtn');
-
         const bgInput = document.getElementById('bgInput');
         const bgFileName = document.getElementById('bgFileName');
         const previewBg = document.getElementById('previewBg');
-        
         const logoInput = document.getElementById('logoInput');
         const logoFileName = document.getElementById('logoFileName');
         const previewLogo = document.getElementById('previewLogo');
         const logoSizeInput = document.getElementById('logoSizeInput');
         const logoSizeDisplay = document.getElementById('logoSizeDisplay');
         const btnToggleLogo = document.getElementById('btnToggleLogo'); 
-        
         const themeTextInput = document.getElementById('themeTextInput');
         const neonTextContainer = document.getElementById('neonTextContainer');
         const fontSizeInput = document.getElementById('fontSizeInput');
         const fontSizeDisplay = document.getElementById('fontSizeDisplay');
-        const btnToggleText = document.getElementById('btnToggleText'); // Referência ao novo botão
-
-        // Position Buttons
+        const btnToggleText = document.getElementById('btnToggleText');
         const btnPosTop = document.getElementById('btnPosTop');
         const btnPosCenter = document.getElementById('btnPosCenter');
         const btnPosBottom = document.getElementById('btnPosBottom');
-
-        // Stroke Buttons
         const btnStrokeMixed = document.getElementById('btnStrokeMixed');
         const btnStrokeBlue = document.getElementById('btnStrokeBlue');
         const btnStrokeYellow = document.getElementById('btnStrokeYellow');
+        const captureArea = document.getElementById('captureArea');
+        const btnRatio169 = document.getElementById('btnRatio169');
+        const btnRatio916 = document.getElementById('btnRatio916');
 
-        // State para cores das palavras (array de booleanos: true=blue, false=yellow)
         let wordColorsState = [true, false, true]; 
-        let currentStrokeMode = 'mixed'; // mixed, blue, yellow
-        let currentTextPosition = 'center'; // center, top, bottom
+        let currentStrokeMode = 'mixed'; 
+        let currentTextPosition = 'center';
+        let currentAspectRatio = '16:9';
         
-        // --- SISTEMA DE MULTI-PÁGINAS (NOVO) ---
-        
-        // Estrutura para armazenar as páginas
         let pages = [];
         let currentPageId = 0;
         let pageCounter = 1;
 
-        // Estado Padrão (Factory)
         function getDefaultState() {
             return {
                 bgImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')",
@@ -431,122 +550,70 @@
                 textValue: "TEMA\nDA LIVE",
                 textSize: 72,
                 textVisible: true, 
-                textPosition: 'center', // Novo estado padrão
+                textPosition: 'center',
+                aspectRatio: '16:9',
                 wordColors: [true, false, true],
                 strokeMode: 'mixed'
             };
         }
 
-        // 4. Adicionar Nova Página (Função do Botão)
         function addNewPage() {
-            // Salva o estado da página atual antes de mudar
             savePage(currentPageId);
-
             pageCounter++;
-            const newPage = {
-                id: pageCounter,
-                name: `Novo Tema ${pageCounter}`,
-                state: getDefaultState()
-            };
-            
+            const newPage = { id: pageCounter, name: `Novo Tema ${pageCounter}`, state: getDefaultState() };
             pages.push(newPage);
             currentPageId = newPage.id;
-            
-            // Carrega a nova página (limpa)
             loadStateToDOM(newPage.state);
             renderPageNavigation();
-            
-            // Reset inputs de arquivo (visual apenas, pois o FileList é readonly)
-            bgInput.value = '';
-            logoInput.value = '';
+            bgInput.value = ''; logoInput.value = '';
         }
 
-        // 5. Salvar Página Específica
         function savePage(id) {
             const pageIndex = pages.findIndex(p => p.id === id);
-            if (pageIndex !== -1) {
-                pages[pageIndex].state = captureCurrentState();
-            }
+            if (pageIndex !== -1) pages[pageIndex].state = captureCurrentState();
         }
 
-        // 6. Trocar de Página
         function switchPage(id) {
             if (id === currentPageId) return;
-
-            // Salva a atual
             savePage(currentPageId);
-            
-            // Encontra e carrega a nova
             const page = pages.find(p => p.id === id);
-            if (page) {
-                currentPageId = id;
-                loadStateToDOM(page.state);
-                renderPageNavigation();
-            }
+            if (page) { currentPageId = id; loadStateToDOM(page.state); renderPageNavigation(); }
         }
 
-        // 7. Renderizar Lista na Sidebar
         function renderPageNavigation() {
             const container = document.getElementById('pageNavigation');
-            container.innerHTML = ''; // Limpa lista
-
-            if (pages.length <= 1) {
-                container.style.display = 'none'; // Esconde se só tem 1 página
-                return;
-            } else {
-                container.style.display = 'block';
-            }
-            
+            container.innerHTML = '';
+            if (pages.length <= 1) { container.style.display = 'none'; return; } 
+            else { container.style.display = 'block'; }
             const label = document.createElement('div');
             label.className = "text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1";
             label.textContent = "Navegar entre Temas";
             container.appendChild(label);
-
             pages.forEach(page => {
                 const isActive = page.id === currentPageId;
-                
                 const btn = document.createElement('button');
                 btn.onclick = () => switchPage(page.id);
-                
-                // Estilo Dinâmico (Ativo vs Inativo)
                 const baseClass = "w-full text-left px-3 py-2 rounded-md text-xs font-medium transition-all flex justify-between items-center group ";
                 const activeClass = "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-sm";
                 const inactiveClass = "text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/50 border border-transparent";
-                
                 btn.className = baseClass + (isActive ? activeClass : inactiveClass);
-                
-                // Conteúdo do Botão
                 const spanName = document.createElement('span');
                 spanName.textContent = page.name;
-                
-                // Indicador visual
                 const indicator = document.createElement('i');
                 indicator.className = isActive ? "fas fa-circle text-[6px] text-blue-500 animate-pulse" : "fas fa-chevron-right text-[8px] opacity-0 group-hover:opacity-100 transition-opacity";
-
-                btn.appendChild(spanName);
-                btn.appendChild(indicator);
-                
+                btn.appendChild(spanName); btn.appendChild(indicator);
                 container.appendChild(btn);
             });
         }
 
-        // 1. Inicialização
         function initPages() {
-            // Cria a primeira página com o estado inicial
-            const initialPage = {
-                id: 1,
-                name: "Tema Principal",
-                state: getDefaultState()
-            };
+            const initialPage = { id: 1, name: "Tema Principal", state: getDefaultState() };
             pages.push(initialPage);
             currentPageId = 1;
             renderPageNavigation();
-            
-            // Renderiza o estado inicial
             loadStateToDOM(initialPage.state);
         }
 
-        // 2. Capturar Estado Atual do DOM
         function captureCurrentState() {
             return {
                 bgImage: previewBg.style.backgroundImage,
@@ -558,367 +625,419 @@
                 textValue: themeTextInput.value,
                 textSize: fontSizeInput.value,
                 textVisible: neonTextContainer.style.display !== 'none', 
-                textPosition: currentTextPosition, // Captura posição
+                textPosition: currentTextPosition,
+                aspectRatio: currentAspectRatio,
                 wordColors: [...wordColorsState], 
                 strokeMode: currentStrokeMode
             };
         }
 
-        // 3. Carregar Estado no DOM
         function loadStateToDOM(state) {
-            // Background
             previewBg.style.backgroundImage = state.bgImage;
             bgFileName.textContent = state.bgName;
-            
-            // Logo
             previewLogo.src = state.logoSrc;
             logoFileName.textContent = state.logoName;
-            
-            // Logo Size
             logoSizeInput.value = state.logoSize;
             previewLogo.style.height = `${state.logoSize}px`;
             logoSizeDisplay.textContent = `${state.logoSize}px`;
-            
-            // Logo Visibility
             previewLogo.style.display = state.logoVisible ? 'block' : 'none';
             const iconLogo = btnToggleLogo.querySelector('i');
-            if (state.logoVisible) {
-                iconLogo.className = 'fas fa-eye';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                iconLogo.className = 'fas fa-eye-slash';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-
-            // Text
+            iconLogo.className = state.logoVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
             themeTextInput.value = state.textValue;
-            
-            // Font Size
             fontSizeInput.value = state.textSize;
             neonTextContainer.style.fontSize = `${state.textSize}px`;
             fontSizeDisplay.textContent = `${state.textSize}px`;
-
-            // Text Visibility
             const isTextVisible = state.textVisible !== undefined ? state.textVisible : true;
             neonTextContainer.style.display = isTextVisible ? 'block' : 'none';
-            
             const iconText = btnToggleText.querySelector('i');
-            if (isTextVisible) {
-                iconText.className = 'fas fa-eye';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                iconText.className = 'fas fa-eye-slash';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-            
-            // Colors State & Stroke
+            iconText.className = isTextVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
             wordColorsState = [...state.wordColors];
             setStrokeMode(state.strokeMode);
-            
-            // Text Position (NOVO)
-            setTextPosition(state.textPosition || 'center'); // Fallback para center
-            
-            // Render Text Final
+            setTextPosition(state.textPosition || 'center');
+            setAspectRatio(state.aspectRatio || '16:9');
             renderText();
         }
 
-        // 7. Text Position Logic (NOVO)
         function setTextPosition(pos) {
             currentTextPosition = pos;
             const wrapper = document.getElementById('contentWrapper');
-            
-            // Resetar classes de posição
             wrapper.classList.remove('justify-center', 'justify-start', 'justify-end', 'pt-24', 'pb-24');
-            
-            if (pos === 'center') {
-                wrapper.classList.add('justify-center');
-            } else if (pos === 'top') {
-                wrapper.classList.add('justify-start', 'pt-24'); // Padding para não colar no topo
-            } else if (pos === 'bottom') {
-                wrapper.classList.add('justify-end', 'pb-24'); // Padding para não colar no fundo
-            }
-            
+            if (pos === 'center') wrapper.classList.add('justify-center');
+            else if (pos === 'top') wrapper.classList.add('justify-start', 'pt-24');
+            else if (pos === 'bottom') wrapper.classList.add('justify-end', 'pb-24');
             updatePositionButtonsUI();
             savePage(currentPageId);
         }
 
-        function updatePositionButtonsUI() {
-            // Reset styles
-            [btnPosTop, btnPosCenter, btnPosBottom].forEach(btn => {
-                btn.className = 'flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
-            });
-
-            // Active Style
-            const activeClass = 'flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 text-blue-500 font-bold';
+        function setAspectRatio(ratio) {
+            currentAspectRatio = ratio;
             
-            if (currentTextPosition === 'top') {
-                btnPosTop.className = activeClass;
-            } else if (currentTextPosition === 'center') {
-                btnPosCenter.className = activeClass;
-            } else if (currentTextPosition === 'bottom') {
-                btnPosBottom.className = activeClass;
+            // Remove previous classes
+            captureArea.classList.remove('aspect-video', 'aspect-[9/16]', 'max-w-5xl', 'max-w-sm', 'h-full', 'max-h-[85vh]');
+            
+            if (ratio === '16:9') {
+                // Landscape
+                captureArea.classList.add('aspect-video', 'max-w-5xl', 'w-full');
+                
+                // UI Toggle Buttons
+                btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
+                btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
+                
+            } else {
+                // Portrait (9:16) - Mobile
+                captureArea.classList.add('aspect-[9/16]', 'h-full', 'max-h-[85vh]', 'max-w-sm'); 
+                
+                // UI Toggle Buttons
+                btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
+                btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
             }
+            savePage(currentPageId);
         }
 
-        // 6. Stroke Control Logic
+        function updatePositionButtonsUI() {
+            [btnPosTop, btnPosCenter, btnPosBottom].forEach(btn => btn.className = 'flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50');
+            const activeClass = 'flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 text-blue-500 font-bold';
+            if (currentTextPosition === 'top') btnPosTop.className = activeClass;
+            else if (currentTextPosition === 'center') btnPosCenter.className = activeClass;
+            else if (currentTextPosition === 'bottom') btnPosBottom.className = activeClass;
+        }
+
         function setStrokeMode(mode) {
             currentStrokeMode = mode;
-            
-            // Limpar classes de override de forma segura
-            neonTextContainer.classList.remove('force-stroke-blue');
-            neonTextContainer.classList.remove('force-stroke-yellow');
-            
-            // Adicionar classe nova se necessário
-            if (mode === 'blue') {
-                neonTextContainer.classList.add('force-stroke-blue');
-            } else if (mode === 'yellow') {
-                neonTextContainer.classList.add('force-stroke-yellow');
-            }
-            
+            neonTextContainer.classList.remove('force-stroke-blue', 'force-stroke-yellow');
+            if (mode === 'blue') neonTextContainer.classList.add('force-stroke-blue');
+            else if (mode === 'yellow') neonTextContainer.classList.add('force-stroke-yellow');
             updateStrokeButtonsUI();
             savePage(currentPageId);
         }
 
         function updateStrokeButtonsUI() {
-            // Reset styles
-            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => {
-                btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50';
-            });
-
-            // Active Style
+            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50');
             const activeClass = 'flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500';
-            
-            if (currentStrokeMode === 'mixed') {
-                btnStrokeMixed.className = activeClass;
-            } else if (currentStrokeMode === 'blue') {
-                btnStrokeBlue.className = activeClass + ' text-cyan-500';
-            } else if (currentStrokeMode === 'yellow') {
-                btnStrokeYellow.className = activeClass + ' text-yellow-500';
-            }
+            if (currentStrokeMode === 'mixed') btnStrokeMixed.className = activeClass;
+            else if (currentStrokeMode === 'blue') btnStrokeBlue.className = activeClass + ' text-cyan-500';
+            else if (currentStrokeMode === 'yellow') btnStrokeYellow.className = activeClass + ' text-yellow-500';
         }
 
-        // 4. Text Rendering & Color Toggle Logic
         function renderText() {
-            // Valor padrão se vazio
-            if (!themeTextInput.value && document.activeElement !== themeTextInput) {
-                 themeTextInput.value = "TEMA\nDA LIVE";
-            }
-            
+            if (!themeTextInput.value && document.activeElement !== themeTextInput) themeTextInput.value = "TEMA\nDA LIVE";
             const rawText = themeTextInput.value;
             const allWords = rawText.replace(/\n/g, ' ').split(' ').filter(w => w.length > 0);
-            
             if (allWords.length !== wordColorsState.length) {
-                const newState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
-                wordColorsState = newState;
+                wordColorsState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
             }
-
-            neonTextContainer.innerHTML = ''; // Limpar container
+            neonTextContainer.innerHTML = '';
             let globalWordIndex = 0;
-
             const lines = rawText.split('\n');
-
             lines.forEach((line, lineIndex) => {
                 const wordsInLine = line.split(' ').filter(w => w.length > 0);
-                
                 if (wordsInLine.length > 0) {
                     wordsInLine.forEach((word) => {
                         const currentIndex = globalWordIndex;
                         const span = document.createElement('span');
                         span.textContent = word + ' '; 
                         span.classList.add('interactive-word');
-                        
-                        if (wordColorsState[currentIndex]) {
-                            span.classList.add('text-neon-blue');
-                        } else {
-                            span.classList.add('text-neon-yellow');
-                        }
-
+                        if (wordColorsState[currentIndex]) span.classList.add('text-neon-blue');
+                        else span.classList.add('text-neon-yellow');
                         span.addEventListener('click', () => {
                             wordColorsState[currentIndex] = !wordColorsState[currentIndex];
-                            // Re-aplicar a classe correta
                             if (wordColorsState[currentIndex]) {
-                                span.classList.remove('text-neon-yellow');
-                                span.classList.add('text-neon-blue');
+                                span.classList.remove('text-neon-yellow'); span.classList.add('text-neon-blue');
                             } else {
-                                span.classList.remove('text-neon-blue');
-                                span.classList.add('text-neon-yellow');
+                                span.classList.remove('text-neon-blue'); span.classList.add('text-neon-yellow');
                             }
-                            savePage(currentPageId); // Salva ao mudar cor
+                            savePage(currentPageId);
                         });
-
                         neonTextContainer.appendChild(span);
                         globalWordIndex++;
                     });
                 } 
-
-                if (lineIndex < lines.length - 1) {
-                    neonTextContainer.appendChild(document.createElement('br'));
-                }
+                if (lineIndex < lines.length - 1) neonTextContainer.appendChild(document.createElement('br'));
             });
         }
 
-        // Removido resetModel antigo, pois agora usamos o addNewPage
-        // Mantemos a funcionalidade inicial
-        
-        themeTextInput.addEventListener('input', renderText);
-        themeTextInput.addEventListener('change', () => savePage(currentPageId)); // Save on text blur
-
-        // Inicializar Sistema de Páginas
-        initPages();
-        updateStrokeButtonsUI(); 
-        
-        // Inicializar botões corretos com base no tamanho da tela
         function updateButtonVisibility() {
             const isMobile = window.innerWidth < 768;
             const isDesktopClosed = sidebarPanel.classList.contains('md:w-0');
             const isMobileClosed = sidebarPanel.classList.contains('-translate-x-full');
-
             if (isMobile) {
-                // Mobile: Se fechado (-translate-x-full), mostra botão. Se aberto, esconde.
-                if (isMobileClosed) {
-                    openSidebarBtn.classList.remove('scale-0', 'opacity-0');
-                    openSidebarBtn.classList.add('scale-100', 'opacity-100');
-                } else {
-                    openSidebarBtn.classList.remove('scale-100', 'opacity-100');
-                    openSidebarBtn.classList.add('scale-0', 'opacity-0');
-                }
+                if (isMobileClosed) { openSidebarBtn.classList.remove('scale-0', 'opacity-0'); openSidebarBtn.classList.add('scale-100', 'opacity-100'); }
+                else { openSidebarBtn.classList.remove('scale-100', 'opacity-100'); openSidebarBtn.classList.add('scale-0', 'opacity-0'); }
             } else {
-                // Desktop: Se fechado (md:w-0), mostra botão. Se aberto (w-96), esconde.
-                if (isDesktopClosed) {
-                    openSidebarBtn.classList.remove('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0');
-                    openSidebarBtn.classList.add('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100');
-                } else {
-                    openSidebarBtn.classList.remove('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100');
-                    openSidebarBtn.classList.add('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0');
-                }
+                if (isDesktopClosed) { openSidebarBtn.classList.remove('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0'); openSidebarBtn.classList.add('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100'); }
+                else { openSidebarBtn.classList.remove('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100'); openSidebarBtn.classList.add('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0'); }
             }
         }
 
-        // Sidebar Toggle Logic
         function toggleSidebar() {
             const isMobile = window.innerWidth < 768;
-
             if (isMobile) {
-                // Mobile Logic
-                if (sidebarPanel.classList.contains('-translate-x-full')) {
-                    sidebarPanel.classList.remove('-translate-x-full');
-                    sidebarBackdrop.classList.remove('hidden');
-                } else {
-                    sidebarPanel.classList.add('-translate-x-full');
-                    sidebarBackdrop.classList.add('hidden');
-                }
+                if (sidebarPanel.classList.contains('-translate-x-full')) { sidebarPanel.classList.remove('-translate-x-full'); sidebarBackdrop.classList.remove('hidden'); }
+                else { sidebarPanel.classList.add('-translate-x-full'); sidebarBackdrop.classList.add('hidden'); }
             } else {
-                // Desktop Logic
-                if (sidebarPanel.classList.contains('md:w-0')) {
-                    // ABRIR
-                    sidebarPanel.classList.remove('md:w-0');
-                    sidebarPanel.classList.add('md:w-96');
-                } else {
-                    // FECHAR
-                    sidebarPanel.classList.remove('md:w-96');
-                    sidebarPanel.classList.add('md:w-0');
-                }
+                if (sidebarPanel.classList.contains('md:w-0')) { sidebarPanel.classList.remove('md:w-0'); sidebarPanel.classList.add('md:w-96'); }
+                else { sidebarPanel.classList.remove('md:w-96'); sidebarPanel.classList.add('md:w-0'); }
             }
-            
             setTimeout(updateButtonVisibility, 50);
         }
 
-        updateButtonVisibility();
-        window.addEventListener('resize', updateButtonVisibility);
-
-        // Theme Toggle
-        themeToggleBtn.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            if(html.classList.contains('dark')){
-                icon.classList.remove('fa-sun', 'text-orange-400');
-                icon.classList.add('fa-moon', 'text-yellow-300');
+        function toggleLogo() {
+            const icon = btnToggleLogo.querySelector('i');
+            if (previewLogo.style.display === 'none') {
+                previewLogo.style.display = 'block'; icon.className = 'fas fa-eye';
             } else {
-                icon.classList.remove('fa-moon', 'text-yellow-300');
-                icon.classList.add('fa-sun', 'text-orange-400');
+                previewLogo.style.display = 'none'; icon.className = 'fas fa-eye-slash';
+            }
+            savePage(currentPageId);
+        }
+
+        function toggleText() {
+            const icon = btnToggleText.querySelector('i');
+            if (neonTextContainer.style.display === 'none') {
+                neonTextContainer.style.display = 'block'; icon.className = 'fas fa-eye';
+            } else {
+                neonTextContainer.style.display = 'none'; icon.className = 'fas fa-eye-slash';
+            }
+            savePage(currentPageId);
+        }
+
+        // Presentation Logic
+        const presUpload = document.getElementById('presentationUpload');
+        const slideWrapper = document.getElementById('slideWrapper');
+        const currentSlideImg = document.getElementById('currentSlideImg');
+        const emptyStatePres = document.getElementById('emptyStatePres');
+        const slideCounter = document.getElementById('slideCounter');
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const btnPrevSlide = document.getElementById('btnPrevSlide');
+        const btnNextSlide = document.getElementById('btnNextSlide');
+
+        let presSlides = []; 
+        let currentSlideIndex = 0;
+        let isDrawing = false;
+        let currentTool = 'pencil'; 
+        let currentColor = '#ffffff';
+        let currentStrokeSize = 4;
+        let undoStack = []; 
+
+        presUpload.addEventListener('change', handleSlideUpload);
+
+        function handleSlideUpload(e) {
+            const files = Array.from(e.target.files);
+            if(files.length === 0) return;
+            presSlides = [];
+            currentSlideIndex = 0;
+            let loadedCount = 0;
+            files.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = new Image();
+                    img.src = ev.target.result;
+                    img.onload = () => {
+                        presSlides.push({
+                            src: img.src,
+                            drawData: null, 
+                            undoHistory: [] 
+                        });
+                        loadedCount++;
+                        if (loadedCount === files.length) initPresentation();
+                    }
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function initPresentation() {
+            emptyStatePres.classList.add('hidden');
+            slideWrapper.classList.remove('hidden');
+            slideCounter.classList.remove('hidden');
+            loadSlide(0);
+        }
+
+        function loadSlide(index) {
+            if (index < 0 || index >= presSlides.length) return;
+            if (presSlides[currentSlideIndex]) presSlides[currentSlideIndex].drawData = canvas.toDataURL();
+            currentSlideIndex = index;
+            const slide = presSlides[index];
+            currentSlideImg.src = slide.src;
+            slideCounter.textContent = `Slide ${index + 1} / ${presSlides.length}`;
+            btnPrevSlide.disabled = index === 0;
+            btnNextSlide.disabled = index === presSlides.length - 1;
+            setTimeout(() => {
+                resizeCanvasToImage();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                undoStack = slide.undoHistory || []; 
+                if (slide.drawData) {
+                    const img = new Image();
+                    img.onload = function(){ ctx.drawImage(img,0,0); };
+                    img.src = slide.drawData;
+                } else {
+                    saveUndoStep();
+                }
+            }, 50);
+        }
+
+        function nextSlide() { if (currentSlideIndex < presSlides.length - 1) loadSlide(currentSlideIndex + 1); }
+        function prevSlide() { if (currentSlideIndex > 0) loadSlide(currentSlideIndex - 1); }
+
+        function resizeCanvasToImage() {
+            const rect = currentSlideImg.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+
+        window.addEventListener('resize', () => {
+             clearTimeout(window.resizeTimer);
+             window.resizeTimer = setTimeout(() => {
+                 if(!appPresentation.classList.contains('hidden') && presSlides.length > 0) {
+                     const tempDraw = canvas.toDataURL();
+                     resizeCanvasToImage();
+                     const img = new Image();
+                     img.onload = () => ctx.drawImage(img,0,0);
+                     img.src = tempDraw;
+                 }
+             }, 200);
+        });
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function startDraw(e) {
+            isDrawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            if (currentTool === 'eraser') {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = 20;
+            } else if (currentTool === 'highlighter') {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = convertHexToRGBA(currentColor, 0.4);
+                ctx.lineWidth = 15;
+            } else {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = 3;
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); 
+            const pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function endDraw() {
+            if (isDrawing) { isDrawing = false; ctx.closePath(); saveUndoStep(); }
+        }
+
+        function convertHexToRGBA(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseout', endDraw);
+        canvas.addEventListener('touchstart', startDraw, {passive: false});
+        canvas.addEventListener('touchmove', draw, {passive: false});
+        canvas.addEventListener('touchend', endDraw);
+
+        function setTool(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-600', 'text-white');
+                b.classList.add('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300', 'hover:text-blue-500', 'dark:hover:text-white', 'hover:bg-gray-200', 'dark:hover:bg-slate-600');
+            });
+            const btn = document.getElementById('tool' + tool.charAt(0).toUpperCase() + tool.slice(1));
+            btn.classList.remove('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300', 'hover:text-blue-500', 'dark:hover:text-white', 'hover:bg-gray-200', 'dark:hover:bg-slate-600');
+            btn.classList.add('active', 'bg-blue-600', 'text-white');
+        }
+
+        function setColor(color) {
+            currentColor = color;
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            if (currentTool === 'eraser') setTool('pencil');
+        }
+
+        function saveUndoStep() {
+            if (!presSlides[currentSlideIndex]) return;
+            if (presSlides[currentSlideIndex].undoHistory.length > 20) presSlides[currentSlideIndex].undoHistory.shift();
+            presSlides[currentSlideIndex].undoHistory.push(canvas.toDataURL());
+        }
+
+        function undoDraw() {
+            const history = presSlides[currentSlideIndex]?.undoHistory;
+            if (history && history.length > 1) {
+                history.pop(); 
+                const prevState = history[history.length - 1]; 
+                const img = new Image();
+                img.onload = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); };
+                img.src = prevState;
+            } else if (history && history.length === 1) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                history.pop(); 
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!appPresentation.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'z' && e.ctrlKey) undoDraw();
             }
         });
 
-        // 2. Image Upload Logic (Background)
+        themeToggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            icon.className = html.classList.contains('dark') ? 'fas fa-moon text-yellow-300' : 'fas fa-sun text-orange-400';
+        });
+
         bgInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 bgFileName.textContent = file.name;
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    previewBg.style.backgroundImage = `url('${event.target.result}')`;
-                    // Auto-save state change
-                    savePage(currentPageId);
-                }
+                reader.onload = (event) => { previewBg.style.backgroundImage = `url('${event.target.result}')`; savePage(currentPageId); }
                 reader.readAsDataURL(file);
             }
         });
 
-        // 3. Logo Upload Logic
         logoInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 logoFileName.textContent = file.name;
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    previewLogo.src = event.target.result;
-                    savePage(currentPageId);
-                }
+                reader.onload = (event) => { previewLogo.src = event.target.result; savePage(currentPageId); }
                 reader.readAsDataURL(file);
             }
         });
 
-        // 3.1 Logo Size Logic
-        logoSizeInput.addEventListener('input', (e) => {
-            const size = e.target.value;
-            previewLogo.style.height = `${size}px`;
-            logoSizeDisplay.textContent = `${size}px`;
-        });
-        // Save on change (mouseup) para não salvar a cada pixel do slider
+        logoSizeInput.addEventListener('input', (e) => { previewLogo.style.height = `${e.target.value}px`; logoSizeDisplay.textContent = `${e.target.value}px`; });
         logoSizeInput.addEventListener('change', () => savePage(currentPageId));
 
-        // 3.2 Logo Visibility Logic
-        function toggleLogo() {
-            const icon = btnToggleLogo.querySelector('i');
-            
-            if (previewLogo.style.display === 'none') {
-                // Mostrar
-                previewLogo.style.display = 'block';
-                icon.className = 'fas fa-eye';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                // Ocultar
-                previewLogo.style.display = 'none';
-                icon.className = 'fas fa-eye-slash';
-                btnToggleLogo.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-            savePage(currentPageId);
-        }
-
-        // 5. Font Size Logic
-        fontSizeInput.addEventListener('input', (e) => {
-            const size = e.target.value;
-            neonTextContainer.style.fontSize = `${size}px`;
-            fontSizeDisplay.textContent = `${size}px`;
-        });
+        fontSizeInput.addEventListener('input', (e) => { neonTextContainer.style.fontSize = `${e.target.value}px`; fontSizeDisplay.textContent = `${e.target.value}px`; });
         fontSizeInput.addEventListener('change', () => savePage(currentPageId));
 
-        // 5.1 Text Visibility Logic (NOVO)
-        function toggleText() {
-            const icon = btnToggleText.querySelector('i');
-            
-            if (neonTextContainer.style.display === 'none') {
-                // Mostrar
-                neonTextContainer.style.display = 'block';
-                icon.className = 'fas fa-eye';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 hover:bg-blue-200 transition-colors flex items-center gap-1';
-            } else {
-                // Ocultar
-                neonTextContainer.style.display = 'none';
-                icon.className = 'fas fa-eye-slash';
-                btnToggleText.className = 'text-xs px-2 py-0.5 rounded bg-gray-200 dark:bg-slate-700 text-slate-500 hover:bg-gray-300 transition-colors flex items-center gap-1';
-            }
-            savePage(currentPageId);
-        }
+        themeTextInput.addEventListener('input', renderText);
+        themeTextInput.addEventListener('change', () => savePage(currentPageId));
+
+        initPages();
+        updateStrokeButtonsUI();
+        updateButtonVisibility();
+        window.addEventListener('resize', updateButtonVisibility);
 
     </script>
 </body>

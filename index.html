@@ -468,9 +468,10 @@
                     <i class="fas fa-arrow-left mr-2"></i> <span class="hidden md:inline">Voltar ao Editor</span><span class="md:hidden">Editor</span>
                 </button>
                 <div class="h-6 w-px bg-gray-300 dark:bg-slate-600 mx-2"></div>
+                <!-- ATUALIZADO: Label aceita video -->
                 <label class="bg-blue-600 hover:bg-blue-500 text-white px-3 md:px-4 py-1.5 rounded text-sm font-bold cursor-pointer transition-colors flex items-center gap-2 shadow-lg" title="Suporta formatos 16:9 e 9:16">
-                    <i class="fas fa-folder-open"></i> <span class="hidden md:inline">Carregar Slides</span><span class="md:hidden">Slides</span>
-                    <input type="file" id="presentationUpload" accept="image/*" multiple class="hidden">
+                    <i class="fas fa-folder-open"></i> <span class="hidden md:inline">Carregar Mídia</span><span class="md:hidden">Mídia</span>
+                    <input type="file" id="presentationUpload" accept="image/*, video/*" multiple class="hidden">
                 </label>
                 <span id="slideCounter" class="text-slate-500 dark:text-slate-400 text-sm font-mono hidden">Slide 1 / 1</span>
             </div>
@@ -483,25 +484,29 @@
         <div class="flex-1 relative flex flex-col items-center justify-center bg-gray-200 dark:bg-black overflow-hidden p-2" id="presentationContainer">
             
             <div id="emptyStatePres" class="text-center p-8 absolute inset-0 flex flex-col items-center justify-center">
-                <i class="fas fa-images text-6xl text-slate-400 dark:text-slate-700 mb-4 block"></i>
+                <i class="fas fa-photo-video text-6xl text-slate-400 dark:text-slate-700 mb-4 block"></i>
                 <h3 class="text-xl text-slate-600 dark:text-slate-400 font-medium">Nenhum slide carregado</h3>
                 <p class="text-slate-500 dark:text-slate-300 text-sm mt-2 font-bold bg-white/10 dark:bg-black/20 py-1 px-3 rounded-full inline-block">
-                    Carregue imagens <span class="text-blue-500">16:9</span> ou <span class="text-purple-500">9:16</span> para começar a aula.
+                    Carregue imagens ou <span class="text-red-500">vídeos</span> para começar.
                 </p>
             </div>
             
-            <!-- STAGE AREA: Adjusted for Better 16:9 and 9:16 Visibility -->
-            <!-- Mobile: p-2 side padding for 9:16 width maximization, pb-28 for toolbar -->
-            <!-- Desktop: md:px-56 (AUMENTADO MAIS) side padding for 16:9 framing, md:pb-56 (AUMENTADO) balanced bottom space -->
+            <!-- STAGE AREA -->
             <div class="flex-1 w-full flex items-center justify-center p-2 md:px-56 pb-28 md:pb-56 min-h-0 relative z-10">
                 <div id="slideWrapper" class="relative hidden shadow-2xl flex items-center justify-center" style="width: auto; height: auto; max-width: 100%; max-height: 85vh;">
-                    <!-- Image handling: max-width/height 100% and auto dimensions to keep perfect aspect ratio -->
+                    
+                    <!-- IMAGEM -->
                     <img id="currentSlideImg" class="block" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;" alt="Slide">
+                    
+                    <!-- VÍDEO (Corrigido: Removido absolute para ocupar espaço real) -->
+                    <video id="currentSlideVideo" class="hidden" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;" loop playsinline></video>
+                    
+                    <!-- CANVAS (Sempre no topo) -->
                     <canvas id="drawingCanvas" class="absolute inset-0 cursor-pencil dark:cursor-pencil-dark touch-none"></canvas>
                 </div>
             </div>
 
-            <!-- Botões de Navegação (Flutuantes na Lateral, fora do Stage) -->
+            <!-- Botões de Navegação -->
             <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-20 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnPrevSlide">
                 <i class="fas fa-chevron-left text-2xl"></i>
             </button>
@@ -524,49 +529,60 @@
             </span>
         </button>
 
-        <!-- Floating Toolbar (Tools) - Modified for Retraction -->
-        <div id="drawingToolbar" class="absolute left-1/2 transform -translate-x-1/2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl p-2 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 flex flex-nowrap justify-between md:justify-center items-center gap-1 md:gap-4 z-40 transition-all duration-500 w-[95vw] md:w-auto max-w-3xl overflow-x-auto no-scrollbar origin-bottom scale-90 opacity-0 pointer-events-none translate-y-24" style="bottom: max(1.5rem, env(safe-area-inset-bottom));">
+        <!-- Floating Toolbar (Tools) - SUPER COMPACT MOBILE MODE -->
+        <div id="drawingToolbar" class="absolute left-1/2 transform -translate-x-1/2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl p-1 md:p-2 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 flex flex-nowrap justify-between md:justify-center items-center gap-0.5 md:gap-2 z-40 transition-all duration-500 w-[98vw] md:w-auto max-w-3xl overflow-x-auto no-scrollbar origin-bottom scale-90 opacity-0 pointer-events-none translate-y-24" style="bottom: max(1.5rem, env(safe-area-inset-bottom));">
             
-            <!-- Tools (Pinceis) -->
-            <div class="flex gap-1 md:gap-2 md:border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-4 items-center">
-                <button onclick="setTool('pencil')" class="tool-btn bg-blue-600 text-white active p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolPencil" title="Lápis">
-                    <i class="fas fa-pencil-alt text-sm md:text-base"></i>
+            <!-- VIDEO CONTROLS (Only visible for videos) -->
+            <div id="videoControls" class="hidden flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center mr-0.5 md:mr-0">
+                <button onclick="toggleVideoPlay()" id="btnPlayPause" class="tool-btn bg-indigo-600 text-white active p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Play/Pause">
+                    <i class="fas fa-play text-xs md:text-sm"></i>
                 </button>
-                <button onclick="setTool('highlighter')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolHighlighter" title="Marca Texto">
-                    <i class="fas fa-highlighter text-sm md:text-base"></i>
+                <button onclick="toggleVideoMute()" id="btnMute" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Mute/Unmute">
+                    <i class="fas fa-volume-mute text-xs md:text-sm"></i>
+                </button>
+                <div class="w-px bg-gray-300 dark:bg-slate-600 mx-0.5 md:mx-1 h-4 md:h-6"></div>
+            </div>
+
+            <!-- Tools (Pinceis) -->
+            <div class="flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
+                <button onclick="setTool('pencil')" class="tool-btn bg-blue-600 text-white active p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" id="toolPencil" title="Lápis">
+                    <i class="fas fa-pencil-alt text-xs md:text-sm"></i>
+                </button>
+                <button onclick="setTool('highlighter')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" id="toolHighlighter" title="Marca Texto">
+                    <i class="fas fa-highlighter text-xs md:text-sm"></i>
                 </button>
             </div>
 
             <!-- Colors (6 Cores) -->
-            <div class="flex gap-1 md:gap-2 md:border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-4 items-center">
-                <button onclick="setColor('#000000')" class="color-btn bg-black w-6 h-6 md:w-8 md:h-8" title="Preto"></button>
-                <button onclick="setColor('#ffffff')" class="color-btn bg-white active w-6 h-6 md:w-8 md:h-8" title="Branco"></button>
-                <button onclick="setColor('#3b82f6')" class="color-btn bg-blue-500 w-6 h-6 md:w-8 md:h-8" title="Azul"></button>
-                <button onclick="setColor('#ef4444')" class="color-btn bg-red-500 w-6 h-6 md:w-8 md:h-8" title="Vermelho"></button>
-                <button onclick="setColor('#22c55e')" class="color-btn bg-green-500 w-6 h-6 md:w-8 md:h-8" title="Verde"></button>
-                <button onclick="setColor('#facc15')" class="color-btn bg-yellow-400 w-6 h-6 md:w-8 md:h-8" title="Amarelo"></button>
+            <div class="flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
+                <button onclick="setColor('#000000')" class="color-btn bg-black w-5 h-5 md:w-7 md:h-7" title="Preto"></button>
+                <button onclick="setColor('#ffffff')" class="color-btn bg-white active w-5 h-5 md:w-7 md:h-7" title="Branco"></button>
+                <button onclick="setColor('#3b82f6')" class="color-btn bg-blue-500 w-5 h-5 md:w-7 md:h-7" title="Azul"></button>
+                <button onclick="setColor('#ef4444')" class="color-btn bg-red-500 w-5 h-5 md:w-7 md:h-7" title="Vermelho"></button>
+                <button onclick="setColor('#22c55e')" class="color-btn bg-green-500 w-5 h-5 md:w-7 md:h-7" title="Verde"></button>
+                <button onclick="setColor('#facc15')" class="color-btn bg-yellow-400 w-5 h-5 md:w-7 md:h-7" title="Amarelo"></button>
             </div>
 
             <!-- Borracha e Ações -->
-            <div class="flex gap-1 md:gap-2 md:border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-4 items-center">
-                <button onclick="setTool('eraser')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-2 md:p-3 w-8 h-8 md:w-auto md:h-auto" id="toolEraser" title="Borracha">
-                    <i class="fas fa-eraser text-sm md:text-base"></i>
+            <div class="flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
+                <button onclick="setTool('eraser')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" id="toolEraser" title="Borracha">
+                    <i class="fas fa-eraser text-xs md:text-sm"></i>
                 </button>
                 
                 <div class="hidden md:block w-px bg-gray-300 dark:bg-slate-600 mx-1 h-6"></div>
                 
-                <button onclick="undoDraw()" class="p-2 md:p-3 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors" title="Desfazer">
-                    <i class="fas fa-undo text-sm md:text-base"></i>
+                <button onclick="undoDraw()" class="p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-700" title="Desfazer">
+                    <i class="fas fa-undo text-xs md:text-sm"></i>
                 </button>
-                <button onclick="clearCanvas()" class="p-2 md:p-3 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors" title="Limpar Slide">
-                    <i class="fas fa-trash-alt text-sm md:text-base"></i>
+                <button onclick="clearCanvas()" class="p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9 text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-700" title="Limpar Slide">
+                    <i class="fas fa-trash-alt text-xs md:text-sm"></i>
                 </button>
             </div>
 
             <!-- New Minimize Button -->
-            <div class="flex gap-1 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-4 items-center">
-                <button onclick="toggleToolbar(false)" class="p-2 md:p-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-slate-700" title="Minimizar">
-                    <i class="fas fa-chevron-down text-sm md:text-base"></i>
+            <div class="flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
+                <button onclick="toggleToolbar(false)" class="p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center justify-center" title="Minimizar">
+                    <i class="fas fa-chevron-down text-xs md:text-sm"></i>
                 </button>
             </div>
         </div>
@@ -921,12 +937,14 @@
         const presUpload = document.getElementById('presentationUpload');
         const slideWrapper = document.getElementById('slideWrapper');
         const currentSlideImg = document.getElementById('currentSlideImg');
+        const currentSlideVideo = document.getElementById('currentSlideVideo'); // NOVO ELEMENTO
         const emptyStatePres = document.getElementById('emptyStatePres');
         const slideCounter = document.getElementById('slideCounter');
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         const btnPrevSlide = document.getElementById('btnPrevSlide');
         const btnNextSlide = document.getElementById('btnNextSlide');
+        const videoControls = document.getElementById('videoControls'); // NOVO CONTROLE
 
         // Main Slide Storage
         let presSlides = []; 
@@ -948,33 +966,41 @@
             const files = Array.from(e.target.files);
             if(files.length === 0) return;
             
-            // Clear temp array if starting new batch (or append if you prefer)
-            // Here we append to allow adding more slides to existing list if needed, 
-            // but for "new upload" usually implies starting fresh or adding.
-            // Let's reset temp slides to handle the new batch for organization.
             tempUploadedSlides = [...presSlides]; 
 
             let loadedCount = 0;
             files.forEach((file) => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    const img = new Image();
-                    img.src = ev.target.result;
-                    img.onload = () => {
-                        tempUploadedSlides.push({
-                            src: img.src,
-                            drawData: null, 
-                            undoHistory: [] 
-                        });
-                        loadedCount++;
-                        if (loadedCount === files.length) {
-                            openOrganizerModal();
+                const isVideo = file.type.startsWith('video');
+                
+                if (isVideo) {
+                    const videoUrl = URL.createObjectURL(file);
+                    tempUploadedSlides.push({
+                        type: 'video',
+                        src: videoUrl,
+                        drawData: null, 
+                        undoHistory: [] 
+                    });
+                    loadedCount++;
+                    if (loadedCount === files.length) openOrganizerModal();
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const img = new Image();
+                        img.src = ev.target.result;
+                        img.onload = () => {
+                            tempUploadedSlides.push({
+                                type: 'image',
+                                src: img.src,
+                                drawData: null, 
+                                undoHistory: [] 
+                            });
+                            loadedCount++;
+                            if (loadedCount === files.length) openOrganizerModal();
                         }
                     }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
             });
-            // Reset input so same files can be selected again if needed
             presUpload.value = '';
         }
 
@@ -1004,27 +1030,40 @@
 
             tempUploadedSlides.forEach((slide, index) => {
                 const el = document.createElement('div');
-                el.className = 'relative group organizer-item bg-white dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md border border-gray-200 dark:border-slate-600 aspect-video';
+                el.className = 'relative group organizer-item bg-white dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md border border-gray-200 dark:border-slate-600 aspect-video flex items-center justify-center bg-gray-100 dark:bg-black';
                 el.draggable = true;
                 el.dataset.index = index;
 
-                // Image
+                let mediaContent = '';
+                if (slide.type === 'video') {
+                    // Simples representação para vídeo no organizador
+                    mediaContent = `
+                        <video src="${slide.src}" class="w-full h-full object-cover pointer-events-none opacity-80"></video>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-10 h-10 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-play text-white text-sm"></i>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = `<img src="${slide.src}" class="w-full h-full object-cover pointer-events-none">`;
+                }
+
                 el.innerHTML = `
-                    <img src="${slide.src}" class="w-full h-full object-cover pointer-events-none">
+                    ${mediaContent}
                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
                     
-                    <div class="absolute top-2 left-2 bg-black/50 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm pointer-events-none">
+                    <div class="absolute top-2 left-2 bg-black/50 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm pointer-events-none z-10">
                         ${index + 1}
                     </div>
 
-                    <button onclick="deleteSlide(${index})" class="delete-slide-btn absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-sm z-10" title="Remover slide">
+                    <button onclick="deleteSlide(${index})" class="delete-slide-btn absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-sm z-20" title="Remover slide">
                         <i class="fas fa-trash text-xs"></i>
                     </button>
                     
                     <div class="absolute bottom-0 inset-x-0 h-1 bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                 `;
 
-                // Drag Events
                 el.addEventListener('dragstart', handleDragStart);
                 el.addEventListener('dragover', handleDragOver);
                 el.addEventListener('drop', handleDrop);
@@ -1043,7 +1082,7 @@
         }
 
         function handleDragOver(e) {
-            e.preventDefault(); // Necessary for drop to fire
+            e.preventDefault(); 
             e.dataTransfer.dropEffect = 'move';
             return false;
         }
@@ -1053,7 +1092,6 @@
             if (draggedIndex !== null) {
                 const targetIndex = parseInt(this.dataset.index);
                 if (draggedIndex !== targetIndex) {
-                    // Reorder array
                     const itemMoved = tempUploadedSlides.splice(draggedIndex, 1)[0];
                     tempUploadedSlides.splice(targetIndex, 0, itemMoved);
                     renderOrganizerGrid();
@@ -1078,7 +1116,6 @@
             if (presSlides.length > 0) {
                 initPresentation();
             } else {
-                // If user deleted all slides
                 emptyStatePres.classList.remove('hidden');
                 slideWrapper.classList.add('hidden');
                 slideCounter.classList.add('hidden');
@@ -1095,17 +1132,41 @@
 
         function loadSlide(index) {
             if (index < 0 || index >= presSlides.length) return;
-            // Save current drawing before switching
+            
+            // Save state before leaving
             if (presSlides[currentSlideIndex]) presSlides[currentSlideIndex].drawData = canvas.toDataURL();
             
+            // Stop previous video if exists
+            currentSlideVideo.pause();
+
             currentSlideIndex = index;
             const slide = presSlides[index];
-            currentSlideImg.src = slide.src;
+            
             slideCounter.textContent = `Slide ${index + 1} / ${presSlides.length}`;
             btnPrevSlide.disabled = index === 0;
             btnNextSlide.disabled = index === presSlides.length - 1;
+
+            // TOGGLE IMAGE vs VIDEO
+            if (slide.type === 'video') {
+                currentSlideImg.classList.add('hidden');
+                currentSlideVideo.classList.remove('hidden');
+                currentSlideVideo.src = slide.src;
+                currentSlideVideo.muted = true; // Start muted for UX
+                currentSlideVideo.play().catch(e => console.log("Autoplay blocked:", e));
+                
+                // Show Video Controls in Toolbar
+                videoControls.classList.remove('hidden');
+                updateVideoControlIcons();
+            } else {
+                currentSlideVideo.classList.add('hidden');
+                currentSlideImg.classList.remove('hidden');
+                currentSlideImg.src = slide.src;
+                
+                // Hide Video Controls
+                videoControls.classList.add('hidden');
+            }
             
-            // Debounce canvas resize/redraw
+            // Handle Drawing Canvas
             setTimeout(() => {
                 resizeCanvasToImage();
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1114,19 +1175,54 @@
                     const img = new Image();
                     img.onload = function(){ ctx.drawImage(img,0,0); };
                     img.src = slide.drawData;
-                } else {
-                    // If clean slide, no drawing
                 }
-            }, 50);
+            }, 100);
+        }
+
+        // Video Control Logic
+        function toggleVideoPlay() {
+            if (currentSlideVideo.paused) {
+                currentSlideVideo.play();
+            } else {
+                currentSlideVideo.pause();
+            }
+            updateVideoControlIcons();
+        }
+
+        function toggleVideoMute() {
+            currentSlideVideo.muted = !currentSlideVideo.muted;
+            updateVideoControlIcons();
+        }
+
+        function updateVideoControlIcons() {
+            const btnPlayPause = document.getElementById('btnPlayPause');
+            const btnMute = document.getElementById('btnMute');
+            
+            btnPlayPause.innerHTML = currentSlideVideo.paused ? '<i class="fas fa-play text-xs md:text-sm"></i>' : '<i class="fas fa-pause text-xs md:text-sm"></i>';
+            btnMute.innerHTML = currentSlideVideo.muted ? '<i class="fas fa-volume-mute text-xs md:text-sm"></i>' : '<i class="fas fa-volume-up text-xs md:text-sm"></i>';
+            
+            if (!currentSlideVideo.muted) {
+                btnMute.classList.remove('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600');
+                btnMute.classList.add('bg-blue-100', 'text-blue-600');
+            } else {
+                btnMute.classList.add('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600');
+                btnMute.classList.remove('bg-blue-100', 'text-blue-600');
+            }
         }
 
         function nextSlide() { if (currentSlideIndex < presSlides.length - 1) loadSlide(currentSlideIndex + 1); }
         function prevSlide() { if (currentSlideIndex > 0) loadSlide(currentSlideIndex - 1); }
 
         function resizeCanvasToImage() {
-            const rect = currentSlideImg.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
+            // Check which element is active
+            const activeElement = !currentSlideVideo.classList.contains('hidden') ? currentSlideVideo : currentSlideImg;
+            const rect = activeElement.getBoundingClientRect();
+            
+            if (rect.width > 0 && rect.height > 0) {
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                // Re-draw context logic handled in loadSlide or resize event
+            }
         }
 
         window.addEventListener('resize', () => {
@@ -1240,6 +1336,7 @@
                 if (e.key === 'ArrowRight') nextSlide();
                 if (e.key === 'ArrowLeft') prevSlide();
                 if (e.key === 'z' && e.ctrlKey) undoDraw();
+                if (e.key === ' ') toggleVideoPlay(); // Spacebar plays video
             }
         });
 

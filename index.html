@@ -105,7 +105,7 @@
             background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23475569FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
         }
 
-        /* Presentation Mode Styles (Fixed for Compatibility) */
+        /* Presentation Mode Styles */
         .tool-btn {
             border-radius: 9999px;
             transition: all 0.2s;
@@ -236,7 +236,7 @@
                         <div class="flex justify-between items-end mb-2">
                             <label class="block text-sm font-medium">Imagem de Fundo</label>
                             
-                            <!-- SELETOR DE FORMATO (NOVO) -->
+                            <!-- SELETOR DE FORMATO -->
                             <div class="flex bg-gray-200 dark:bg-slate-700 rounded-lg p-0.5">
                                 <button onclick="setAspectRatio('16:9')" id="btnRatio169" class="px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all">
                                     16:9
@@ -366,7 +366,7 @@
             </h2>
             <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px;"></div>
             
-            <!-- CONTAINER DE PREVIEW (ADAPTÁVEL 16:9 / 9:16) -->
+            <!-- CONTAINER DE PREVIEW (ADAPTÁVEL) -->
             <div class="relative shadow-2xl rounded-xl overflow-hidden bg-black border-4 border-white dark:border-slate-800 transition-all duration-300 group aspect-video w-full max-w-5xl" id="captureArea">
                 <div id="previewBg" class="absolute inset-0 bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');">
                     <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-500"></div>
@@ -405,7 +405,7 @@
                     <i class="fas fa-arrow-left mr-2"></i> <span class="hidden md:inline">Voltar ao Editor</span><span class="md:hidden">Editor</span>
                 </button>
                 <div class="h-6 w-px bg-gray-300 dark:bg-slate-600 mx-2"></div>
-                <label class="bg-blue-600 hover:bg-blue-500 text-white px-3 md:px-4 py-1.5 rounded text-sm font-bold cursor-pointer transition-colors flex items-center gap-2 shadow-lg">
+                <label class="bg-blue-600 hover:bg-blue-500 text-white px-3 md:px-4 py-1.5 rounded text-sm font-bold cursor-pointer transition-colors flex items-center gap-2 shadow-lg" title="Suporta formatos 16:9 e 9:16">
                     <i class="fas fa-folder-open"></i> <span class="hidden md:inline">Carregar Slides</span><span class="md:hidden">Slides</span>
                     <input type="file" id="presentationUpload" accept="image/*" multiple class="hidden">
                 </label>
@@ -416,21 +416,33 @@
             </div>
         </div>
 
-        <!-- Main Presentation Area -->
-        <div class="flex-1 relative flex items-center justify-center bg-gray-200 dark:bg-black overflow-hidden" id="presentationContainer">
-            <div id="emptyStatePres" class="text-center p-8">
+        <!-- Main Presentation Area - AJUSTE AQUI: Layout Flexível Robusto e Padding Inferior Aumentado -->
+        <div class="flex-1 relative flex flex-col items-center justify-center bg-gray-200 dark:bg-black overflow-hidden p-2" id="presentationContainer">
+            
+            <div id="emptyStatePres" class="text-center p-8 absolute inset-0 flex flex-col items-center justify-center">
                 <i class="fas fa-images text-6xl text-slate-400 dark:text-slate-700 mb-4 block"></i>
                 <h3 class="text-xl text-slate-600 dark:text-slate-400 font-medium">Nenhum slide carregado</h3>
-                <p class="text-slate-500 text-sm mt-2">Carregue imagens 16:9 ou 9:16 para começar a aula.</p>
+                <p class="text-slate-500 dark:text-slate-300 text-sm mt-2 font-bold bg-white/10 dark:bg-black/20 py-1 px-3 rounded-full inline-block">
+                    Carregue imagens <span class="text-blue-500">16:9</span> ou <span class="text-purple-500">9:16</span> para começar a aula.
+                </p>
             </div>
-            <div id="slideWrapper" class="relative hidden shadow-2xl" style="max-height: 90vh; max-width: 95vw;">
-                <img id="currentSlideImg" class="block w-full h-full object-contain pointer-events-none select-none" alt="Slide">
-                <canvas id="drawingCanvas" class="absolute inset-0 cursor-pencil dark:cursor-pencil-dark touch-none"></canvas>
+            
+            <!-- STAGE AREA: Adjusted for Better 16:9 and 9:16 Visibility -->
+            <!-- Mobile: p-2 side padding for 9:16 width maximization, pb-28 for toolbar -->
+            <!-- Desktop: md:px-32 (AUMENTADO) side padding for 16:9 framing, md:pb-48 (AUMENTADO) balanced bottom space -->
+            <div class="flex-1 w-full flex items-center justify-center p-2 md:px-32 pb-28 md:pb-48 min-h-0 relative z-10">
+                <div id="slideWrapper" class="relative hidden shadow-2xl flex items-center justify-center" style="width: auto; height: auto; max-width: 100%; max-height: 85vh;">
+                    <!-- Image handling: max-width/height 100% and auto dimensions to keep perfect aspect ratio -->
+                    <img id="currentSlideImg" class="block" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;" alt="Slide">
+                    <canvas id="drawingCanvas" class="absolute inset-0 cursor-pencil dark:cursor-pencil-dark touch-none"></canvas>
+                </div>
             </div>
-            <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-10 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnPrevSlide">
+
+            <!-- Botões de Navegação (Flutuantes na Lateral, fora do Stage) -->
+            <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-20 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnPrevSlide">
                 <i class="fas fa-chevron-left text-2xl"></i>
             </button>
-            <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-10 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnNextSlide">
+            <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white p-4 rounded-full backdrop-blur-sm transition-all z-20 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg" id="btnNextSlide">
                 <i class="fas fa-chevron-right text-2xl"></i>
             </button>
         </div>
@@ -671,23 +683,13 @@
 
         function setAspectRatio(ratio) {
             currentAspectRatio = ratio;
-            
-            // Remove previous classes
             captureArea.classList.remove('aspect-video', 'aspect-[9/16]', 'max-w-5xl', 'max-w-sm', 'h-full', 'max-h-[85vh]');
-            
             if (ratio === '16:9') {
-                // Landscape
                 captureArea.classList.add('aspect-video', 'max-w-5xl', 'w-full');
-                
-                // UI Toggle Buttons
                 btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
                 btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
-                
             } else {
-                // Portrait (9:16) - Mobile
                 captureArea.classList.add('aspect-[9/16]', 'h-full', 'max-h-[85vh]', 'max-w-sm'); 
-                
-                // UI Toggle Buttons
                 btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
                 btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
             }

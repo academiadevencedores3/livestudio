@@ -158,6 +158,21 @@
         .organizer-item:hover .delete-slide-btn {
             opacity: 1;
         }
+
+        /* Calculator Styles */
+        .calc-input {
+            transition: all 0.3s ease;
+        }
+        .calc-input:focus {
+            transform: translateY(-2px);
+        }
+        .result-card {
+            transition: all 0.3s;
+        }
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 h-screen font-sans overflow-hidden relative">
@@ -249,13 +264,16 @@
         <!-- SIDEBAR -->
         <aside id="sidebarPanel" class="fixed md:relative inset-y-0 left-0 z-40 w-80 md:w-96 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 h-full flex flex-col shadow-2xl transition-all duration-300 ease-in-out transform -translate-x-full md:translate-x-0 overflow-hidden">
             
-            <!-- App Switcher -->
-            <div class="p-4 bg-slate-100 dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 flex gap-2">
-                <button class="flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default">
+            <!-- App Switcher - UPDATED with Calculator -->
+            <div class="p-4 bg-slate-100 dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 flex gap-2 overflow-x-auto no-scrollbar">
+                <button onclick="switchAppMode('builder')" class="flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap" id="navBuilder">
                     <i class="fas fa-palette mr-1"></i> Editor
                 </button>
-                <button onclick="switchAppMode('presentation')" class="flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700">
+                <button onclick="switchAppMode('presentation')" class="flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap" id="navPresentation">
                     <i class="fas fa-chalkboard-teacher mr-1"></i> Apresentação
+                </button>
+                <button onclick="switchAppMode('calculator')" class="flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-green-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap" id="navCalculator">
+                    <i class="fas fa-calculator mr-1"></i> Calcule
                 </button>
             </div>
 
@@ -588,22 +606,164 @@
         </div>
     </div>
 
+    <!-- MODO 3: CALCULADORA (NEW) -->
+    <div id="appCalculator" class="hidden h-full w-full bg-gray-50 dark:bg-slate-900 flex-col relative transition-colors duration-300 overflow-y-auto">
+        
+        <!-- Header Calculator -->
+        <div class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-4 z-20 shrink-0 sticky top-0">
+            <div class="flex items-center gap-4">
+                <button onclick="switchAppMode('builder')" class="bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 px-3 py-1.5 rounded text-sm font-medium border border-gray-300 dark:border-slate-600 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> <span class="hidden md:inline">Voltar ao Editor</span><span class="md:hidden">Editor</span>
+                </button>
+                <div class="h-6 w-px bg-gray-300 dark:bg-slate-600 mx-2"></div>
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-calculator text-green-500"></i> <span class="hidden md:inline">Calculadora de Juros</span>
+                </h2>
+            </div>
+        </div>
+
+        <!-- Calculator Content -->
+        <div class="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Input Panel -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-slate-700">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-6 border-b border-gray-100 dark:border-slate-700 pb-2">
+                            Parâmetros
+                        </h3>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Montante Inicial (R$)</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">R$</span>
+                                    <input type="number" id="calcPrincipal" placeholder="0,00" class="calc-input w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Taxa de Juros (%)</label>
+                                    <div class="relative">
+                                        <input type="number" id="calcRate" placeholder="0.0" step="0.01" class="calc-input w-full pl-4 pr-8 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
+                                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Período</label>
+                                    <select id="calcRateType" class="w-full px-3 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 outline-none text-sm">
+                                        <option value="monthly">Ao Mês</option>
+                                        <option value="daily">Ao Dia</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tempo (Dias)</label>
+                                <input type="number" id="calcDays" placeholder="Ex: 30" class="calc-input w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Tipo de Juros</label>
+                                <div class="flex bg-gray-100 dark:bg-slate-700 p-1 rounded-xl">
+                                    <button onclick="setCalcType('compound')" id="btnCompound" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white">Composto</button>
+                                    <button onclick="setCalcType('simple')" id="btnSimple" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700">Simples</button>
+                                </div>
+                            </div>
+
+                            <button onclick="calculateInterest()" class="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold text-lg shadow-lg shadow-green-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                                <i class="fas fa-calculator"></i> Calcular Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="lg:col-span-8 space-y-6">
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Montante Final</div>
+                            <div class="text-2xl md:text-3xl font-black text-green-500 break-words" id="resFinalAmount">R$ 0,00</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Total em Juros</div>
+                            <div class="text-2xl md:text-3xl font-black text-blue-500 break-words" id="resTotalInterest">R$ 0,00</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Lucro %</div>
+                            <div class="text-2xl md:text-3xl font-black text-purple-500 break-words" id="resPercentage">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline/Table -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col h-[500px]">
+                        <div class="p-4 border-b border-gray-200 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-slate-800/50">
+                            <h3 class="font-bold text-slate-700 dark:text-white flex items-center gap-2">
+                                <i class="fas fa-chart-line text-green-500"></i> Evolução
+                            </h3>
+                            <div class="flex bg-gray-200 dark:bg-slate-700 rounded-lg p-1 overflow-x-auto max-w-full">
+                                <button onclick="setCalcView('daily')" id="viewDaily" class="px-3 py-1.5 rounded-md text-xs font-bold bg-white dark:bg-slate-600 shadow-sm text-slate-800 dark:text-white transition-all whitespace-nowrap">Diário</button>
+                                <button onclick="setCalcView('weekly')" id="viewWeekly" class="px-3 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-600/50 transition-all whitespace-nowrap">Semanal</button>
+                                <button onclick="setCalcView('biweekly')" id="viewBiweekly" class="px-3 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-600/50 transition-all whitespace-nowrap">Quinzenal</button>
+                                <button onclick="setCalcView('monthly')" id="viewMonthly" class="px-3 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-600/50 transition-all whitespace-nowrap">Mensal</button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
+                            <!-- Header Grid -->
+                            <div class="grid grid-cols-12 gap-2 mb-2 px-2 text-xs font-bold text-slate-400 uppercase tracking-wider sticky top-0 bg-white dark:bg-slate-800 z-10 py-2 border-b border-gray-100 dark:border-slate-700">
+                                <div class="col-span-2 md:col-span-1 text-center">Dia</div>
+                                <div class="col-span-5 md:col-span-4 text-right">Juros (Dia)</div>
+                                <div class="col-span-5 md:col-span-4 text-right">Saldo Acumulado</div>
+                                <div class="hidden md:block col-span-3 text-right">Total Juros</div>
+                            </div>
+                            
+                            <div id="calcResultsList" class="space-y-2">
+                                <!-- Results populated by JS -->
+                                <div class="text-center py-12 text-slate-400">
+                                    <i class="fas fa-arrow-left mb-2 text-2xl animate-bounce"></i>
+                                    <p>Preencha os dados e clique em Calcular</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Javascript Logic -->
     <script>
         // Shared Elements
         const appBuilder = document.getElementById('appBuilder');
         const appPresentation = document.getElementById('appPresentation');
+        const appCalculator = document.getElementById('appCalculator'); // NEW
         const confirmModal = document.getElementById('confirmModal');
         const slideOrganizerModal = document.getElementById('slideOrganizerModal');
 
         function switchAppMode(mode) {
+            // Hide all
+            appBuilder.classList.add('hidden');
+            appPresentation.classList.add('hidden');
+            appCalculator.classList.add('hidden');
+            
+            // Reset Nav Styles
+            document.getElementById('navBuilder').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
+            document.getElementById('navPresentation').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
+            document.getElementById('navCalculator').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-green-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
+
             if (mode === 'presentation') {
-                appBuilder.classList.add('hidden');
                 appPresentation.classList.remove('hidden');
+                document.getElementById('navPresentation').className = "flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
                 setTimeout(resizeCanvasToImage, 100);
+            } else if (mode === 'calculator') {
+                appCalculator.classList.remove('hidden');
+                document.getElementById('navCalculator').className = "flex-1 bg-green-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
             } else {
-                appPresentation.classList.add('hidden');
                 appBuilder.classList.remove('hidden');
+                document.getElementById('navBuilder').className = "flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
             }
         }
 
@@ -640,6 +800,126 @@
                 toggleBtn.classList.remove('scale-0', 'opacity-0', 'pointer-events-none');
             }
         }
+
+        // ================= CALCULATOR LOGIC =================
+        let calcType = 'compound';
+        let calcView = 'daily';
+        let calcResults = [];
+
+        function setCalcType(type) {
+            calcType = type;
+            const btnCompound = document.getElementById('btnCompound');
+            const btnSimple = document.getElementById('btnSimple');
+            
+            if(type === 'compound') {
+                btnCompound.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white";
+                btnSimple.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700";
+            } else {
+                btnSimple.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white";
+                btnCompound.className = "flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700";
+            }
+        }
+
+        function setCalcView(view) {
+            calcView = view;
+            // Update UI buttons
+            ['daily', 'weekly', 'biweekly', 'monthly'].forEach(v => {
+                const btn = document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1));
+                if(v === view) {
+                    btn.className = "px-3 py-1.5 rounded-md text-xs font-bold bg-white dark:bg-slate-600 shadow-sm text-slate-800 dark:text-white transition-all whitespace-nowrap";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-600/50 transition-all whitespace-nowrap";
+                }
+            });
+            renderResults();
+        }
+
+        function calculateInterest() {
+            const principal = parseFloat(document.getElementById('calcPrincipal').value) || 0;
+            const rateInput = parseFloat(document.getElementById('calcRate').value) || 0;
+            const days = parseInt(document.getElementById('calcDays').value) || 0;
+            const rateType = document.getElementById('calcRateType').value;
+
+            if (principal <= 0 || days <= 0) return;
+
+            // Normalize Rate to Daily
+            let dailyRate = 0;
+            if (rateType === 'monthly') {
+                if (calcType === 'simple') {
+                    dailyRate = (rateInput / 100) / 30;
+                } else {
+                    dailyRate = Math.pow(1 + (rateInput / 100), 1/30) - 1;
+                }
+            } else {
+                dailyRate = rateInput / 100;
+            }
+
+            calcResults = [];
+            let currentBalance = principal;
+            let totalInterest = 0;
+
+            for (let i = 1; i <= days; i++) {
+                let interestToday = 0;
+                
+                if (calcType === 'simple') {
+                    interestToday = principal * dailyRate;
+                } else {
+                    interestToday = currentBalance * dailyRate;
+                }
+
+                currentBalance += interestToday;
+                totalInterest += interestToday;
+
+                calcResults.push({
+                    day: i,
+                    interest: interestToday,
+                    balance: currentBalance,
+                    totalInterest: totalInterest
+                });
+            }
+
+            // Update Summary
+            const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('resFinalAmount').textContent = formatter.format(currentBalance);
+            document.getElementById('resTotalInterest').textContent = formatter.format(totalInterest);
+            
+            const profitPercentage = ((totalInterest / principal) * 100).toFixed(2);
+            document.getElementById('resPercentage').textContent = profitPercentage + '%';
+
+            renderResults();
+        }
+
+        function renderResults() {
+            const list = document.getElementById('calcResultsList');
+            list.innerHTML = '';
+
+            if (calcResults.length === 0) return;
+
+            const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            // Filter Logic
+            const filtered = calcResults.filter(item => {
+                if (calcView === 'daily') return true;
+                if (calcView === 'weekly') return item.day % 7 === 0 || item.day === calcResults.length;
+                if (calcView === 'biweekly') return item.day % 15 === 0 || item.day === calcResults.length;
+                if (calcView === 'monthly') return item.day % 30 === 0 || item.day === calcResults.length;
+                return true;
+            });
+
+            filtered.forEach(item => {
+                const el = document.createElement('div');
+                el.className = "grid grid-cols-12 gap-2 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors cursor-default text-sm border-b border-gray-50 dark:border-slate-700/50 last:border-0";
+                
+                el.innerHTML = `
+                    <div class="col-span-2 md:col-span-1 text-center font-bold text-slate-500 dark:text-slate-400 bg-gray-200 dark:bg-slate-700 rounded px-1 flex items-center justify-center">${item.day}</div>
+                    <div class="col-span-5 md:col-span-4 text-right text-green-600 font-medium">+${formatter.format(item.interest)}</div>
+                    <div class="col-span-5 md:col-span-4 text-right font-bold text-slate-800 dark:text-white">${formatter.format(item.balance)}</div>
+                    <div class="hidden md:block col-span-3 text-right text-slate-500 dark:text-slate-400 text-xs pt-1">${formatter.format(item.totalInterest)}</div>
+                `;
+                list.appendChild(el);
+            });
+        }
+        // ================= END CALCULATOR LOGIC =================
 
         // Theme Builder Elements
         const themeToggleBtn = document.getElementById('themeToggle');

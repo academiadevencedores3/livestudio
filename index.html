@@ -15,165 +15,8 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Configuração Tailwind -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        neonBlue: '#06b6d4',
-                        neonYellow: '#fbbf24',
-                    },
-                    boxShadow: {
-                        'neon-blue': '0 0 5px #06b6d4, 0 0 20px #06b6d4, 0 0 40px #06b6d4',
-                        'neon-yellow': '0 0 5px #fbbf24, 0 0 20px #fbbf24, 0 0 40px #fbbf24',
-                    },
-                    cursor: {
-                        'pencil': 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+) 0 24, auto',
-                        'pencil-dark': 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTcgM2EyLjgyOCAyLjgyOCAwIDEgMSA0IDRMNy41IDIwLjUgMiAyMmwxLjUtNS41TDE3IDN6Ij48L3BhdGg+PC9zdmc+) 0 24, auto',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Estilos Customizados para Neon Text */
-        .text-neon-blue {
-            color: #fff;
-            -webkit-text-stroke: 3px #06b6d4;
-            paint-order: stroke fill;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(6, 182, 212, 0.5);
-        }
-
-        .text-neon-yellow {
-            color: #fff;
-            -webkit-text-stroke: 3px #fbbf24;
-            paint-order: stroke fill;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.9), 0 0 35px rgba(251, 191, 36, 0.6);
-        }
-
-        /* OVERRIDES */
-        .force-stroke-blue .text-neon-blue, .force-stroke-blue .text-neon-yellow {
-            -webkit-text-stroke: 3px #06b6d4 !important;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(6, 182, 212, 0.5) !important;
-        }
-
-        .force-stroke-yellow .text-neon-blue, .force-stroke-yellow .text-neon-yellow {
-            -webkit-text-stroke: 3px #fbbf24 !important;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.9), 0 0 35px rgba(251, 191, 36, 0.6) !important;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-
-        /* Hide scrollbar for Horizontal Toolbar on Mobile */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        
-        .interactive-word {
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-block;
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-        .interactive-word:hover {
-            background-color: rgba(255,255,255,0.1);
-            transform: scale(1.05);
-        }
-        
-        .upload-area {
-            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%2394A3B8FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-        }
-        .dark .upload-area {
-            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23475569FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-        }
-
-        /* Presentation Mode Styles */
-        .tool-btn {
-            border-radius: 9999px;
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            touch-action: manipulation;
-        }
-        .tool-btn.active {
-            border-color: #3b82f6; 
-            transform: scale(1.1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .color-btn {
-            border-radius: 9999px;
-            border: 2px solid #d1d5db;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            flex-shrink: 0;
-            touch-action: manipulation;
-        }
-        .dark .color-btn {
-            border-color: #4b5563; 
-        }
-        .color-btn:hover {
-            transform: scale(1.1);
-        }
-        .color-btn.active {
-            border-color: #3b82f6 !important;
-            transform: scale(1.25);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Styles for Organizer Grid */
-        .organizer-item {
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: grab;
-        }
-        .organizer-item:active {
-            cursor: grabbing;
-        }
-        .organizer-item.dragging {
-            opacity: 0.5;
-            transform: scale(0.95);
-        }
-        .organizer-item:hover .delete-slide-btn {
-            opacity: 1;
-        }
-
-        /* Calculator Styles */
-        .calc-input {
-            transition: all 0.3s ease;
-        }
-        .calc-input:focus {
-            transform: translateY(-2px);
-        }
-        .result-card {
-            transition: all 0.3s;
-        }
-        .result-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <script src="assets/js/config/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="bg-gray-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 h-screen font-sans overflow-hidden relative">
 
@@ -416,6 +259,21 @@
                                 <i class="fas fa-arrow-down"></i>
                             </button>
                         </div>
+                        <div class="mt-3">
+                            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+                                <span>Ajuste fino vertical</span>
+                                <span id="textOffsetDisplay">0px</span>
+                            </div>
+                            <input
+                                type="range"
+                                id="textOffsetInput"
+                                min="-120"
+                                max="120"
+                                step="2"
+                                value="0"
+                                class="w-full accent-blue-500 cursor-pointer"
+                            >
+                        </div>
                     </div>
 
                     <div>
@@ -477,7 +335,7 @@
     </div>
 
     <!-- MODO 2: PRESENTATION MODE (SALA DE AULA) -->
-    <div id="appPresentation" class="hidden h-full w-full bg-gray-100 dark:bg-slate-900 flex-col relative transition-colors duration-300">
+    <div id="appPresentation" class="hidden flex h-full w-full bg-gray-100 dark:bg-slate-900 flex-col relative transition-colors duration-300">
         
         <!-- Top Toolbar -->
         <div class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-4 z-20">
@@ -510,17 +368,33 @@
             </div>
             
             <!-- STAGE AREA -->
-            <div class="flex-1 w-full flex items-center justify-center p-2 md:px-56 pb-28 md:pb-56 min-h-0 relative z-10">
-                <div id="slideWrapper" class="relative hidden shadow-2xl flex items-center justify-center" style="width: auto; height: auto; max-width: 100%; max-height: 85vh;">
+            <div id="presentationStage" class="flex-1 w-full flex items-center justify-center p-3 md:p-6 min-h-0 relative z-10">
+                <div id="slideWrapper" class="relative hidden shadow-2xl flex items-center justify-center">
                     
                     <!-- IMAGEM -->
-                    <img id="currentSlideImg" class="block" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;" alt="Slide">
+                    <img id="currentSlideImg" class="block presentation-media" alt="Slide">
                     
                     <!-- VÍDEO (Corrigido: Removido absolute para ocupar espaço real) -->
-                    <video id="currentSlideVideo" class="hidden" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;" loop playsinline></video>
+                    <video id="currentSlideVideo" class="hidden presentation-media" loop playsinline></video>
                     
                     <!-- CANVAS (Sempre no topo) -->
                     <canvas id="drawingCanvas" class="absolute inset-0 cursor-pencil dark:cursor-pencil-dark touch-none"></canvas>
+
+                    <div id="magnifierLens" class="hidden absolute pointer-events-auto z-30">
+                        <div class="magnifier-panel">
+                            <div class="magnifier-panel__header">
+                                <span>Lupa fixa</span>
+                                <span id="magnifierZoomLabel" class="text-[10px] uppercase tracking-[0.2em] text-blue-200/80">3.6x</span>
+                            </div>
+                            <div id="magnifierPanelBody" class="magnifier-panel__body">
+                                <canvas id="magnifierCanvas" width="240" height="152" class="magnifier-panel__canvas hidden"></canvas>
+                                <div id="magnifierPlaceholder" class="magnifier-panel__placeholder hidden">
+                                    Toque no slide para definir a area ampliada
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="magnifierFocusIndicator" class="hidden absolute pointer-events-none z-20"></div>
                 </div>
             </div>
 
@@ -548,10 +422,10 @@
         </button>
 
         <!-- Floating Toolbar (Tools) - SUPER COMPACT MOBILE MODE -->
-        <div id="drawingToolbar" class="absolute left-1/2 transform -translate-x-1/2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl p-1 md:p-2 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 flex flex-nowrap justify-between md:justify-center items-center gap-0.5 md:gap-2 z-40 transition-all duration-500 w-[98vw] md:w-auto max-w-3xl overflow-x-auto no-scrollbar origin-bottom scale-90 opacity-0 pointer-events-none translate-y-24" style="bottom: max(1.5rem, env(safe-area-inset-bottom));">
+        <div id="drawingToolbar" class="absolute left-1/2 transform -translate-x-1/2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl p-1 md:p-2 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 flex flex-nowrap justify-start md:justify-center items-center gap-1 md:gap-2 z-40 transition-all duration-500 w-[calc(100vw-0.75rem)] md:w-auto max-w-[calc(100vw-0.75rem)] md:max-w-[min(96vw,72rem)] overflow-x-auto overflow-y-hidden no-scrollbar origin-bottom scale-90 opacity-0 pointer-events-none translate-y-24" style="bottom: max(1rem, env(safe-area-inset-bottom));">
             
             <!-- VIDEO CONTROLS (Only visible for videos) -->
-            <div id="videoControls" class="hidden flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center mr-0.5 md:mr-0">
+            <div id="videoControls" class="hidden shrink-0 flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center mr-0.5 md:mr-0">
                 <button onclick="toggleVideoPlay()" id="btnPlayPause" class="tool-btn bg-indigo-600 text-white active p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Play/Pause">
                     <i class="fas fa-play text-xs md:text-sm"></i>
                 </button>
@@ -561,8 +435,29 @@
                 <div class="w-px bg-gray-300 dark:bg-slate-600 mx-0.5 md:mx-1 h-4 md:h-6"></div>
             </div>
 
+            <div class="shrink-0 flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
+                <button onclick="zoomPresentationOut()" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Reduzir Zoom">
+                    <i class="fas fa-search-minus text-xs md:text-sm"></i>
+                </button>
+                <button onclick="resetPresentationZoom()" id="zoomDisplayBtn" class="tool-btn bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 p-1.5 min-w-[52px] h-7 md:p-2 md:min-w-[64px] md:h-9 text-[10px] md:text-xs font-bold" title="Zoom Atual">
+                    100%
+                </button>
+                <button onclick="zoomPresentationIn()" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Aumentar Zoom">
+                    <i class="fas fa-search-plus text-xs md:text-sm"></i>
+                </button>
+                <button onclick="toggleMagnifier()" id="btnMagnifier" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Lupa">
+                    <i class="fas fa-magnifying-glass text-xs md:text-sm"></i>
+                </button>
+                <button onclick="decreaseMagnifierZoom()" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" title="Reduzir ampliação da lupa">
+                    <i class="fas fa-minus text-xs md:text-sm"></i>
+                </button>
+                <button onclick="increaseMagnifierZoom()" id="magnifierZoomBtn" class="tool-btn bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 p-1.5 min-w-[52px] h-7 md:p-2 md:min-w-[64px] md:h-9 text-[10px] md:text-xs font-bold" title="Ampliação da lupa">
+                    3.6x
+                </button>
+            </div>
+
             <!-- Tools (Pinceis) -->
-            <div class="flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
+            <div class="shrink-0 flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
                 <button onclick="setTool('pencil')" class="tool-btn bg-blue-600 text-white active p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" id="toolPencil" title="Lápis">
                     <i class="fas fa-pencil-alt text-xs md:text-sm"></i>
                 </button>
@@ -572,17 +467,18 @@
             </div>
 
             <!-- Colors (6 Cores) -->
-            <div class="flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
-                <button onclick="setColor('#000000')" class="color-btn bg-black w-5 h-5 md:w-7 md:h-7" title="Preto"></button>
-                <button onclick="setColor('#ffffff')" class="color-btn bg-white active w-5 h-5 md:w-7 md:h-7" title="Branco"></button>
-                <button onclick="setColor('#3b82f6')" class="color-btn bg-blue-500 w-5 h-5 md:w-7 md:h-7" title="Azul"></button>
-                <button onclick="setColor('#ef4444')" class="color-btn bg-red-500 w-5 h-5 md:w-7 md:h-7" title="Vermelho"></button>
-                <button onclick="setColor('#22c55e')" class="color-btn bg-green-500 w-5 h-5 md:w-7 md:h-7" title="Verde"></button>
-                <button onclick="setColor('#facc15')" class="color-btn bg-yellow-400 w-5 h-5 md:w-7 md:h-7" title="Amarelo"></button>
+            <div class="shrink-0 flex gap-0.5 md:gap-2 border-r border-gray-300 dark:border-slate-600 pr-1 md:pr-2 items-center">
+                <button onclick="setColor('#000000', this)" class="color-btn bg-black w-5 h-5 md:w-7 md:h-7" title="Preto"></button>
+                <button onclick="setColor('#ffffff', this)" class="color-btn bg-white w-5 h-5 md:w-7 md:h-7" title="Branco"></button>
+                <button onclick="setColor('#3b82f6', this)" class="color-btn bg-blue-500 active w-5 h-5 md:w-7 md:h-7" title="Azul"></button>
+                <button onclick="setColor('#ef4444', this)" class="color-btn bg-red-500 w-5 h-5 md:w-7 md:h-7" title="Vermelho"></button>
+                <button onclick="setColor('#22c55e', this)" class="color-btn bg-green-500 w-5 h-5 md:w-7 md:h-7" title="Verde"></button>
+                <button onclick="setColor('#facc15', this)" class="color-btn bg-yellow-400 w-5 h-5 md:w-7 md:h-7" title="Amarelo"></button>
+                <input type="color" id="customColorPicker" value="#3b82f6" oninput="setCustomColor(this.value)" class="color-btn color-picker-input w-5 h-5 md:w-7 md:h-7 cursor-pointer bg-transparent" title="Cor personalizada">
             </div>
 
             <!-- Borracha e Ações -->
-            <div class="flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
+            <div class="shrink-0 flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
                 <button onclick="setTool('eraser')" class="tool-btn bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-500 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-600 p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9" id="toolEraser" title="Borracha">
                     <i class="fas fa-eraser text-xs md:text-sm"></i>
                 </button>
@@ -598,7 +494,7 @@
             </div>
 
             <!-- New Minimize Button -->
-            <div class="flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
+            <div class="shrink-0 flex gap-0.5 md:gap-2 border-l border-gray-300 dark:border-slate-600 pl-1 md:pl-2 items-center">
                 <button onclick="toggleToolbar(false)" class="p-1.5 w-7 h-7 md:p-2 md:w-9 md:h-9 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center justify-center" title="Minimizar">
                     <i class="fas fa-chevron-down text-xs md:text-sm"></i>
                 </button>
@@ -672,6 +568,25 @@
                                 <p class="text-[10px] text-slate-500 mt-1 italic">+ 0.2% a.d. composto sobre lucros (Pool)</p>
                             </div>
 
+                            <div class="rounded-2xl border border-gray-200 dark:border-slate-700 bg-gray-50/80 dark:bg-slate-700/30 p-4 space-y-3">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Descontar comissão do juro diário</div>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Opcional. Quando ativo, uma parte do rendimento de cada dia vai para comissão.</p>
+                                    </div>
+                                    <button type="button" id="commissionToggle" onclick="toggleCommission()" class="relative inline-flex h-7 w-12 items-center rounded-full bg-slate-300 dark:bg-slate-600 transition-colors" aria-pressed="false" title="Ativar comissão">
+                                        <span id="commissionToggleDot" class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white transition-transform"></span>
+                                    </button>
+                                </div>
+                                <div id="commissionRateWrapper" class="hidden">
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Comissão sobre o juro do dia (%)</label>
+                                    <div class="relative">
+                                        <input type="number" id="calcCommissionRate" value="20" min="0" max="100" step="0.01" placeholder="20,00" disabled class="calc-input w-full pl-4 pr-8 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700/60 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
+                                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tempo de Simulação (Dias)</label>
                                 <input type="number" id="calcDays" placeholder="Ex: 30" class="calc-input w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/50 text-slate-800 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none font-mono font-medium">
@@ -698,18 +613,23 @@
                 <!-- Results Panel -->
                 <div class="lg:col-span-8 space-y-6">
                     <!-- Summary Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                         <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
                             <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Montante Final</div>
                             <div class="text-2xl md:text-3xl font-black text-green-500 break-words" id="resFinalAmount">R$ 0,00</div>
                         </div>
                         <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
-                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Total em Juros</div>
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Juros Brutos</div>
                             <div class="text-2xl md:text-3xl font-black text-blue-500 break-words" id="resTotalInterest">R$ 0,00</div>
                         </div>
                         <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
-                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Lucro %</div>
-                            <div class="text-2xl md:text-3xl font-black text-purple-500 break-words" id="resPercentage">0%</div>
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Comissão Total</div>
+                            <div class="text-2xl md:text-3xl font-black text-amber-500 break-words" id="resTotalCommission">R$ 0,00</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 result-card">
+                            <div class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Juros Líquidos</div>
+                            <div class="text-2xl md:text-3xl font-black text-purple-500 break-words" id="resNetInterest">R$ 0,00</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-2">Lucro líquido: <span id="resPercentage">0%</span></div>
                         </div>
                     </div>
 
@@ -731,9 +651,9 @@
                             <!-- Header Grid -->
                             <div class="grid grid-cols-12 gap-2 mb-2 px-2 text-xs font-bold text-slate-400 uppercase tracking-wider sticky top-0 bg-white dark:bg-slate-800 z-10 py-2 border-b border-gray-100 dark:border-slate-700">
                                 <div class="col-span-2 md:col-span-1 text-center">Dia</div>
-                                <div class="col-span-5 md:col-span-4 text-right">Juros (Dia)</div>
+                                <div class="col-span-5 md:col-span-4 text-right" id="calcDailyInterestHeader">Juros (Dia)</div>
                                 <div class="col-span-5 md:col-span-4 text-right">Saldo Acumulado</div>
-                                <div class="hidden md:block col-span-3 text-right">Total Juros</div>
+                                <div class="hidden md:block col-span-3 text-right" id="calcTotalInterestHeader">Total Juros</div>
                             </div>
                             
                             <div id="calcResultsList" class="space-y-2">
@@ -749,1007 +669,15 @@
             </div>
         </div>
     </div>
-
-    <!-- Javascript Logic -->
-    <script>
-        // Shared Elements
-        const appBuilder = document.getElementById('appBuilder');
-        const appPresentation = document.getElementById('appPresentation');
-        const appCalculator = document.getElementById('appCalculator'); // NEW
-        const confirmModal = document.getElementById('confirmModal');
-        const slideOrganizerModal = document.getElementById('slideOrganizerModal');
-
-        function switchAppMode(mode) {
-            // Hide all
-            appBuilder.classList.add('hidden');
-            appPresentation.classList.add('hidden');
-            appCalculator.classList.add('hidden');
-            
-            // Reset Nav Styles
-            document.getElementById('navBuilder').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
-            document.getElementById('navPresentation').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
-            document.getElementById('navCalculator').className = "flex-1 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-green-500 text-xs font-bold py-2 px-2 rounded border border-gray-200 dark:border-slate-700 shadow-sm transition-all hover:bg-gray-50 dark:hover:bg-slate-700 whitespace-nowrap";
-
-            if (mode === 'presentation') {
-                appPresentation.classList.remove('hidden');
-                document.getElementById('navPresentation').className = "flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
-                setTimeout(resizeCanvasToImage, 100);
-            } else if (mode === 'calculator') {
-                appCalculator.classList.remove('hidden');
-                document.getElementById('navCalculator').className = "flex-1 bg-green-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
-            } else {
-                appBuilder.classList.remove('hidden');
-                document.getElementById('navBuilder').className = "flex-1 bg-blue-600 text-white text-xs font-bold py-2 px-2 rounded shadow-inner cursor-default whitespace-nowrap";
-            }
-        }
-
-        // Modal Logic
-        function clearCanvas() { confirmModal.classList.remove('hidden'); }
-        function closeConfirmModal() { confirmModal.classList.add('hidden'); }
-        function executeClearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); saveUndoStep(); closeConfirmModal(); }
-        
-        // Organizer Modal Logic
-        function closeOrganizerModal() { 
-            slideOrganizerModal.classList.add('hidden'); 
-            // If we cancel and have no slides, reset input
-            if(presSlides.length === 0) presUpload.value = '';
-        }
-
-        // Toolbar Logic
-        function toggleToolbar(show) {
-            const toolbar = document.getElementById('drawingToolbar');
-            const toggleBtn = document.getElementById('toolbarToggleBtn');
-            
-            if (show) {
-                // Show Toolbar
-                toolbar.classList.remove('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-24');
-                toolbar.classList.add('scale-100', 'opacity-100', 'pointer-events-auto', 'translate-y-0');
-                
-                // Hide Toggle Button
-                toggleBtn.classList.add('scale-0', 'opacity-0', 'pointer-events-none');
-            } else {
-                // Hide Toolbar
-                toolbar.classList.add('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-24');
-                toolbar.classList.remove('scale-100', 'opacity-100', 'pointer-events-auto', 'translate-y-0');
-                
-                // Show Toggle Button
-                toggleBtn.classList.remove('scale-0', 'opacity-0', 'pointer-events-none');
-            }
-        }
-
-        // ================= CALCULATOR LOGIC =================
-        let calcType = 'compound';
-        let calcView = 'daily';
-        let calcResults = [];
-
-        function setCalcType(type) {
-            calcType = type;
-            const btnCompound = document.getElementById('btnCompound');
-            const btnSimple = document.getElementById('btnSimple');
-            const btnBitradex = document.getElementById('btnBitradex');
-            
-            const standardInputs = document.getElementById('standardInputs');
-            const bitradexInputs = document.getElementById('bitradexInputs');
-
-            // Reset Styles
-            [btnCompound, btnSimple, btnBitradex].forEach(btn => {
-                btn.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 flex items-center justify-center gap-1";
-            });
-
-            // Activate Selected
-            const activeClass = "flex-1 py-2 rounded-lg text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 text-green-600 dark:text-white flex items-center justify-center gap-1";
-            
-            if(type === 'compound') {
-                btnCompound.className = activeClass;
-                standardInputs.classList.remove('hidden');
-                bitradexInputs.classList.add('hidden');
-            } else if (type === 'simple') {
-                btnSimple.className = activeClass;
-                standardInputs.classList.remove('hidden');
-                bitradexInputs.classList.add('hidden');
-            } else if (type === 'bitradex') {
-                btnBitradex.className = activeClass;
-                standardInputs.classList.add('hidden');
-                bitradexInputs.classList.remove('hidden');
-            }
-            
-            // REMOVIDO: Cálculo automático ao trocar abas. Agora aguarda o clique no botão.
-            // calculateInterest();
-        }
-
-        function setCalcView(view) {
-            calcView = view;
-            // Update UI buttons
-            ['daily', 'weekly', 'biweekly', 'monthly'].forEach(v => {
-                const btn = document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1));
-                if(v === view) {
-                    btn.className = "px-3 py-1.5 rounded-md text-xs font-bold bg-white dark:bg-slate-600 shadow-sm text-slate-800 dark:text-white transition-all whitespace-nowrap";
-                } else {
-                    btn.className = "px-3 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-600/50 transition-all whitespace-nowrap";
-                }
-            });
-            renderResults();
-        }
-
-        function calculateInterest() {
-            const principal = parseFloat(document.getElementById('calcPrincipal').value) || 0;
-            const days = parseInt(document.getElementById('calcDays').value) || 0;
-            
-            if (principal <= 0 || days <= 0) return;
-
-            calcResults = [];
-            let currentBalance = principal;
-            let totalInterest = 0;
-            let poolBalance = 0; // Para BitradeX
-
-            // Lógica Específica
-            if (calcType === 'bitradex') {
-                const planDays = parseInt(document.getElementById('bitradexPlan').value);
-                let dailyBaseRate = 0;
-                
-                // Taxas base BitradeX
-                if(planDays === 30) dailyBaseRate = 0.003;      // 0.3%
-                else if(planDays === 90) dailyBaseRate = 0.0035; // 0.35%
-                else if(planDays === 180) dailyBaseRate = 0.004; // 0.4%
-                else if(planDays === 360) dailyBaseRate = 0.005; // 0.5%
-
-                const poolRate = 0.002; // 0.2% ao dia sobre o pool
-
-                for (let i = 1; i <= days; i++) {
-                    // 1. Rendimento do Pool (Juros Compostos sobre o Pool)
-                    const poolGrowth = poolBalance * poolRate;
-                    
-                    // 2. Novo Juro gerado pelo Capital (Juros Simples sobre Capital)
-                    const capitalYield = principal * dailyBaseRate;
-
-                    // 3. Atualiza Pool
-                    const totalDailyGain = poolGrowth + capitalYield;
-                    poolBalance += totalDailyGain;
-                    
-                    // Montante Total = Capital Original + Pool Acumulado
-                    currentBalance = principal + poolBalance;
-                    
-                    calcResults.push({
-                        day: i,
-                        interest: totalDailyGain,
-                        balance: currentBalance,
-                        totalInterest: poolBalance
-                    });
-                }
-                totalInterest = poolBalance;
-
-            } else {
-                // Lógica Padrão (Simples / Composto)
-                const rateInput = parseFloat(document.getElementById('calcRate').value) || 0;
-                const rateType = document.getElementById('calcRateType').value;
-                
-                // Normalize Rate to Daily
-                let dailyRate = 0;
-                if (rateType === 'monthly') {
-                    if (calcType === 'simple') {
-                        dailyRate = (rateInput / 100) / 30;
-                    } else {
-                        dailyRate = Math.pow(1 + (rateInput / 100), 1/30) - 1;
-                    }
-                } else {
-                    dailyRate = rateInput / 100;
-                }
-
-                for (let i = 1; i <= days; i++) {
-                    let interestToday = 0;
-                    
-                    if (calcType === 'simple') {
-                        // Simples: O juro é sempre calculado sobre o PRINCIPAL INICIAL
-                        interestToday = principal * dailyRate;
-                    } else {
-                        // Composto: O juro é calculado sobre o SALDO ACUMULADO (Juros sobre Juros)
-                        interestToday = currentBalance * dailyRate;
-                    }
-
-                    currentBalance += interestToday;
-                    totalInterest += interestToday;
-
-                    calcResults.push({
-                        day: i,
-                        interest: interestToday,
-                        balance: currentBalance,
-                        totalInterest: totalInterest
-                    });
-                }
-            }
-
-            // Update Summary
-            const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('resFinalAmount').textContent = formatter.format(currentBalance);
-            document.getElementById('resTotalInterest').textContent = formatter.format(totalInterest);
-            
-            const profitPercentage = ((totalInterest / principal) * 100).toFixed(2);
-            document.getElementById('resPercentage').textContent = profitPercentage + '%';
-
-            renderResults();
-        }
-
-        function renderResults() {
-            const list = document.getElementById('calcResultsList');
-            list.innerHTML = '';
-
-            if (calcResults.length === 0) return;
-
-            const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
-            
-            // Filter Logic
-            const filtered = calcResults.filter(item => {
-                if (calcView === 'daily') return true;
-                if (calcView === 'weekly') return item.day % 7 === 0 || item.day === calcResults.length;
-                if (calcView === 'biweekly') return item.day % 15 === 0 || item.day === calcResults.length;
-                if (calcView === 'monthly') return item.day % 30 === 0 || item.day === calcResults.length;
-                return true;
-            });
-
-            filtered.forEach(item => {
-                const el = document.createElement('div');
-                el.className = "grid grid-cols-12 gap-2 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors cursor-default text-sm border-b border-gray-50 dark:border-slate-700/50 last:border-0";
-                
-                el.innerHTML = `
-                    <div class="col-span-2 md:col-span-1 text-center font-bold text-slate-500 dark:text-slate-400 bg-gray-200 dark:bg-slate-700 rounded px-1 flex items-center justify-center">${item.day}</div>
-                    <div class="col-span-5 md:col-span-4 text-right text-green-600 font-medium">+${formatter.format(item.interest)}</div>
-                    <div class="col-span-5 md:col-span-4 text-right font-bold text-slate-800 dark:text-white">${formatter.format(item.balance)}</div>
-                    <div class="hidden md:block col-span-3 text-right text-slate-500 dark:text-slate-400 text-xs pt-1">${formatter.format(item.totalInterest)}</div>
-                `;
-                list.appendChild(el);
-            });
-        }
-        // ================= END CALCULATOR LOGIC =================
-
-        // Theme Builder Elements
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const html = document.documentElement;
-        const icon = themeToggleBtn.querySelector('i');
-        const sidebarPanel = document.getElementById('sidebarPanel');
-        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-        const openSidebarBtn = document.getElementById('openSidebarBtn');
-        const bgInput = document.getElementById('bgInput');
-        const bgFileName = document.getElementById('bgFileName');
-        const previewBg = document.getElementById('previewBg');
-        const logoInput = document.getElementById('logoInput');
-        const logoFileName = document.getElementById('logoFileName');
-        const previewLogo = document.getElementById('previewLogo');
-        const logoSizeInput = document.getElementById('logoSizeInput');
-        const logoSizeDisplay = document.getElementById('logoSizeDisplay');
-        const btnToggleLogo = document.getElementById('btnToggleLogo'); 
-        const themeTextInput = document.getElementById('themeTextInput');
-        const neonTextContainer = document.getElementById('neonTextContainer');
-        const fontSizeInput = document.getElementById('fontSizeInput');
-        const fontSizeDisplay = document.getElementById('fontSizeDisplay');
-        const btnToggleText = document.getElementById('btnToggleText');
-        const btnPosTop = document.getElementById('btnPosTop');
-        const btnPosCenter = document.getElementById('btnPosCenter');
-        const btnPosBottom = document.getElementById('btnPosBottom');
-        const btnStrokeMixed = document.getElementById('btnStrokeMixed');
-        const btnStrokeBlue = document.getElementById('btnStrokeBlue');
-        const btnStrokeYellow = document.getElementById('btnStrokeYellow');
-        const captureArea = document.getElementById('captureArea');
-        const btnRatio169 = document.getElementById('btnRatio169');
-        const btnRatio916 = document.getElementById('btnRatio916');
-
-        let wordColorsState = [true, false, true]; 
-        let currentStrokeMode = 'mixed'; 
-        let currentTextPosition = 'center';
-        let currentAspectRatio = '16:9';
-        
-        let pages = [];
-        let currentPageId = 0;
-        let pageCounter = 1;
-
-        function getDefaultState() {
-            return {
-                bgImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')",
-                bgName: 'Clique ou arraste a imagem',
-                logoSrc: "https://cdn-icons-png.flaticon.com/512/3670/3670151.png",
-                logoName: 'Upload Logo (Transparente)',
-                logoSize: 128,
-                logoVisible: true,
-                textValue: "TEMA\nDA LIVE",
-                textSize: 72,
-                textVisible: true, 
-                textPosition: 'center',
-                aspectRatio: '16:9',
-                wordColors: [true, false, true],
-                strokeMode: 'mixed'
-            };
-        }
-
-        function addNewPage() {
-            savePage(currentPageId);
-            pageCounter++;
-            const newPage = { id: pageCounter, name: `Novo Tema ${pageCounter}`, state: getDefaultState() };
-            pages.push(newPage);
-            currentPageId = newPage.id;
-            loadStateToDOM(newPage.state);
-            renderPageNavigation();
-            bgInput.value = ''; logoInput.value = '';
-        }
-
-        function savePage(id) {
-            const pageIndex = pages.findIndex(p => p.id === id);
-            if (pageIndex !== -1) pages[pageIndex].state = captureCurrentState();
-        }
-
-        function switchPage(id) {
-            if (id === currentPageId) return;
-            savePage(currentPageId);
-            const page = pages.find(p => p.id === id);
-            if (page) { currentPageId = id; loadStateToDOM(page.state); renderPageNavigation(); }
-        }
-
-        function renderPageNavigation() {
-            const container = document.getElementById('pageNavigation');
-            container.innerHTML = '';
-            if (pages.length <= 1) { container.style.display = 'none'; return; } 
-            else { container.style.display = 'block'; }
-            const label = document.createElement('div');
-            label.className = "text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1";
-            label.textContent = "Navegar entre Temas";
-            container.appendChild(label);
-            pages.forEach(page => {
-                const isActive = page.id === currentPageId;
-                const btn = document.createElement('button');
-                btn.onclick = () => switchPage(page.id);
-                const baseClass = "w-full text-left px-3 py-2 rounded-md text-xs font-medium transition-all flex justify-between items-center group ";
-                const activeClass = "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-sm";
-                const inactiveClass = "text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700/50 border border-transparent";
-                btn.className = baseClass + (isActive ? activeClass : inactiveClass);
-                const spanName = document.createElement('span');
-                spanName.textContent = page.name;
-                const indicator = document.createElement('i');
-                indicator.className = isActive ? "fas fa-circle text-[6px] text-blue-500 animate-pulse" : "fas fa-chevron-right text-[8px] opacity-0 group-hover:opacity-100 transition-opacity";
-                btn.appendChild(spanName); btn.appendChild(indicator);
-                container.appendChild(btn);
-            });
-        }
-
-        function initPages() {
-            const initialPage = { id: 1, name: "Tema Principal", state: getDefaultState() };
-            pages.push(initialPage);
-            currentPageId = 1;
-            renderPageNavigation();
-            loadStateToDOM(initialPage.state);
-        }
-
-        function captureCurrentState() {
-            return {
-                bgImage: previewBg.style.backgroundImage,
-                bgName: bgFileName.textContent,
-                logoSrc: previewLogo.src,
-                logoName: logoFileName.textContent,
-                logoSize: logoSizeInput.value,
-                logoVisible: previewLogo.style.display !== 'none',
-                textValue: themeTextInput.value,
-                textSize: fontSizeInput.value,
-                textVisible: neonTextContainer.style.display !== 'none', 
-                textPosition: currentTextPosition,
-                aspectRatio: currentAspectRatio,
-                wordColors: [...wordColorsState], 
-                strokeMode: currentStrokeMode
-            };
-        }
-
-        function loadStateToDOM(state) {
-            previewBg.style.backgroundImage = state.bgImage;
-            bgFileName.textContent = state.bgName;
-            previewLogo.src = state.logoSrc;
-            logoFileName.textContent = state.logoName;
-            logoSizeInput.value = state.logoSize;
-            previewLogo.style.height = `${state.logoSize}px`;
-            logoSizeDisplay.textContent = `${state.logoSize}px`;
-            previewLogo.style.display = state.logoVisible ? 'block' : 'none';
-            const iconLogo = btnToggleLogo.querySelector('i');
-            iconLogo.className = state.logoVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
-            themeTextInput.value = state.textValue;
-            fontSizeInput.value = state.textSize;
-            neonTextContainer.style.fontSize = `${state.textSize}px`;
-            fontSizeDisplay.textContent = `${state.textSize}px`;
-            const isTextVisible = state.textVisible !== undefined ? state.textVisible : true;
-            neonTextContainer.style.display = isTextVisible ? 'block' : 'none';
-            const iconText = btnToggleText.querySelector('i');
-            iconText.className = isTextVisible ? 'fas fa-eye' : 'fas fa-eye-slash';
-            wordColorsState = [...state.wordColors];
-            setStrokeMode(state.strokeMode);
-            setTextPosition(state.textPosition || 'center');
-            setAspectRatio(state.aspectRatio || '16:9');
-            renderText();
-        }
-
-        function setTextPosition(pos) {
-            currentTextPosition = pos;
-            const wrapper = document.getElementById('contentWrapper');
-            wrapper.classList.remove('justify-center', 'justify-start', 'justify-end', 'pt-24', 'pb-24');
-            if (pos === 'center') wrapper.classList.add('justify-center');
-            else if (pos === 'top') wrapper.classList.add('justify-start', 'pt-24');
-            else if (pos === 'bottom') wrapper.classList.add('justify-end', 'pb-24');
-            updatePositionButtonsUI();
-            savePage(currentPageId);
-        }
-
-        function setAspectRatio(ratio) {
-            currentAspectRatio = ratio;
-            captureArea.classList.remove('aspect-video', 'aspect-[9/16]', 'max-w-5xl', 'max-w-sm', 'h-full', 'max-h-[85vh]');
-            if (ratio === '16:9') {
-                captureArea.classList.add('aspect-video', 'max-w-5xl', 'w-full');
-                btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
-                btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
-            } else {
-                captureArea.classList.add('aspect-[9/16]', 'h-full', 'max-h-[85vh]', 'max-w-sm'); 
-                btnRatio916.className = "px-2 py-1 text-[10px] font-bold rounded-md bg-white dark:bg-slate-600 shadow-sm text-blue-600 dark:text-white transition-all";
-                btnRatio169.className = "px-2 py-1 text-[10px] font-bold rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 transition-all";
-            }
-            savePage(currentPageId);
-        }
-
-        function updatePositionButtonsUI() {
-            [btnPosTop, btnPosCenter, btnPosBottom].forEach(btn => btn.className = 'flex-1 py-2 rounded-md transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50');
-            const activeClass = 'flex-1 py-2 rounded-md transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 text-blue-500 font-bold';
-            if (currentTextPosition === 'top') btnPosTop.className = activeClass;
-            else if (currentTextPosition === 'center') btnPosCenter.className = activeClass;
-            else if (currentTextPosition === 'bottom') btnPosBottom.className = activeClass;
-        }
-
-        function setStrokeMode(mode) {
-            currentStrokeMode = mode;
-            neonTextContainer.classList.remove('force-stroke-blue', 'force-stroke-yellow');
-            if (mode === 'blue') neonTextContainer.classList.add('force-stroke-blue');
-            else if (mode === 'yellow') neonTextContainer.classList.add('force-stroke-yellow');
-            updateStrokeButtonsUI();
-            savePage(currentPageId);
-        }
-
-        function updateStrokeButtonsUI() {
-            [btnStrokeMixed, btnStrokeBlue, btnStrokeYellow].forEach(btn => btn.className = 'flex-1 py-2 rounded-md text-xs font-bold transition-all text-slate-500 hover:bg-white/50 dark:hover:bg-slate-600/50');
-            const activeClass = 'flex-1 py-2 rounded-md text-xs font-bold transition-all shadow-sm bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500';
-            if (currentStrokeMode === 'mixed') btnStrokeMixed.className = activeClass;
-            else if (currentStrokeMode === 'blue') btnStrokeBlue.className = activeClass + ' text-cyan-500';
-            else if (currentStrokeMode === 'yellow') btnStrokeYellow.className = activeClass + ' text-yellow-500';
-        }
-
-        function renderText() {
-            if (!themeTextInput.value && document.activeElement !== themeTextInput) themeTextInput.value = "TEMA\nDA LIVE";
-            const rawText = themeTextInput.value;
-            const allWords = rawText.replace(/\n/g, ' ').split(' ').filter(w => w.length > 0);
-            if (allWords.length !== wordColorsState.length) {
-                wordColorsState = allWords.map((_, i) => wordColorsState[i] !== undefined ? wordColorsState[i] : true);
-            }
-            neonTextContainer.innerHTML = '';
-            let globalWordIndex = 0;
-            const lines = rawText.split('\n');
-            lines.forEach((line, lineIndex) => {
-                const wordsInLine = line.split(' ').filter(w => w.length > 0);
-                if (wordsInLine.length > 0) {
-                    wordsInLine.forEach((word) => {
-                        const currentIndex = globalWordIndex;
-                        const span = document.createElement('span');
-                        span.textContent = word + ' '; 
-                        span.classList.add('interactive-word');
-                        if (wordColorsState[currentIndex]) span.classList.add('text-neon-blue');
-                        else span.classList.add('text-neon-yellow');
-                        span.addEventListener('click', () => {
-                            wordColorsState[currentIndex] = !wordColorsState[currentIndex];
-                            if (wordColorsState[currentIndex]) {
-                                span.classList.remove('text-neon-yellow'); span.classList.add('text-neon-blue');
-                            } else {
-                                span.classList.remove('text-neon-blue'); span.classList.add('text-neon-yellow');
-                            }
-                            savePage(currentPageId);
-                        });
-                        neonTextContainer.appendChild(span);
-                        globalWordIndex++;
-                    });
-                } 
-                if (lineIndex < lines.length - 1) neonTextContainer.appendChild(document.createElement('br'));
-            });
-        }
-
-        function updateButtonVisibility() {
-            const isMobile = window.innerWidth < 768;
-            const isDesktopClosed = sidebarPanel.classList.contains('md:w-0');
-            const isMobileClosed = sidebarPanel.classList.contains('-translate-x-full');
-            if (isMobile) {
-                if (isMobileClosed) { openSidebarBtn.classList.remove('scale-0', 'opacity-0'); openSidebarBtn.classList.add('scale-100', 'opacity-100'); }
-                else { openSidebarBtn.classList.remove('scale-100', 'opacity-100'); openSidebarBtn.classList.add('scale-0', 'opacity-0'); }
-            } else {
-                if (isDesktopClosed) { openSidebarBtn.classList.remove('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0'); openSidebarBtn.classList.add('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100'); }
-                else { openSidebarBtn.classList.remove('md:scale-100', 'md:opacity-100', 'scale-100', 'opacity-100'); openSidebarBtn.classList.add('md:scale-0', 'md:opacity-0', 'scale-0', 'opacity-0'); }
-            }
-        }
-
-        function toggleSidebar() {
-            const isMobile = window.innerWidth < 768;
-            if (isMobile) {
-                if (sidebarPanel.classList.contains('-translate-x-full')) { sidebarPanel.classList.remove('-translate-x-full'); sidebarBackdrop.classList.remove('hidden'); }
-                else { sidebarPanel.classList.add('-translate-x-full'); sidebarBackdrop.classList.add('hidden'); }
-            } else {
-                if (sidebarPanel.classList.contains('md:w-0')) { sidebarPanel.classList.remove('md:w-0'); sidebarPanel.classList.add('md:w-96'); }
-                else { sidebarPanel.classList.remove('md:w-96'); sidebarPanel.classList.add('md:w-0'); }
-            }
-            setTimeout(updateButtonVisibility, 50);
-        }
-
-        function toggleLogo() {
-            const icon = btnToggleLogo.querySelector('i');
-            if (previewLogo.style.display === 'none') {
-                previewLogo.style.display = 'block'; icon.className = 'fas fa-eye';
-            } else {
-                previewLogo.style.display = 'none'; icon.className = 'fas fa-eye-slash';
-            }
-            savePage(currentPageId);
-        }
-
-        function toggleText() {
-            const icon = btnToggleText.querySelector('i');
-            if (neonTextContainer.style.display === 'none') {
-                neonTextContainer.style.display = 'block'; icon.className = 'fas fa-eye';
-            } else {
-                neonTextContainer.style.display = 'none'; icon.className = 'fas fa-eye-slash';
-            }
-            savePage(currentPageId);
-        }
-
-        // Presentation Logic
-        const presUpload = document.getElementById('presentationUpload');
-        const slideWrapper = document.getElementById('slideWrapper');
-        const currentSlideImg = document.getElementById('currentSlideImg');
-        const currentSlideVideo = document.getElementById('currentSlideVideo'); // NOVO ELEMENTO
-        const emptyStatePres = document.getElementById('emptyStatePres');
-        const slideCounter = document.getElementById('slideCounter');
-        const canvas = document.getElementById('drawingCanvas');
-        const ctx = canvas.getContext('2d');
-        const btnPrevSlide = document.getElementById('btnPrevSlide');
-        const btnNextSlide = document.getElementById('btnNextSlide');
-        const videoControls = document.getElementById('videoControls'); // NOVO CONTROLE
-
-        // Main Slide Storage
-        let presSlides = []; 
-        let currentSlideIndex = 0;
-        
-        // Organizer Temporary Storage
-        let tempUploadedSlides = [];
-
-        // Canvas State
-        let isDrawing = false;
-        let currentTool = 'pencil'; 
-        let currentColor = '#ffffff';
-        let currentStrokeSize = 4;
-        let undoStack = []; 
-
-        presUpload.addEventListener('change', handleSlideUpload);
-
-        function handleSlideUpload(e) {
-            const files = Array.from(e.target.files);
-            if(files.length === 0) return;
-            
-            tempUploadedSlides = [...presSlides]; 
-
-            let loadedCount = 0;
-            files.forEach((file) => {
-                const isVideo = file.type.startsWith('video');
-                
-                if (isVideo) {
-                    const videoUrl = URL.createObjectURL(file);
-                    tempUploadedSlides.push({
-                        type: 'video',
-                        src: videoUrl,
-                        drawData: null, 
-                        undoHistory: [] 
-                    });
-                    loadedCount++;
-                    if (loadedCount === files.length) openOrganizerModal();
-                } else {
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        const img = new Image();
-                        img.src = ev.target.result;
-                        img.onload = () => {
-                            tempUploadedSlides.push({
-                                type: 'image',
-                                src: img.src,
-                                drawData: null, 
-                                undoHistory: [] 
-                            });
-                            loadedCount++;
-                            if (loadedCount === files.length) openOrganizerModal();
-                        }
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-            presUpload.value = '';
-        }
-
-        // === ORGANIZER LOGIC ===
-        function openOrganizerModal() {
-            slideOrganizerModal.classList.remove('hidden');
-            renderOrganizerGrid();
-        }
-
-        function renderOrganizerGrid() {
-            const grid = document.getElementById('organizerGrid');
-            const empty = document.getElementById('organizerEmpty');
-            const countLabel = document.getElementById('organizerCount');
-            
-            grid.innerHTML = '';
-            
-            if (tempUploadedSlides.length === 0) {
-                grid.classList.add('hidden');
-                empty.classList.remove('hidden');
-                countLabel.textContent = "0 slides selecionados";
-                return;
-            }
-
-            grid.classList.remove('hidden');
-            empty.classList.add('hidden');
-            countLabel.textContent = `${tempUploadedSlides.length} slides selecionados`;
-
-            tempUploadedSlides.forEach((slide, index) => {
-                const el = document.createElement('div');
-                el.className = 'relative group organizer-item bg-white dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md border border-gray-200 dark:border-slate-600 aspect-video flex items-center justify-center bg-gray-100 dark:bg-black';
-                el.draggable = true;
-                el.dataset.index = index;
-
-                let mediaContent = '';
-                if (slide.type === 'video') {
-                    // Simples representação para vídeo no organizador
-                    mediaContent = `
-                        <video src="${slide.src}" class="w-full h-full object-cover pointer-events-none opacity-80"></video>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-10 h-10 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <i class="fas fa-play text-white text-sm"></i>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    mediaContent = `<img src="${slide.src}" class="w-full h-full object-cover pointer-events-none">`;
-                }
-
-                el.innerHTML = `
-                    ${mediaContent}
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
-                    
-                    <div class="absolute top-2 left-2 bg-black/50 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm pointer-events-none z-10">
-                        ${index + 1}
-                    </div>
-
-                    <button onclick="deleteSlide(${index})" class="delete-slide-btn absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-sm z-20" title="Remover slide">
-                        <i class="fas fa-trash text-xs"></i>
-                    </button>
-                    
-                    <div class="absolute bottom-0 inset-x-0 h-1 bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                `;
-
-                el.addEventListener('dragstart', handleDragStart);
-                el.addEventListener('dragover', handleDragOver);
-                el.addEventListener('drop', handleDrop);
-                el.addEventListener('dragend', handleDragEnd);
-
-                grid.appendChild(el);
-            });
-        }
-
-        let draggedIndex = null;
-
-        function handleDragStart(e) {
-            draggedIndex = parseInt(this.dataset.index);
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault(); 
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-        function handleDrop(e) {
-            e.stopPropagation();
-            if (draggedIndex !== null) {
-                const targetIndex = parseInt(this.dataset.index);
-                if (draggedIndex !== targetIndex) {
-                    const itemMoved = tempUploadedSlides.splice(draggedIndex, 1)[0];
-                    tempUploadedSlides.splice(targetIndex, 0, itemMoved);
-                    renderOrganizerGrid();
-                }
-            }
-            return false;
-        }
-
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-            draggedIndex = null;
-        }
-
-        function deleteSlide(index) {
-            tempUploadedSlides.splice(index, 1);
-            renderOrganizerGrid();
-        }
-
-        function confirmSlidesAndStart() {
-            presSlides = [...tempUploadedSlides];
-            closeOrganizerModal();
-            if (presSlides.length > 0) {
-                initPresentation();
-            } else {
-                emptyStatePres.classList.remove('hidden');
-                slideWrapper.classList.add('hidden');
-                slideCounter.classList.add('hidden');
-            }
-        }
-        // === END ORGANIZER LOGIC ===
-
-        function initPresentation() {
-            emptyStatePres.classList.add('hidden');
-            slideWrapper.classList.remove('hidden');
-            slideCounter.classList.remove('hidden');
-            loadSlide(0);
-        }
-
-        function loadSlide(index) {
-            if (index < 0 || index >= presSlides.length) return;
-            
-            // Save state before leaving
-            if (presSlides[currentSlideIndex]) presSlides[currentSlideIndex].drawData = canvas.toDataURL();
-            
-            // Stop previous video if exists
-            currentSlideVideo.pause();
-
-            currentSlideIndex = index;
-            const slide = presSlides[index];
-            
-            slideCounter.textContent = `Slide ${index + 1} / ${presSlides.length}`;
-            btnPrevSlide.disabled = index === 0;
-            btnNextSlide.disabled = index === presSlides.length - 1;
-
-            // TOGGLE IMAGE vs VIDEO
-            if (slide.type === 'video') {
-                currentSlideImg.classList.add('hidden');
-                currentSlideVideo.classList.remove('hidden');
-                currentSlideVideo.src = slide.src;
-                currentSlideVideo.muted = true; // Start muted for UX
-                currentSlideVideo.play().catch(e => console.log("Autoplay blocked:", e));
-                
-                // Show Video Controls in Toolbar
-                videoControls.classList.remove('hidden');
-                updateVideoControlIcons();
-            } else {
-                currentSlideVideo.classList.add('hidden');
-                currentSlideImg.classList.remove('hidden');
-                currentSlideImg.src = slide.src;
-                
-                // Hide Video Controls
-                videoControls.classList.add('hidden');
-            }
-            
-            // Handle Drawing Canvas
-            setTimeout(() => {
-                resizeCanvasToImage();
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                undoStack = slide.undoHistory || []; 
-                if (slide.drawData) {
-                    const img = new Image();
-                    img.onload = function(){ ctx.drawImage(img,0,0); };
-                    img.src = slide.drawData;
-                }
-            }, 100);
-        }
-
-        // Video Control Logic
-        function toggleVideoPlay() {
-            if (currentSlideVideo.paused) {
-                currentSlideVideo.play();
-            } else {
-                currentSlideVideo.pause();
-            }
-            updateVideoControlIcons();
-        }
-
-        function toggleVideoMute() {
-            currentSlideVideo.muted = !currentSlideVideo.muted;
-            updateVideoControlIcons();
-        }
-
-        function updateVideoControlIcons() {
-            const btnPlayPause = document.getElementById('btnPlayPause');
-            const btnMute = document.getElementById('btnMute');
-            
-            btnPlayPause.innerHTML = currentSlideVideo.paused ? '<i class="fas fa-play text-xs md:text-sm"></i>' : '<i class="fas fa-pause text-xs md:text-sm"></i>';
-            btnMute.innerHTML = currentSlideVideo.muted ? '<i class="fas fa-volume-mute text-xs md:text-sm"></i>' : '<i class="fas fa-volume-up text-xs md:text-sm"></i>';
-            
-            if (!currentSlideVideo.muted) {
-                btnMute.classList.remove('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600');
-                btnMute.classList.add('bg-blue-100', 'text-blue-600');
-            } else {
-                btnMute.classList.add('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600');
-                btnMute.classList.remove('bg-blue-100', 'text-blue-600');
-            }
-        }
-
-        function nextSlide() { if (currentSlideIndex < presSlides.length - 1) loadSlide(currentSlideIndex + 1); }
-        function prevSlide() { if (currentSlideIndex > 0) loadSlide(currentSlideIndex - 1); }
-
-        function resizeCanvasToImage() {
-            // Check which element is active
-            const activeElement = !currentSlideVideo.classList.contains('hidden') ? currentSlideVideo : currentSlideImg;
-            const rect = activeElement.getBoundingClientRect();
-            
-            if (rect.width > 0 && rect.height > 0) {
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                // Re-draw context logic handled in loadSlide or resize event
-            }
-        }
-
-        window.addEventListener('resize', () => {
-             clearTimeout(window.resizeTimer);
-             window.resizeTimer = setTimeout(() => {
-                 if(!appPresentation.classList.contains('hidden') && presSlides.length > 0) {
-                     const tempDraw = canvas.toDataURL();
-                     resizeCanvasToImage();
-                     const img = new Image();
-                     img.onload = () => ctx.drawImage(img,0,0);
-                     img.src = tempDraw;
-                 }
-             }, 200);
-        });
-
-        function getPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return { x: clientX - rect.left, y: clientY - rect.top };
-        }
-
-        function startDraw(e) {
-            isDrawing = true;
-            const pos = getPos(e);
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            if (currentTool === 'eraser') {
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.lineWidth = 20;
-            } else if (currentTool === 'highlighter') {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = convertHexToRGBA(currentColor, 0.4);
-                ctx.lineWidth = 15;
-            } else {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = currentColor;
-                ctx.lineWidth = 3;
-            }
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            e.preventDefault(); 
-            const pos = getPos(e);
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
-        }
-
-        function endDraw() {
-            if (isDrawing) { isDrawing = false; ctx.closePath(); saveUndoStep(); }
-        }
-
-        function convertHexToRGBA(hex, alpha) {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-
-        canvas.addEventListener('mousedown', startDraw);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', endDraw);
-        canvas.addEventListener('mouseout', endDraw);
-        canvas.addEventListener('touchstart', startDraw, {passive: false});
-        canvas.addEventListener('touchmove', draw, {passive: false});
-        canvas.addEventListener('touchend', endDraw);
-
-        function setTool(tool) {
-            currentTool = tool;
-            document.querySelectorAll('.tool-btn').forEach(b => {
-                b.classList.remove('active', 'bg-blue-600', 'text-white');
-                b.classList.add('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300', 'hover:text-blue-500', 'dark:hover:text-white', 'hover:bg-gray-200', 'dark:hover:bg-slate-600');
-            });
-            const btn = document.getElementById('tool' + tool.charAt(0).toUpperCase() + tool.slice(1));
-            btn.classList.remove('bg-gray-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300', 'hover:text-blue-500', 'dark:hover:text-white', 'hover:bg-gray-200', 'dark:hover:bg-slate-600');
-            btn.classList.add('active', 'bg-blue-600', 'text-white');
-        }
-
-        function setColor(color) {
-            currentColor = color;
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            if (currentTool === 'eraser') setTool('pencil');
-        }
-
-        function saveUndoStep() {
-            if (!presSlides[currentSlideIndex]) return;
-            if (presSlides[currentSlideIndex].undoHistory.length > 20) presSlides[currentSlideIndex].undoHistory.shift();
-            presSlides[currentSlideIndex].undoHistory.push(canvas.toDataURL());
-        }
-
-        function undoDraw() {
-            const history = presSlides[currentSlideIndex]?.undoHistory;
-            if (history && history.length > 1) {
-                history.pop(); 
-                const prevState = history[history.length - 1]; 
-                const img = new Image();
-                img.onload = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); };
-                img.src = prevState;
-            } else if (history && history.length === 1) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                history.pop(); 
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (!appPresentation.classList.contains('hidden')) {
-                if (e.key === 'ArrowRight') nextSlide();
-                if (e.key === 'ArrowLeft') prevSlide();
-                if (e.key === 'z' && e.ctrlKey) undoDraw();
-                if (e.key === ' ') toggleVideoPlay(); // Spacebar plays video
-            }
-        });
-
-        themeToggleBtn.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            icon.className = html.classList.contains('dark') ? 'fas fa-moon text-yellow-300' : 'fas fa-sun text-orange-400';
-        });
-
-        bgInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                bgFileName.textContent = file.name;
-                const reader = new FileReader();
-                reader.onload = (event) => { previewBg.style.backgroundImage = `url('${event.target.result}')`; savePage(currentPageId); }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        logoInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                logoFileName.textContent = file.name;
-                const reader = new FileReader();
-                reader.onload = (event) => { previewLogo.src = event.target.result; savePage(currentPageId); }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        logoSizeInput.addEventListener('input', (e) => { previewLogo.style.height = `${e.target.value}px`; logoSizeDisplay.textContent = `${e.target.value}px`; });
-        logoSizeInput.addEventListener('change', () => savePage(currentPageId));
-
-        fontSizeInput.addEventListener('input', (e) => { neonTextContainer.style.fontSize = `${e.target.value}px`; fontSizeDisplay.textContent = `${e.target.value}px`; });
-        fontSizeInput.addEventListener('change', () => savePage(currentPageId));
-
-        themeTextInput.addEventListener('input', renderText);
-        themeTextInput.addEventListener('change', () => savePage(currentPageId));
-
-        // REMOVIDO: Eventos de Auto-Cálculo para permitir controle manual pelo botão
-        /*
-        ['calcPrincipal', 'calcRate', 'calcDays', 'calcRateType', 'bitradexPlan'].forEach(id => {
-            const el = document.getElementById(id);
-            if(el) {
-                el.addEventListener('input', calculateInterest);
-                el.addEventListener('change', calculateInterest);
-            }
-        });
-        */
-
-        initPages();
-        updateStrokeButtonsUI();
-        updateButtonVisibility();
-        window.addEventListener('resize', updateButtonVisibility);
-
-    </script>
+    <script src="assets/js/modules/shared-ui.js"></script>
+    <script src="assets/js/modules/calculator.js"></script>
+    <script src="assets/js/modules/builder.js"></script>
+    <script src="assets/js/modules/presentation.js"></script>
+    <script src="assets/js/modules/future-data.js"></script>
+    <script src="assets/js/modules/services/service-config.js"></script>
+    <script src="assets/js/modules/services/ads-service.js"></script>
+    <script src="assets/js/modules/services/announcements-service.js"></script>
+    <script src="assets/js/modules/services/service-registry.js"></script>
+    <script src="assets/js/app-init.js"></script>
 </body>
 </html>
